@@ -1,0 +1,11 @@
+{
+    "name": "ggrach/bitrix-debugger",
+    "description": "Description of project BitrixDebugger.",
+    "authors": [
+        {
+            "name": "GGrach",
+            "email": "ggrachdev@yandex.ru"
+        }
+    ],
+    "require": {}
+}
