@@ -1,8 +1,8 @@
 <?php
 
-use GGrach\BitrixDebugger\Contract\WritableContract;
+namespace GGrach\Writer;
 
-namespace GGrach\BitrixDebugger\Writer;
+use GGrach\Writer\Contract\WritableContract;
 
 /**
  * Description of FileWriter

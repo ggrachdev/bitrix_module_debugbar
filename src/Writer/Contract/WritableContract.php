@@ -1,6 +1,6 @@
 <?php
 
-namespace GGrach\BitrixDebugger\Contract;
+namespace GGrach\Writer\Contract;
 
 /**
  * Для записи данных
