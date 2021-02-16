@@ -26,7 +26,7 @@ class DebuggerShowModable implements ShowModableContract {
      */
     protected $showModes = ['code', 'debug_bar'];
 
-    public function getShowModes() {
+    public function getShowModes(): array {
         return $this->showModes;
     }
 

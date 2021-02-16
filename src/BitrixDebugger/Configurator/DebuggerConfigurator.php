@@ -26,13 +26,10 @@ class DebuggerConfigurator {
      * 
      * @var string
      */
-    protected $logChunkDelimeter = "======\n";
+    protected $logChunkDelimeter = "\n======\n";
 
     public function setLogPath(string $logType, string $pathFile): self {
-        if (\array_key_exists($logType, $this->getLogPaths())) {
-            $this->logPaths[$logType] = $pathFile;
-        }
-
+        $this->logPaths[$logType] = $pathFile;
         return $this;
     }
 
@@ -64,12 +61,6 @@ class DebuggerConfigurator {
 
     public function setLogChunkDelimeter(string $logChunkDelimeter): self {
         $this->logChunkDelimeter = $logChunkDelimeter;
-
-        return $this;
-    }
-
-    public function addLogType(string $keyLog, string $pathLogFile): self {
-        $this->logPaths[$keyLog] = $pathLogFile;
 
         return $this;
     }

@@ -16,7 +16,7 @@ use GGrach\Writer\FileWriter;
  * @author ggrachdev
  * @version 0.01
  */
-class Debugger extends DebuggerShowModable implements ShowModableContract {
+class Debugger extends DebuggerShowModable {
 
     /**
      *
@@ -65,6 +65,10 @@ class Debugger extends DebuggerShowModable implements ShowModableContract {
 
     public function notice(...$item) {
         $this->noticeRaw('notice', $item);
+    }
+
+    public function error(...$item) {
+        $this->noticeRaw('error', $item);
     }
 
     public function warning(...$item) {
