@@ -14,14 +14,12 @@ class FileWriter implements WritableContract {
     /**
      * Запись данных в ресурс
      * 
-     * @param type $data
+     * @param type $text
      * @param resource $resource
      * @param string $delimeter
      */
-    public static function write($data, resource $resource, string $delimeter): bool {
-        $result = false;
-
-        return $result;
+    public static function write(string $text, resource $resource, string $delimeter): bool {
+        return fwrite($resource, $text.$delimeter) !== false;
     }
 
     /**

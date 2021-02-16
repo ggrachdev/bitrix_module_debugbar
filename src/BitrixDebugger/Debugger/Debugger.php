@@ -7,6 +7,8 @@ use GGrach\BitrixDebugger\Configurator\DebugBarConfigurator;
 use GGrach\BitrixDebugger\Contract\ShowModableContract;
 use GGrach\BitrixDebugger\Validator\ShowModeDebuggerValidator;
 use GGrach\BitrixDebugger\Debugger\DebuggerShowModable;
+use GGrach\BitrixDebugger\Cache\RuntimeCache;
+use GGrach\Writer\FileWriter;
 
 /**
  * Description of Debugger
@@ -93,11 +95,28 @@ class Debugger extends DebuggerShowModable implements ShowModableContract {
             
         }
 
+        if (empty($items)) {
+            return;
+        }
+
         if (ShowModeDebuggerValidator::needWriteInLog($this)) {
-            $logFile = $this->configuratorDebugger->getLogPath($type);
-            
-            if ($logFile) {
-                
+            $pathLogFile = $this->configuratorDebugger->getLogPath($type);
+
+            if ($pathLogFile) {
+                $keyCache = $type . '_log_file_descriptor';
+
+                $fileLogResource = null;
+
+                if (RuntimeCache::has($keyCache)) {
+                    $fileLogResource = RuntimeCache::get($keyCache);
+                } else {
+                    $fileLogResource = \fopen($pathLogFile, 'w');
+                    RuntimeCache::set($keyCache, $fileLogResource);
+
+                    foreach ($items as $item) {
+                        FileWriter::write($item, $fileLogResource);
+                    }
+                }
             }
         }
     }

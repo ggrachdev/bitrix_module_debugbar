@@ -12,11 +12,11 @@ interface WritableContract {
     /**
      * Запись данных в ресурс
      * 
-     * @param type $data
+     * @param string $text
      * @param resource $resource
      * @param string $delimeter
      */
-    public static function write($data, resource $resource, string $delimeter): bool;
+    public static function write(string $text, resource $resource, string $delimeter): bool;
 
     /**
      * Очистка данных
