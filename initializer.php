@@ -4,25 +4,27 @@
 
 use Bitrix\Main\Loader;
 
-include 'inizializer_alias.php';
-
 Loader::registerAutoLoadClasses(null, [
-    "\Fred\GiftCard\Configuration\IblockConfiguration" => "/bitrix/php_interface/src/GiftCard/Configuration/IblockConfiguration.php",
-    "\Fred\GiftCard\Configuration\OrderConfiguration" => "/bitrix/php_interface/src/GiftCard/Configuration/OrderConfiguration.php",
-    "\Fred\GiftCard\Configuration\GiftCardConfiguration" => "/bitrix/php_interface/src/GiftCard/Configuration/GiftCardConfiguration.php",
-    "\Fred\GiftCard\Configuration\SenderConfiguration" => "/bitrix/php_interface/src/GiftCard/Configuration/SenderConfiguration.php",
-    "\Fred\GiftCard\Validation\GiftCardValidator" => "/bitrix/php_interface/src/GiftCard/Validation/GiftCardValidator.php",
-    "\Fred\GiftCard\Repository\GiftCardsRepository" => "/bitrix/php_interface/src/GiftCard/Repository/GiftCardsRepository.php",
-    "\Fred\GiftCard\Repository\GiftCardsSenderRepository" => "/bitrix/php_interface/src/GiftCard/Repository/GiftCardsSenderRepository.php",
-    "\Fred\GiftCard\Order\GiftCardOrderManager" => "/bitrix/php_interface/src/GiftCard/Order/GiftCardOrderManager.php",
-    "\Fred\GiftCard\Factory\GiftCardFactory" => "/bitrix/php_interface/src/GiftCard/Factory/GiftCardFactory.php",
-    "\Fred\GiftCard\Factory\GiftCardQueueItemFactory" => "/bitrix/php_interface/src/GiftCard/Factory/GiftCardQueueItemFactory.php",
-    "\Fred\GiftCard\Models\GiftCard" => "/bitrix/php_interface/src/GiftCard/Models/GiftCard.php",
-    "\Fred\GiftCard\Models\GiftCardQueueItem" => "/bitrix/php_interface/src/GiftCard/Models/GiftCardQueueItem.php",
-    "\Fred\GiftCard\Agents\GiftCardSendingAgent" => "/bitrix/php_interface/src/GiftCard/Agents/GiftCardSendingAgent.php",
-    "\Fred\GiftCard\Utils\UserOrderCreatorUtil" => "/bitrix/php_interface/src/GiftCard/Utils/UserOrderCreatorUtil.php",
-    "\Fred\GiftCard\Exception\CreateUserException" => "/bitrix/php_interface/src/GiftCard/Exception/CreateUserException.php",
-    "\Fred\GiftCard\Senders\GiftCardsEmailSender" => "/bitrix/php_interface/src/GiftCard/Senders/GiftCardsEmailSender.php",
-    "\Fred\GiftCard\Senders\GiftCardsSenderDistributor" => "/bitrix/php_interface/src/GiftCard/Senders/GiftCardsSenderDistributor.php",
-    "\Fred\GiftCard\Senders\GiftCardsSmsSender" => "/bitrix/php_interface/src/GiftCard/Senders/GiftCardsSmsSender.php",
+    "\GGrach\BitrixDebugger\Debugger\Debugger" => __DIR__ . "/src/BitrixDebugger/Debugger/Debugger.php",
+    "\GGrach\BitrixDebugger\Debugger\DebuggerShowModable" => __DIR__ . "/src/BitrixDebugger/Debugger/DebuggerShowModable.php",
+    "\GGrach\BitrixDebugger\Contract\ShowModableContract" => __DIR__ . "/src/BitrixDebugger/Contract/ShowModableContract.php",
+    "\GGrach\BitrixDebugger\Configurator\DebuggerConfigurator" => __DIR__ . "/src/BitrixDebugger/Configurator/DebuggerConfigurator.php",
+    "\GGrach\BitrixDebugger\Configurator\DebugBarConfigurator" => __DIR__ . "/src/BitrixDebugger/Configurator/DebugBarConfigurator.php",
+    "\GGrach\BitrixDebugger\Cache\RuntimeCache" => __DIR__ . "/src/BitrixDebugger/Cache/RuntimeCache.php",
+    "\GGrach\BitrixDebugger\Validator\ShowModeDebuggerValidator" => __DIR__ . "/src/BitrixDebugger/Validator/ShowModeDebuggerValidator.php",
+    "\GGrach\Writer\FileWriter" => __DIR__ . "/src/Writer/FileWriter.php",
+    "\GGrach\Writer\Contract\WritableContract" => __DIR__ . "/src/Writer/Contract/WritableContract.php"
 ]);
+
+$ggrachDebuggerConfigurator = new \GGrach\BitrixDebugger\Configurator\DebuggerConfigurator();
+$ggrachDebugBarConfigurator = new \GGrach\BitrixDebugger\Configurator\DebugBarConfigurator();
+
+$ggrachDebuggerConfigurator->setLogPath('error', __DIR__ . '/logs/error.log');
+$ggrachDebuggerConfigurator->setLogPath('warning', __DIR__ . '/logs/warning.log');
+$ggrachDebuggerConfigurator->setLogPath('success', __DIR__ . '/logs/success.log');
+$ggrachDebuggerConfigurator->setLogPath('notice', __DIR__ . '/logs/notice.log');
+
+global $GD;
+$GD = new \GGrach\BitrixDebugger\Debugger\Debugger($ggrachDebuggerConfigurator, $ggrachDebugBarConfigurator);
+
+include 'inizializer_alias.php';

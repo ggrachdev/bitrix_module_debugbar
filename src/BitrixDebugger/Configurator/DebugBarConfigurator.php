@@ -7,14 +7,14 @@ namespace GGrach\BitrixDebugger\Configurator;
  *
  * @author ggrachdev
  */
-class DebuggerConfigurator {
+class DebugBarConfigurator {
 
     /**
      * Цветовая схема дебаг-бара
      * 
      * @var string 
      */
-    protected $colorTheme = 'dark';
+    protected $colorTheme = 'light';
     
     public function getColorTheme(): type {
         return $this->theme;

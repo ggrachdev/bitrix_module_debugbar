@@ -19,7 +19,7 @@ class FileWriter implements WritableContract {
      * @param string $delimeter
      */
     public static function write(string $text, resource $resource, string $delimeter): bool {
-        return fwrite($resource, $text.$delimeter) !== false;
+        return fwrite($resource, $text . $delimeter) !== false;
     }
 
     /**
@@ -28,9 +28,11 @@ class FileWriter implements WritableContract {
      * @param resource $resource
      */
     public static function clear(resource $resource): bool {
-        $result = false;
 
-        return $result;
+        $arMetaData = \stream_get_meta_data($resource);
+        $pathFile = $arMetaData['uri'];
+
+        return \file_put_contents($pathFile, '');
     }
 
 }

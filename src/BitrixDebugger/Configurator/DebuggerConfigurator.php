@@ -51,12 +51,9 @@ class DebuggerConfigurator {
      * @return string | null
      */
     public function getLogPath(string $typeLog) {
-        if(\array_key_exists($typeLog, $this->getLogPaths()))
-        {
+        if (\array_key_exists($typeLog, $this->getLogPaths())) {
             return $this->getLogPaths()[$typeLog];
-        }
-        else
-        {
+        } else {
             return null;
         }
     }

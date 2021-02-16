@@ -85,36 +85,44 @@ class Debugger extends DebuggerShowModable implements ShowModableContract {
         $this->noticeRaw($typeNotice, $item);
     }
 
-    protected function noticeRaw(string $type, $items) {
+    protected function noticeRaw(string $type, $arLogItems) {
 
         if (ShowModeDebuggerValidator::needShowInDebugBar($this)) {
-            $this->log = array_merge($this->log, $items);
+            $this->log = array_merge($this->log, $arLogItems);
         }
 
         if (ShowModeDebuggerValidator::needShowInCode($this)) {
             
         }
 
-        if (empty($items)) {
-            return;
-        }
-
         if (ShowModeDebuggerValidator::needWriteInLog($this)) {
+
+            if (empty($arLogItems)) {
+                return;
+            }
+
             $pathLogFile = $this->configuratorDebugger->getLogPath($type);
 
             if ($pathLogFile) {
                 $keyCache = $type . '_log_file_descriptor';
 
-                $fileLogResource = null;
+                $fileLogDescriptor = null;
 
                 if (RuntimeCache::has($keyCache)) {
-                    $fileLogResource = RuntimeCache::get($keyCache);
+                    $fileLogDescriptor = RuntimeCache::get($keyCache);
                 } else {
-                    $fileLogResource = \fopen($pathLogFile, 'w');
-                    RuntimeCache::set($keyCache, $fileLogResource);
+                    $fileLogDescriptor = \fopen($pathLogFile, 'a+');
+                    RuntimeCache::set($keyCache, $fileLogDescriptor);
+                }
 
-                    foreach ($items as $item) {
-                        FileWriter::write($item, $fileLogResource);
+                if ($fileLogDescriptor) {
+                    foreach ($arLogItems as $logItem) {
+                        // @todo возможность вывести через var_dump, var_export
+                        FileWriter::write(
+                            print_r($logItem, true),
+                            $fileLogDescriptor,
+                            $this->configuratorDebugger->getLogChunkDelimeter()
+                        );
                     }
                 }
             }
