@@ -37,12 +37,28 @@ class DebuggerConfigurator {
     }
 
     /**
-     * Получить пути всех-лог файлов
+     * Получить пути всех лог-типов
      * 
-     * @return type
+     * @return array
      */
-    public function getLogPaths() {
+    public function getLogPaths(): array {
         return $this->logPaths;
+    }
+
+    /**
+     * Получить путь лог-типа
+     * 
+     * @return string | null
+     */
+    public function getLogPath(string $typeLog) {
+        if(\array_key_exists($typeLog, $this->getLogPaths()))
+        {
+            return $this->getLogPaths()[$typeLog];
+        }
+        else
+        {
+            return null;
+        }
     }
 
     public function getLogChunkDelimeter() {

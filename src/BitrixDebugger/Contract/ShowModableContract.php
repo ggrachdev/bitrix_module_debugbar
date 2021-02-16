@@ -30,4 +30,12 @@ interface ShowModableContract {
      * @return bool Результат
      */
     public function setShowModes(array $showModes): bool;
+    
+    /**
+     * Установить один режим отображения
+     * 
+     * @param string $showMode
+     * @return bool Результат
+     */
+    public function setShowMode(string $showMode): bool;
 }

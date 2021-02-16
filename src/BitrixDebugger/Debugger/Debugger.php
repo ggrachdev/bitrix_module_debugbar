@@ -5,7 +5,8 @@ namespace GGrach\BitrixDebugger\Debugger;
 use GGrach\BitrixDebugger\Configurator\DebuggerConfigurator;
 use GGrach\BitrixDebugger\Configurator\DebugBarConfigurator;
 use GGrach\BitrixDebugger\Contract\ShowModableContract;
-
+use GGrach\BitrixDebugger\Validator\ShowModeDebuggerValidator;
+use GGrach\BitrixDebugger\Debugger\DebuggerShowModable;
 
 /**
  * Description of Debugger
@@ -13,7 +14,34 @@ use GGrach\BitrixDebugger\Contract\ShowModableContract;
  * @author ggrachdev
  * @version 0.01
  */
-class Debugger implements ShowModableContract {
+class Debugger extends DebuggerShowModable implements ShowModableContract {
+
+    /**
+     *
+     * @var DebuggerConfigurator 
+     */
+    protected $configuratorDebugger;
+
+    /**
+     *
+     * @var DebugBarConfigurator 
+     */
+    protected $configuratorDebugBar;
+
+    /**
+     * Лог
+     * 
+     * @var array
+     */
+    protected $log = [];
+
+    /**
+     * a - показывать только для администратора
+     * d - показывать только в дебаг-баре
+     * 
+     * @var string
+     */
+    protected $options = 'ad';
 
     public function __construct($debuggerConfigurator = null, $debugBarConfigurator = null) {
         if ($debuggerConfigurator === null) {
@@ -29,53 +57,8 @@ class Debugger implements ShowModableContract {
         }
     }
 
-    /**
-     *
-     * @var DebuggerConfigurator 
-     */
-    private $configuratorDebugger;
-
-    /**
-     *
-     * @var DebugBarConfigurator 
-     */
-    private $configuratorDebugBar;
-
-    /**
-     * Лог
-     * 
-     * @var array
-     */
-    private $log = [];
-
-    /**
-     * a - показывать только для администратора
-     * d - показывать только в дебаг-баре
-     * 
-     * @var string
-     */
-    private $options = 'ad';
-
-    /**
-     * Где показывать
-     * 
-     * everywhere - и в дебаг-баре и в коде и залогировать
-     * code - в коде
-     * debug_bar - в дебаг-баре
-     * log - залогировать
-     * no - не показывать нигде
-     * 
-     * @var array
-     */
-    protected $showModes = ['everywhere'];
-    
-    public function getShowModes()
-    {
-        return $this->showModes;
-    }
-
-    public function options($options) {
-        
+    public function options(array $options) {
+        $this->options = $options;
     }
 
     public function notice(...$item) {
@@ -90,21 +73,33 @@ class Debugger implements ShowModableContract {
         $this->noticeRaw('success', $item);
     }
 
-    public function noticeRaw(string $type, $items) {
+    /**
+     * Кастомизированное уведомление
+     * 
+     * @param type $typeNotice
+     * @param type $item
+     */
+    public function debug($typeNotice, ...$item) {
+        $this->noticeRaw($typeNotice, $item);
+    }
 
-        if ($this->needShowInDebugBar()) {
-            $this->log[] = $items;
+    protected function noticeRaw(string $type, $items) {
+
+        if (ShowModeDebuggerValidator::needShowInDebugBar($this)) {
+            $this->log = array_merge($this->log, $items);
         }
-    }
 
-    public function getShowModesEnum(): array {
-        // @todo
-        return [];
-    }
+        if (ShowModeDebuggerValidator::needShowInCode($this)) {
+            
+        }
 
-    public function setShowModes(array $showModes): bool {
-        // @todo
-        return true;
+        if (ShowModeDebuggerValidator::needWriteInLog($this)) {
+            $logFile = $this->configuratorDebugger->getLogPath($type);
+            
+            if ($logFile) {
+                
+            }
+        }
     }
 
 }
