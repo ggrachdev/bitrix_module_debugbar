@@ -33,9 +33,8 @@ $GD = new \GGrach\BitrixDebugger\Debugger\Debugger($ggrachDebuggerConfigurator, 
 /*
  * code - отображать дебаг-данные в коде
  * debug_bar - отображать дебаг-данные в debug_bar
- * log - отображать дебаг-данные в логе
  */
-$GD->setShowModes(['code', 'debug_bar', 'log']);
+$GD->setShowModes(['code', 'debug_bar']);
 
 global $USER;
 
@@ -51,6 +50,12 @@ if ($USER && $USER->IsAdmin()) {
  * $GD->error('Моя переменная', 'Моя переменная 2');
  * $GD->warning('Моя переменная', 'Моя переменная 2');
  * $GD->success('Моя переменная', 'Моя переменная 2');
+ * 
+ * Залогировать в файлы
+ * $GD->noticeLog("Моя переменная', 'Моя переменная 2');
+ * $GD->errorLog('Моя переменная', 'Моя переменная 2');
+ * $GD->warningLog('Моя переменная', 'Моя переменная 2');
+ * $GD->successLog('Моя переменная', 'Моя переменная 2');
  * 
  */
 include 'inizializer_alias.php';

@@ -78,7 +78,56 @@ class Debugger extends DebuggerShowModable {
     public function success(...$item) {
         $this->noticeRaw('success', $item);
     }
-    
+
+    public function noticeLog(...$item) {
+        $this->logRaw('notice', $item);
+    }
+
+    public function errorLog(...$item) {
+        $this->logRaw('error', $item);
+    }
+
+    public function warningLog(...$item) {
+        $this->logRaw('warning', $item);
+    }
+
+    public function successLog(...$item) {
+        $this->logRaw('success', $item);
+    }
+
+    public function logRaw($type, ...$item) {
+
+        if (empty($item)) {
+            return;
+        }
+
+        $pathLogFile = $this->configuratorDebugger->getLogPath($type);
+
+        if ($pathLogFile) {
+            $keyCache = $type . '_log_file_descriptor';
+
+            $fileLogDescriptor = null;
+
+            if (RuntimeCache::has($keyCache)) {
+                $fileLogDescriptor = RuntimeCache::get($keyCache);
+            } else {
+                $fileLogDescriptor = \fopen($pathLogFile, 'a+');
+                RuntimeCache::set($keyCache, $fileLogDescriptor);
+            }
+
+            if ($fileLogDescriptor) {
+                foreach ($item as $logItem) {
+                    // @todo возможность вывести через var_dump, var_export
+                    FileWriter::write(
+                        print_r($logItem, true),
+                        $fileLogDescriptor,
+                        $this->configuratorDebugger->getLogChunkDelimeter()
+                    );
+                }
+            }
+        }
+    }
+
     public function getLog(): array {
         return $this->log;
     }
@@ -101,39 +150,6 @@ class Debugger extends DebuggerShowModable {
 
         if (ShowModeDebuggerValidator::needShowInCode($this)) {
             
-        }
-
-        if (ShowModeDebuggerValidator::needWriteInLog($this)) {
-
-            if (empty($arLogItems)) {
-                return;
-            }
-
-            $pathLogFile = $this->configuratorDebugger->getLogPath($type);
-
-            if ($pathLogFile) {
-                $keyCache = $type . '_log_file_descriptor';
-
-                $fileLogDescriptor = null;
-
-                if (RuntimeCache::has($keyCache)) {
-                    $fileLogDescriptor = RuntimeCache::get($keyCache);
-                } else {
-                    $fileLogDescriptor = \fopen($pathLogFile, 'a+');
-                    RuntimeCache::set($keyCache, $fileLogDescriptor);
-                }
-
-                if ($fileLogDescriptor) {
-                    foreach ($arLogItems as $logItem) {
-                        // @todo возможность вывести через var_dump, var_export
-                        FileWriter::write(
-                            print_r($logItem, true),
-                            $fileLogDescriptor,
-                            $this->configuratorDebugger->getLogChunkDelimeter()
-                        );
-                    }
-                }
-            }
         }
     }
 

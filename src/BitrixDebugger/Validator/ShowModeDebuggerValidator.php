@@ -18,9 +18,5 @@ class ShowModeDebuggerValidator {
     public static function needShowInCode(ShowModableContract $debugger) {
         return in_array('code', $debugger->getShowModes());
     }
-
-    public static function needWriteInLog(ShowModableContract $debugger) {
-        return in_array('log', $debugger->getShowModes());
-    }
-
+    
 }

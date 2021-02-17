@@ -20,7 +20,6 @@ class DebuggerShowModable implements ShowModableContract {
      * 
      * code - в коде
      * debug_bar - в дебаг-баре
-     * log - в логе
      * 
      * @var array
      */
@@ -31,7 +30,7 @@ class DebuggerShowModable implements ShowModableContract {
     }
 
     public function getShowModesEnum(): array {
-        return ['code', 'debug_bar', 'log'];
+        return ['code', 'debug_bar'];
     }
 
     public function setShowModes(array $showModes): bool {
