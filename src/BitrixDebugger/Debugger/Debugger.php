@@ -78,6 +78,10 @@ class Debugger extends DebuggerShowModable {
     public function success(...$item) {
         $this->noticeRaw('success', $item);
     }
+    
+    public function getLog(): array {
+        return $this->log;
+    }
 
     /**
      * Кастомизированное уведомление

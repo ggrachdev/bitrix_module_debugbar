@@ -3,6 +3,7 @@
 // Need include this file in init.php
 
 use Bitrix\Main\Loader;
+use Bitrix\Main\Page\Asset;
 
 $ggrachDebuggerRootPath = str_replace($_SERVER['DOCUMENT_ROOT'], '', __DIR__);
 
@@ -26,14 +27,30 @@ $ggrachDebuggerConfigurator->setLogPath('warning', __DIR__ . '/logs/warning.log'
 $ggrachDebuggerConfigurator->setLogPath('success', __DIR__ . '/logs/success.log');
 $ggrachDebuggerConfigurator->setLogPath('notice', __DIR__ . '/logs/notice.log');
 
+global $GD;
+$GD = new \GGrach\BitrixDebugger\Debugger\Debugger($ggrachDebuggerConfigurator, $ggrachDebugBarConfigurator);
+
 /*
  * code - отображать дебаг-данные в коде
  * debug_bar - отображать дебаг-данные в debug_bar
  * log - отображать дебаг-данные в логе
  */
-$ggrachDebuggerConfigurator->setShowModes(['code', 'debug_bar', 'log']);
+$GD->setShowModes(['code', 'debug_bar', 'log']);
 
-global $GD;
-$GD = new \GGrach\BitrixDebugger\Debugger\Debugger($ggrachDebuggerConfigurator, $ggrachDebugBarConfigurator);
+global $USER;
 
+if ($USER && $USER->IsAdmin()) {
+    Asset::getInstance()->addJs($ggrachDebuggerRootPath . "/assets/DebugBar/js/initializer.js");
+    Asset::getInstance()->addCss($ggrachDebuggerRootPath . "/assets/DebugBar/themes/${$ggrachDebugBarConfigurator->getColorTheme()}/fix.css");
+}
+
+/**
+ * Пример дебага:
+ * 
+ * $GD->notice("Моя переменная', 'Моя переменная 2');
+ * $GD->error('Моя переменная', 'Моя переменная 2');
+ * $GD->warning('Моя переменная', 'Моя переменная 2');
+ * $GD->success('Моя переменная', 'Моя переменная 2');
+ * 
+ */
 include 'inizializer_alias.php';

@@ -15,13 +15,13 @@ class DebugBarConfigurator {
      * @var string 
      */
     protected $colorTheme = 'light';
-    
-    public function getColorTheme(): type {
-        return $this->theme;
+
+    public function getColorTheme(): string {
+        return $this->colorTheme;
     }
 
     public function setColorTheme(string $theme): void {
-        $this->theme = $theme;
+        $this->colorTheme = $theme;
     }
 
 }
