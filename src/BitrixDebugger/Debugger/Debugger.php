@@ -145,13 +145,18 @@ class Debugger extends DebuggerShowModable {
     protected function noticeRaw(string $type, $arLogItems) {
 
         if (ShowModeDebuggerValidator::needShowInDebugBar($this)) {
-            
-            if(!\array_key_exists($type, $this->getLog()))
-            {
-               $this->log[$type] = []; 
+
+            if (!\array_key_exists($type, $this->getLog())) {
+                $this->log[$type] = [];
             }
-            
-            $this->log[$type] = array_merge($this->getLog()[$type], $arLogItems);
+
+            $db = debug_backtrace();
+
+            $this->log[$type][] = [
+                'file' => $db[1]['file'],
+                'line' => $db[1]['line'],
+                'data' => $arLogItems
+            ];
         }
 
         if (ShowModeDebuggerValidator::needShowInCode($this)) {
