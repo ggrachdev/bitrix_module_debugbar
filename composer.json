@@ -7,5 +7,11 @@
             "email": "ggrachdev@yandex.ru"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "GGrach\\BitrixDebugger\\": "src/BitrixDebugger",
+            "GGrach\\Writer\\": "src/Writer"
+        }
+    },
     "require": {}
 }
