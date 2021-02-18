@@ -8,9 +8,19 @@
     align-items: center !important;
 }
 
+.ggrach__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000000cc;
+    z-index: 9998;
+}
+
 .ggrach__debug_bar > .ggrach__debug_bar__item {
     display: flex !important;
-    align-items: center !important;
+    line-height: 33px !important;
     justify-content: center !important;
     padding-left: 5px;
     padding-right: 5px;
@@ -34,6 +44,7 @@
 
 .ggrach__debug_bar__log > pre {
     padding: 10px !important;
+    padding-bottom: 7px !important;
     border-bottom: 1px solid #c3c3c3 !important;
     font-size: 13px !important;
     line-height: 16px !important;
@@ -45,6 +56,10 @@
 
 .ggrach__debug_bar__log > pre:last-child {
     border-bottom: unset !important;
+}
+
+.ggrach__debug_bar__item.active {
+    font-weight: bold !important;
 }
 
 .type-notice-notice {
