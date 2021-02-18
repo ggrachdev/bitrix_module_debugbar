@@ -1,0 +1,37 @@
+.ggrach__debug_bar {
+    width: 100% !important;
+    position: fixed !important;
+    bottom: 0 !important;
+    height: 30px !important;
+    z-index: 9999 !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.ggrach__debug_bar > .ggrach__debug_bar__item {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding-left: 5px;
+    padding-right: 5px;
+    height: 30px !important;
+    min-width: 30px !important;
+    cursor: pointer !important;
+    font-size: 16px !important;
+}
+
+.type-notice-notice {
+    background-color: #93c7ec !important;
+}
+
+.type-notice-warning {
+    background-color: #d8ff00 !important;
+}
+
+.type-notice-error {
+    background-color: red !important;
+}
+
+.type-notice-success {
+    background-color: green !important;
+}

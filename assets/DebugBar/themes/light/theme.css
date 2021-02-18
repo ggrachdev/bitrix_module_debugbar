@@ -1,0 +1,5 @@
+.ggrach__debug_bar {
+    background: rgb(246,246,246) !important;
+    background: linear-gradient(180deg, rgba(246,246,246,1) 0%, rgba(255,255,255,1) 46%) !important;
+    border-top: 1px solid #b3b3b3 !important;
+}

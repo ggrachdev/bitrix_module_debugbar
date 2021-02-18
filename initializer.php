@@ -1,6 +1,7 @@
 <?php
 
 // Need include this file in init.php
+// include 'BitrixDebugger/initializer.php';
 
 use Bitrix\Main\Loader;
 use Bitrix\Main\Page\Asset;
@@ -36,26 +37,33 @@ $GD = new \GGrach\BitrixDebugger\Debugger\Debugger($ggrachDebuggerConfigurator, 
  */
 $GD->setShowModes(['code', 'debug_bar']);
 
-global $USER;
-
-if ($USER && $USER->IsAdmin()) {
-    Asset::getInstance()->addJs($ggrachDebuggerRootPath . "/assets/DebugBar/js/initializer.js");
-    Asset::getInstance()->addCss($ggrachDebuggerRootPath . "/assets/DebugBar/themes/${$ggrachDebugBarConfigurator->getColorTheme()}/fix.css");
+function GD() {
+    global $GD;
+    return $GD;
 }
+
+
+Asset::getInstance()->addJs($ggrachDebuggerRootPath . "/assets/DebugBar/js/initializer.js");
+Asset::getInstance()->addCss($ggrachDebuggerRootPath . '/assets/DebugBar/themes/general.css');
+Asset::getInstance()->addCss($ggrachDebuggerRootPath . '/assets/DebugBar/themes/'.$ggrachDebugBarConfigurator->getColorTheme().'/theme.css');
 
 /**
  * Пример дебага:
  * 
- * $GD->notice("Моя переменная', 'Моя переменная 2');
- * $GD->error('Моя переменная', 'Моя переменная 2');
- * $GD->warning('Моя переменная', 'Моя переменная 2');
- * $GD->success('Моя переменная', 'Моя переменная 2');
+ * GD()->notice('Моя переменная', 'Моя переменная 2');
+ * GD()->error('Моя переменная', 'Моя переменная 2');
+ * GD()->warning('Моя переменная', 'Моя переменная 2');
+ * GD()->success('Моя переменная', 'Моя переменная 2');
  * 
  * Залогировать в файлы
- * $GD->noticeLog("Моя переменная', 'Моя переменная 2');
- * $GD->errorLog('Моя переменная', 'Моя переменная 2');
- * $GD->warningLog('Моя переменная', 'Моя переменная 2');
- * $GD->successLog('Моя переменная', 'Моя переменная 2');
+ * GD()->noticeLog('Моя переменная', 'Моя переменная 2');
+ * GD()->errorLog('Моя переменная', 'Моя переменная 2');
+ * GD()->warningLog('Моя переменная', 'Моя переменная 2');
+ * GD()->successLog('Моя переменная', 'Моя переменная 2');
  * 
  */
 include 'inizializer_alias.php';
+
+if (\GGrach\BitrixDebugger\Validator\ShowModeDebuggerValidator::needShowInDebugBar($GD)) {
+    include 'events.php';
+}
