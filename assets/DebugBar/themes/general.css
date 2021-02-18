@@ -20,6 +20,33 @@
     font-size: 16px !important;
 }
 
+.ggrach__debug_bar__log {
+    position: absolute !important;
+    bottom: 30px !important;
+    left: 0 !important;
+    width: 100% !important;
+    background: white !important;
+    /* Отступы верхнего, правого, нижнего и левого края. */
+    padding: 0px 15px 0px 0px !important;
+    max-height: 500px !important;
+    overflow: auto !important;
+}
+
+.ggrach__debug_bar__log > pre {
+    padding: 10px !important;
+    border-bottom: 1px solid #c3c3c3 !important;
+    font-size: 13px !important;
+    line-height: 16px !important;
+}
+
+.ggrach__debug_bar__log > pre > code {
+    white-space: nowrap !important;
+}
+
+.ggrach__debug_bar__log > pre:last-child {
+    border-bottom: unset !important;
+}
+
 .type-notice-notice {
     background-color: #93c7ec !important;
 }

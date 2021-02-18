@@ -4,20 +4,39 @@ var Ggrach = {
             document.addEventListener('DOMContentLoaded', function () {
                 if (Ggrach.Utils.User.isAdmin())
                 {
-                    var parent = document.querySelector("body");
-                    var debugBarWrapper = document.createElement("section");
-                    debugBarWrapper.classList.add('ggrach__debug_bar');
+                    var $logsItems = document.querySelectorAll('[data-click="show_notice_panel"]');
 
-                    parent.prepend(debugBarWrapper);
-
-                    for (var typeNotice in GgrachDebuggerLogProvider)
+                    if ($logsItems)
                     {
-                        var arrNotices = GgrachDebuggerLogProvider[typeNotice];
-                        var viewTypeNotice = document.createElement("div");
-                        viewTypeNotice.classList.add('ggrach__debug_bar__item');
-                        viewTypeNotice.classList.add('type-notice-' + typeNotice);
-                        viewTypeNotice.innerHTML = arrNotices.length;
-                        debugBarWrapper.prepend(viewTypeNotice);
+                        $logsItems.forEach(function (element) {
+                            element.addEventListener('click', function (e) {
+                                var type = e.target.dataset.typeNotice;
+
+                                document.querySelectorAll('.ggrach__debug_bar__log').forEach(function (element) {
+
+                                    element.scrollTop = 0;
+                                    
+                                    if (element.dataset.typeNotice !== type)
+                                    {
+                                        element.style.display = 'none';
+                                    }
+
+                                });
+
+                                var $targetLogPanel = document.querySelector('.ggrach__debug_bar__log[data-type-notice="' + type + '"]');
+
+                                if ($targetLogPanel.style.display === 'block')
+                                {
+                                    
+                                    document.querySelector('body').style.overflow = null;
+                                    $targetLogPanel.style.display = 'none';
+                                } else
+                                {
+                                    document.querySelector('body').style.overflow = 'hidden';
+                                    $targetLogPanel.style.display = 'block';
+                                }
+                            });
+                        });
                     }
                 }
             });
