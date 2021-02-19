@@ -21,9 +21,6 @@ class DebugBarRepresenter {
 
         $log = $debugger->getLog();
 
-        if (empty($log))
-            return '';
-
         $view = '<section class="ggrach__overlay" style="display: none;"></section><section class="ggrach__debug_bar">';
 
         if ($DBDebug || $bxSettings['exception_handling']['value']['debug']) {
