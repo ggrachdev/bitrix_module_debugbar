@@ -55,8 +55,7 @@ Ggrach.Utils.Screen = {
 
 Ggrach.Utils.User = {
     isAdmin: function () {
-        return document.getElementById('panel') &&
-            document.getElementById('bx-panel-admin-tab');
+        return document.getElementById('bx-panel-admin-tab');
     }
 };
 
