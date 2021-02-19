@@ -35,6 +35,7 @@ class DebugBarRepresenter {
                 $view .= '</div>';
 
                 $view .= '<div class="ggrach__debug_bar__log" data-type-notice="' . $typeLog . '" style="display: none;">';
+                $view .= '<div class="ggrach__debug_bar__log__title">' . $typeLog . '</div>';
                 
                 foreach ($arLogs as $arLogType) {
                     

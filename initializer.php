@@ -1,9 +1,10 @@
 <?php
 
-// Нужно подключить этот файл в init.php
-// include 'BitrixDebugger/initializer.php';
-
 /**
+ * https://github.com/ggrachdev/BitrixDebugger
+ * @author ggrachdev@yandex.ru
+ * @version 0.1
+ * 
  * Пример дебага:
  * 
  * GD()->notice('Моя переменная', 'Моя переменная 2');
@@ -17,14 +18,16 @@
  * GD()->warningLog('Моя переменная', 'Моя переменная 2');
  * GD()->successLog('Моя переменная', 'Моя переменная 2');
  * 
+ * Нужно подключить этот файл в init.php
+ * include 'BitrixDebugger/initializer.php';
+ * 
  */
 
-use Bitrix\Main\Loader;
 use Bitrix\Main\Page\Asset;
 
 $ggrachDebuggerRootPath = str_replace($_SERVER['DOCUMENT_ROOT'], '', __DIR__);
 
-Loader::registerAutoLoadClasses(null, [
+\Bitrix\Main\Loader::registerAutoLoadClasses(null, [
     "\GGrach\BitrixDebugger\Debugger\Debugger" => $ggrachDebuggerRootPath . "/src/BitrixDebugger/Debugger/Debugger.php",
     "\GGrach\BitrixDebugger\Debugger\DebuggerShowModable" => $ggrachDebuggerRootPath . "/src/BitrixDebugger/Debugger/DebuggerShowModable.php",
     "\GGrach\BitrixDebugger\Contract\ShowModableContract" => $ggrachDebuggerRootPath . "/src/BitrixDebugger/Contract/ShowModableContract.php",
