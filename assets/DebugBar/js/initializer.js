@@ -10,10 +10,14 @@ Ggrach.DebugBar = {
         window.addEventListener('keydown', Ggrach.Handlers.onKeyEsc, true);
     },
 
+    hasDebugBar: function () {
+        return document.querySelector('.ggrach__debug_bar') !== null;
+    },
+
     init: function () {
 
         document.addEventListener('DOMContentLoaded', function () {
-            if (Ggrach.Utils.User.isAdmin())
+            if (Ggrach.Utils.User.isAdmin() && Ggrach.DebugBar.hasDebugBar())
             {
                 if (Ggrach.Utils.Screen.isMobile())
                 {
