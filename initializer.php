@@ -3,7 +3,7 @@
 /**
  * https://github.com/ggrachdev/BitrixDebugger
  * @author ggrachdev@yandex.ru
- * @version 0.1
+ * @version 0.01
  * 
  * Пример дебага:
  * 
@@ -22,53 +22,55 @@
  * include 'BitrixDebugger/initializer.php';
  * 
  */
-
 use Bitrix\Main\Page\Asset;
 
-$ggrachDebuggerRootPath = str_replace($_SERVER['DOCUMENT_ROOT'], '', __DIR__);
+if (!empty($_SERVER['DOCUMENT_ROOT'])) {
 
-\Bitrix\Main\Loader::registerAutoLoadClasses(null, [
-    "\GGrach\BitrixDebugger\Debugger\Debugger" => $ggrachDebuggerRootPath . "/src/BitrixDebugger/Debugger/Debugger.php",
-    "\GGrach\BitrixDebugger\Debugger\DebuggerShowModable" => $ggrachDebuggerRootPath . "/src/BitrixDebugger/Debugger/DebuggerShowModable.php",
-    "\GGrach\BitrixDebugger\Contract\ShowModableContract" => $ggrachDebuggerRootPath . "/src/BitrixDebugger/Contract/ShowModableContract.php",
-    "\GGrach\BitrixDebugger\Configurator\DebuggerConfigurator" => $ggrachDebuggerRootPath . "/src/BitrixDebugger/Configurator/DebuggerConfigurator.php",
-    "\GGrach\BitrixDebugger\Configurator\DebugBarConfigurator" => $ggrachDebuggerRootPath . "/src/BitrixDebugger/Configurator/DebugBarConfigurator.php",
-    "\GGrach\BitrixDebugger\Cache\RuntimeCache" => $ggrachDebuggerRootPath . "/src/BitrixDebugger/Cache/RuntimeCache.php",
-    "\GGrach\BitrixDebugger\Validator\ShowModeDebuggerValidator" => $ggrachDebuggerRootPath . "/src/BitrixDebugger/Validator/ShowModeDebuggerValidator.php",
-    "\GGrach\BitrixDebugger\Representer\DebugBarRepresenter" => $ggrachDebuggerRootPath . "/src/BitrixDebugger/Representer/DebugBarRepresenter.php",
-    "\GGrach\Writer\FileWriter" => $ggrachDebuggerRootPath . "/src/Writer/FileWriter.php",
-    "\GGrach\Writer\Contract\WritableContract" => $ggrachDebuggerRootPath . "/src/Writer/Contract/WritableContract.php"
-]);
+    $ggrachDebuggerRootPath = str_replace($_SERVER['DOCUMENT_ROOT'], '', __DIR__);
 
-$ggrachDebuggerConfigurator = new \GGrach\BitrixDebugger\Configurator\DebuggerConfigurator();
-$ggrachDebugBarConfigurator = new \GGrach\BitrixDebugger\Configurator\DebugBarConfigurator();
+    \Bitrix\Main\Loader::registerAutoLoadClasses(null, [
+        "\GGrach\BitrixDebugger\Debugger\Debugger" => $ggrachDebuggerRootPath . "/src/BitrixDebugger/Debugger/Debugger.php",
+        "\GGrach\BitrixDebugger\Debugger\DebuggerShowModable" => $ggrachDebuggerRootPath . "/src/BitrixDebugger/Debugger/DebuggerShowModable.php",
+        "\GGrach\BitrixDebugger\Contract\ShowModableContract" => $ggrachDebuggerRootPath . "/src/BitrixDebugger/Contract/ShowModableContract.php",
+        "\GGrach\BitrixDebugger\Configurator\DebuggerConfigurator" => $ggrachDebuggerRootPath . "/src/BitrixDebugger/Configurator/DebuggerConfigurator.php",
+        "\GGrach\BitrixDebugger\Configurator\DebugBarConfigurator" => $ggrachDebuggerRootPath . "/src/BitrixDebugger/Configurator/DebugBarConfigurator.php",
+        "\GGrach\BitrixDebugger\Cache\RuntimeCache" => $ggrachDebuggerRootPath . "/src/BitrixDebugger/Cache/RuntimeCache.php",
+        "\GGrach\BitrixDebugger\Validator\ShowModeDebuggerValidator" => $ggrachDebuggerRootPath . "/src/BitrixDebugger/Validator/ShowModeDebuggerValidator.php",
+        "\GGrach\BitrixDebugger\Representer\DebugBarRepresenter" => $ggrachDebuggerRootPath . "/src/BitrixDebugger/Representer/DebugBarRepresenter.php",
+        "\GGrach\Writer\FileWriter" => $ggrachDebuggerRootPath . "/src/Writer/FileWriter.php",
+        "\GGrach\Writer\Contract\WritableContract" => $ggrachDebuggerRootPath . "/src/Writer/Contract/WritableContract.php"
+    ]);
 
-$ggrachDebuggerConfigurator->setLogPath('error', __DIR__ . '/logs/error.log');
-$ggrachDebuggerConfigurator->setLogPath('warning', __DIR__ . '/logs/warning.log');
-$ggrachDebuggerConfigurator->setLogPath('success', __DIR__ . '/logs/success.log');
-$ggrachDebuggerConfigurator->setLogPath('notice', __DIR__ . '/logs/notice.log');
+    $ggrachDebuggerConfigurator = new \GGrach\BitrixDebugger\Configurator\DebuggerConfigurator();
+    $ggrachDebugBarConfigurator = new \GGrach\BitrixDebugger\Configurator\DebugBarConfigurator();
 
-global $GD;
-$GD = new \GGrach\BitrixDebugger\Debugger\Debugger($ggrachDebuggerConfigurator, $ggrachDebugBarConfigurator);
+    $ggrachDebuggerConfigurator->setLogPath('error', __DIR__ . '/logs/error.log');
+    $ggrachDebuggerConfigurator->setLogPath('warning', __DIR__ . '/logs/warning.log');
+    $ggrachDebuggerConfigurator->setLogPath('success', __DIR__ . '/logs/success.log');
+    $ggrachDebuggerConfigurator->setLogPath('notice', __DIR__ . '/logs/notice.log');
 
-/*
- * code - отображать дебаг-данные в коде
- * debug_bar - отображать дебаг-данные в debug_bar
- */
-$GD->setShowModes(['code', 'debug_bar']);
-
-function GD() {
     global $GD;
-    return $GD;
-}
+    $GD = new \GGrach\BitrixDebugger\Debugger\Debugger($ggrachDebuggerConfigurator, $ggrachDebugBarConfigurator);
 
-Asset::getInstance()->addJs($ggrachDebuggerRootPath . "/assets/DebugBar/js/initializer.js");
-Asset::getInstance()->addCss($ggrachDebuggerRootPath . '/assets/DebugBar/themes/general.css');
-Asset::getInstance()->addCss($ggrachDebuggerRootPath . '/assets/DebugBar/themes/' . $ggrachDebugBarConfigurator->getColorTheme() . '/theme.css');
+    /*
+     * code - отображать дебаг-данные в коде
+     * debug_bar - отображать дебаг-данные в debug_bar
+     */
+    $GD->setShowModes(['code', 'debug_bar']);
 
-if (\GGrach\BitrixDebugger\Validator\ShowModeDebuggerValidator::needShowInDebugBar($GD)) {
+    function GD() {
+        global $GD;
+        return $GD;
+    }
 
-    include 'functions.php';
+    if (\GGrach\BitrixDebugger\Validator\ShowModeDebuggerValidator::needShowInDebugBar($GD)) {
 
-    include 'events.php';
+        Asset::getInstance()->addJs($ggrachDebuggerRootPath . "/assets/DebugBar/js/initializer.js");
+        Asset::getInstance()->addCss($ggrachDebuggerRootPath . '/assets/DebugBar/themes/general.css');
+        Asset::getInstance()->addCss($ggrachDebuggerRootPath . '/assets/DebugBar/themes/' . $ggrachDebugBarConfigurator->getColorTheme() . '/theme.css');
+
+        include 'functions.php';
+
+        include 'events.php';
+    }
 }

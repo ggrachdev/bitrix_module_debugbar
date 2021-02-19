@@ -14,7 +14,6 @@ use GGrach\Writer\FileWriter;
  * Description of Debugger
  *
  * @author ggrachdev
- * @version 0.01
  */
 class Debugger extends DebuggerShowModable {
 
