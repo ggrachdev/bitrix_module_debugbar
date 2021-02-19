@@ -16,6 +16,7 @@
     height: 100%;
     background: #000000cc;
     z-index: 9998;
+    cursor: pointer;
 }
 
 .ggrach__debug_bar__item {
@@ -89,6 +90,7 @@
 }
 
 .type-notice-notice {
+    order: 3;
     color: #fff;
     background: rgb(25,60,119);
     background: -moz-linear-gradient(180deg, rgba(25,60,119,1) 0%, rgba(18,97,148,1) 72%);
@@ -98,6 +100,7 @@
 }
 
 .type-notice-warning {
+    order: 2;
     color: #000;
     background: rgb(179,195,43);
     background: -moz-linear-gradient(180deg, rgba(179,195,43,1) 0%, rgba(213,224,27,1) 72%);
@@ -107,6 +110,7 @@
 }
 
 .type-notice-error {
+    order: 1;
     color: #fff;
     background: rgb(170,18,18);
     background: -moz-linear-gradient(180deg, rgba(170,18,18,1) 0%, rgba(200,9,9,1) 72%);
@@ -116,6 +120,7 @@
 }
 
 .type-notice-success {
+    order: 4;
     color: #fff;
     background: rgb(25,119,44);
     background: -moz-linear-gradient(180deg, rgba(25,119,44,1) 0%, rgba(18,148,70,1) 72%);
