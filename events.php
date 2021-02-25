@@ -1,7 +1,11 @@
 <?php
 
 // Добавляем дебаг-бар
-AddEventHandler("main", "OnEndBufferContent", "GgrachAddDebugBar");
+\Bitrix\Main\EventManager::getInstance()->addEventHandler(
+    "main",
+    "OnEndBufferContent",
+    "GgrachAddDebugBar"
+);
 
 function GgrachAddDebugBar(&$content) {
 
@@ -26,6 +30,6 @@ function GgrachAddDebugBar(&$content) {
         return;
     }
 
-    $logData = \GGrach\BitrixDebugger\Representer\DebugBarRepresenter::render(GD());
+    $logData = \GGrach\BitrixDebugger\Representer\DebugBarRepresenter::render(DD());
     $content = \str_replace('</body>', $logData . '</body>', $content);
 }

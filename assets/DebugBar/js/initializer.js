@@ -61,8 +61,16 @@ Ggrach.Utils.User = {
 
 Ggrach.Utils.DOM = {
 
+    hideOverlay: function () {
+        Ggrach.Utils.DOM.getOverlay().style.display = 'none';
+    },
+
+    showOverlay: function () {
+        Ggrach.Utils.DOM.getOverlay().style.display = 'block';
+    },
+
     getDebugBarLogsType: function (type) {
-        return document.querySelector('.ggrach__debug_bar__log[data-type-notice="' + type + '"]')
+        return document.querySelector('.ggrach__debug_bar__log[data-type-notice="' + type + '"]');
     },
 
     getDebugBarLogs: function () {
@@ -82,7 +90,7 @@ Ggrach.Handlers = {
 
     // Нажатие клавиши esc
     onKeyEsc: function (e) {
-        if ((e.key == 'Escape' || e.key == 'Esc' || e.keyCode == 27) && (e.target.nodeName == 'BODY')) {
+        if ((e.key === 'Escape' || e.key === 'Esc' || e.keyCode == 27) && (e.target.nodeName === 'BODY')) {
 
             if (document.querySelector('[data-type-notice].active'))
             {
@@ -116,13 +124,13 @@ Ggrach.Handlers = {
             e.target.classList.remove('active');
             document.querySelector('body').style.overflow = null;
             $targetLogPanel.style.display = 'none';
-            Ggrach.Utils.DOM.getOverlay().style.display = 'none';
+            Ggrach.Utils.DOM.hideOverlay();
         } else
         {
             e.target.classList.add('active');
             document.querySelector('body').style.overflow = 'hidden';
             $targetLogPanel.style.display = 'block';
-            Ggrach.Utils.DOM.getOverlay().style.display = 'block';
+            Ggrach.Utils.DOM.showOverlay();
         }
     }
 };

@@ -13,17 +13,18 @@ class DebugBarRepresenter {
 
     public static function render(Debugger $debugger): string {
 
-        global $DBDebug, $APPLICATION;
+        global $DBDebug;
 
         $debugIsOn = false;
 
-        $bxSettings = require $_SERVER['DOCUMENT_ROOT'] . '/bitrix/.settings.php';
-
+//        $bxSettings = require $_SERVER['DOCUMENT_ROOT'] . '/bitrix/.settings.php';
+        $bxSettingsDebug = \Bitrix\Main\Config\Configuration::getValue("exception_handling")['debug'];
+        
         $log = $debugger->getLog();
 
         $view = '<section class="ggrach__overlay" style="display: none;"></section><section class="ggrach__debug_bar">';
 
-        if ($DBDebug || $bxSettings['exception_handling']['value']['debug']) {
+        if ($DBDebug || $bxSettingsDebug) {
             $debugIsOn = true;
         } else {
             $debugIsOn = false;

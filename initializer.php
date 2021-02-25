@@ -49,21 +49,21 @@ if (!empty($_SERVER['DOCUMENT_ROOT'])) {
     $ggrachDebuggerConfigurator->setLogPath('success', __DIR__ . '/logs/success.log');
     $ggrachDebuggerConfigurator->setLogPath('notice', __DIR__ . '/logs/notice.log');
 
-    global $GD;
-    $GD = new \GGrach\BitrixDebugger\Debugger\Debugger($ggrachDebuggerConfigurator, $ggrachDebugBarConfigurator);
+    global $DD;
+    $DD = new \GGrach\BitrixDebugger\Debugger\Debugger($ggrachDebuggerConfigurator, $ggrachDebugBarConfigurator);
 
     /*
      * code - отображать дебаг-данные в коде
      * debug_bar - отображать дебаг-данные в debug_bar
      */
-    $GD->setShowModes(['code', 'debug_bar']);
+    $DD->setShowModes(['code', 'debug_bar']);
 
-    function GD() {
-        global $GD;
-        return $GD;
+    function DD() {
+        global $DD;
+        return $DD;
     }
 
-    if (\GGrach\BitrixDebugger\Validator\ShowModeDebuggerValidator::needShowInDebugBar($GD)) {
+    if (\GGrach\BitrixDebugger\Validator\ShowModeDebuggerValidator::needShowInDebugBar($DD)) {
 
         Asset::getInstance()->addJs($ggrachDebuggerRootPath . "/assets/DebugBar/js/initializer.js");
         Asset::getInstance()->addCss($ggrachDebuggerRootPath . '/assets/DebugBar/themes/general.css');
