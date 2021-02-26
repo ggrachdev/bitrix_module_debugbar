@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="bitrix/modules/main/include/prolog_before.php">
+    <testsuites>
+        <testsuite name="Notice raw">
+            <file>tests/NoticeRawTest.php</file>
+        </testsuite>
+    </testsuites>
+</phpunit>
