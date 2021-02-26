@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--Bootstrap указываем относительно папки local/php_interface/BitrixDebugger чтобы выйти в DOCUMENT_ROOT-->
 <phpunit bootstrap="bitrix/modules/main/include/prolog_before.php">
     <testsuites>
         <testsuite name="Notice raw">
-            <file>tests/NoticeRawTest.php</file>
+            <file>../../../../NoticeRawTest.php</file>
         </testsuite>
     </testsuites>
 </phpunit>
