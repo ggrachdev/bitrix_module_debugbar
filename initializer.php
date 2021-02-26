@@ -3,20 +3,20 @@
 /**
  * https://github.com/ggrachdev/BitrixDebugger
  * @author ggrachdev@yandex.ru
- * @version 0.02
+ * @version 0.03 beta
  * 
  * Пример дебага:
  * 
- * GD()->notice('Моя переменная', 'Моя переменная 2');
- * GD()->error('Моя переменная', 'Моя переменная 2');
- * GD()->warning('Моя переменная', 'Моя переменная 2');
- * GD()->success('Моя переменная', 'Моя переменная 2');
+ * DD()->notice('Моя переменная', 'Моя переменная 2');
+ * DD()->error('Моя переменная', 'Моя переменная 2');
+ * DD()->warning('Моя переменная', 'Моя переменная 2');
+ * DD()->success('Моя переменная', 'Моя переменная 2');
  * 
  * Залогировать в файлы
- * GD()->noticeLog('Моя переменная', 'Моя переменная 2');
- * GD()->errorLog('Моя переменная', 'Моя переменная 2');
- * GD()->warningLog('Моя переменная', 'Моя переменная 2');
- * GD()->successLog('Моя переменная', 'Моя переменная 2');
+ * DD()->noticeLog('Моя переменная', 'Моя переменная 2');
+ * DD()->errorLog('Моя переменная', 'Моя переменная 2');
+ * DD()->warningLog('Моя переменная', 'Моя переменная 2');
+ * DD()->successLog('Моя переменная', 'Моя переменная 2');
  * 
  * Нужно подключить этот файл в init.php
  * include 'BitrixDebugger/initializer.php';
@@ -24,7 +24,7 @@
  */
 use Bitrix\Main\Page\Asset;
 
-if (!empty($_SERVER['DOCUMENT_ROOT'])) {
+if (\php_sapi_name() !== 'cli') {
 
     $ggrachDebuggerRootPath = str_replace($_SERVER['DOCUMENT_ROOT'], '', __DIR__);
 
@@ -49,25 +49,23 @@ if (!empty($_SERVER['DOCUMENT_ROOT'])) {
     $ggrachDebuggerConfigurator->setLogPath('success', __DIR__ . '/logs/success.log');
     $ggrachDebuggerConfigurator->setLogPath('notice', __DIR__ . '/logs/notice.log');
 
-    global $DD;
-    $DD = new \GGrach\BitrixDebugger\Debugger\Debugger($ggrachDebuggerConfigurator, $ggrachDebugBarConfigurator);
+    $GLOBALS["DD"] = new \GGrach\BitrixDebugger\Debugger\Debugger($ggrachDebuggerConfigurator, $ggrachDebugBarConfigurator);
 
     /*
      * code - отображать дебаг-данные в коде
      * debug_bar - отображать дебаг-данные в debug_bar
      */
-    $DD->setShowModes(['code', 'debug_bar']);
+    $GLOBALS["DD"]->setShowModes(['code', 'debug_bar']);
 
     function DD() {
-        global $DD;
-        return $DD;
+        return $GLOBALS["DD"];
     }
 
-    if (\GGrach\BitrixDebugger\Validator\ShowModeDebuggerValidator::needShowInDebugBar($DD)) {
+    if (\GGrach\BitrixDebugger\Validator\ShowModeDebuggerValidator::needShowInDebugBar($GLOBALS["DD"])) {
 
         Asset::getInstance()->addJs($ggrachDebuggerRootPath . "/assets/DebugBar/js/initializer.js");
-        Asset::getInstance()->addCss($ggrachDebuggerRootPath . '/assets/DebugBar/themes/general.css');
-        Asset::getInstance()->addCss($ggrachDebuggerRootPath . '/assets/DebugBar/themes/' . $ggrachDebugBarConfigurator->getColorTheme() . '/theme.css');
+        Asset::getInstance()->addCss($ggrachDebuggerRootPath . '/assets/DebugBar/css/themes/general.css');
+        Asset::getInstance()->addCss($ggrachDebuggerRootPath . '/assets/DebugBar/css/themes/' . $ggrachDebugBarConfigurator->getColorTheme() . '/theme.css');
 
         include 'functions.php';
 

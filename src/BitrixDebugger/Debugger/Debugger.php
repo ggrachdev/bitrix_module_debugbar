@@ -159,7 +159,10 @@ class Debugger extends DebuggerShowModable {
         }
 
         if (ShowModeDebuggerValidator::needShowInCode($this)) {
-            
+
+            foreach ($arLogItems as $item) {
+                echo \ggrach_highlight_data($item);
+            }
         }
     }
 
