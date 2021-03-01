@@ -2,7 +2,7 @@
 
 use Bitrix\Main\Page\Asset;
 
-$ggrachDebuggerRootPath = realpath(str_replace($_SERVER['DOCUMENT_ROOT'], '', __DIR__ . '/../'));
+$ggrachDebuggerRootPath = str_replace($_SERVER['DOCUMENT_ROOT'], '', __DIR__ . '/../');
 $ggrachPathLogFolder = __DIR__ . $ggrachDebuggerRootPath . '/logs';
 
 \Bitrix\Main\Loader::registerAutoLoadClasses(null, [
@@ -43,6 +43,7 @@ if (\GGrach\BitrixDebugger\Validator\ShowModeDebuggerValidator::needShowInDebugB
     Asset::getInstance()->addJs($ggrachDebuggerRootPath . "/assets/DebugBar/js/initializer.js");
     Asset::getInstance()->addCss($ggrachDebuggerRootPath . '/assets/DebugBar/css/themes/general.css');
     Asset::getInstance()->addCss($ggrachDebuggerRootPath . '/assets/DebugBar/css/themes/' . $ggrachDebugBarConfigurator->getColorTheme() . '/theme.css');
-    include '../functions.php';
-    include '../events.php';
+    
+    include __DIR__.'/../functions.php';
+    include __DIR__.'/../events.php';
 }
