@@ -13,7 +13,7 @@ class DebugBarRepresenter {
 
     public static function render(Debugger $debugger): string {
 
-        global $DBDebug;
+        global $DBDebug, $APPLICATION;
 
         $debugIsOn = false;
 
@@ -30,30 +30,72 @@ class DebugBarRepresenter {
             $debugIsOn = false;
         }
 
+
         if (!empty($_GET)) {
-            $log['$_GET'] = [
-                'file' => 'global',
-                'line' => '',
-                'data' => $_GET
+            $log['GET'] = [
+                [
+                    'file' => '',
+                    'line' => '',
+                    'data' => [
+                        $_GET
+                    ]
+                ]
             ];
         }
 
         if (!empty($_POST)) {
-            $log['$_POST'] = [
-                'file' => 'global',
-                'line' => '',
-                'data' => $_POST
+            $log['POST'] = [
+                [
+                    'file' => '',
+                    'line' => '',
+                    'data' => [
+                        $_POST
+                    ]
+                ]
+            ];
+        }
+
+        if (!empty($_COOKIE)) {
+            $log['COOKIE'] = [
+                [
+                    'file' => '',
+                    'line' => '',
+                    'data' => [
+                        $_COOKIE
+                    ]
+                ]
+            ];
+        }
+
+        if (!empty($APPLICATION->GetPagePropertyList())) {
+            $log['BX'] = [
+                [
+                    'file' => '',
+                    'line' => '',
+                    'data' => [
+                        [
+                            'PAGE_PROPERTIES' => $APPLICATION->GetPagePropertyList(),
+                            'DIR_PROPERTIES' => $APPLICATION->GetDirPropertyList()
+                        ]
+                    ]
+                ]
             ];
         }
 
         if (!empty($log)) {
             foreach ($log as $typeLog => $arLogs) {
-                $view .= '<div class="ggrach__debug_bar__item type-notice-' . $typeLog . '" data-type-notice="' . $typeLog . '" data-click="show_notice_panel">';
+                $view .= '<div class="ggrach__debug_bar__item type-notice-' . strtolower($typeLog) . '" data-type-notice="' . $typeLog . '" data-click="show_notice_panel">';
 
-                $count = 0;
 
-                foreach ($arLogs as $arLogType) {
-                    $count += \sizeof($arLogType['data']);
+                if ($typeLog === 'POST' || $typeLog === 'GET' || $typeLog === 'COOKIE' || $typeLog === 'BX') {
+                    $count = $typeLog;
+                } else {
+
+                    $count = 0;
+
+                    foreach ($arLogs as $arLogType) {
+                        $count += \sizeof($arLogType['data']);
+                    }
                 }
 
                 $view .= $count;
@@ -64,9 +106,15 @@ class DebugBarRepresenter {
                 foreach ($arLogs as $arLogType) {
 
                     foreach ($arLogType['data'] as $logValue) {
-                        $lineView = '<a class="ggrach__debug_bar__log__line" target="_blank" href="/bitrix/admin/fileman_file_edit.php?path=' . str_replace($_SERVER['DOCUMENT_ROOT'], '', $arLogType['file']) . '&full_src=Y">' . $arLogType['file'] . ' on line ' . $arLogType['line'] . '</a>';
+                        if ($typeLog !== 'POST' && $typeLog !== 'GET' && $typeLog !== 'COOKIE' && $typeLog !== 'BX') {
+                            $lineView = '<a class="ggrach__debug_bar__log__line" target="_blank" href="/bitrix/admin/fileman_file_edit.php?path=' . str_replace($_SERVER['DOCUMENT_ROOT'], '', $arLogType['file']) . '&full_src=Y">' . $arLogType['file'] . ' on line ' . $arLogType['line'] . '</a>';
+                        } else {
+                            $lineView = '';
+                        }
 
-                        $view .= str_replace(['<span style="color: #0000BB">&lt;?</span>', '<span style="color: #0000BB">?&gt;</span>', '&lt;?', '?&gt;', '&lt;?php'], ['', '', '', ''], '<pre>' . \ggrach_highlight_data($logValue) . $lineView . '</pre>');
+                        $needHideBlocks = !($typeLog === 'POST' || $typeLog === 'GET' || $typeLog === 'COOKIE' || $typeLog === 'BX');
+
+                        $view .= str_replace(['<span style="color: #0000BB">&lt;?</span>', '<span style="color: #0000BB">?&gt;</span>', '&lt;?', '?&gt;', '&lt;?php'], ['', '', '', ''], '<pre>' . \ggrach_highlight_data($logValue, $needHideBlocks) . $lineView . '</pre>');
                     }
                 }
 
