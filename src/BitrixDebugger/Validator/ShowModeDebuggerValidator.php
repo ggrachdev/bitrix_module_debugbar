@@ -16,7 +16,8 @@ class ShowModeDebuggerValidator {
     }
 
     public static function needShowInCode(ShowModableContract $debugger) {
-        return in_array('code', $debugger->getShowModes());
+        global $USER;
+        return in_array('code', $debugger->getShowModes()) && \is_object($USER) && $USER->IsAdmin();
     }
     
 }
