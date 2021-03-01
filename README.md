@@ -70,4 +70,4 @@ $ggrachDebuggerConfigurator->setLogPath('notice', __DIR__ . '/logs/notice.log');
 Тестировалась скорость формирования страницы с библиотекой и без, при ее наличии скорость дольше примерно на 0,01 сек., что не значительно замедляет проект.
 
 Дебаг-панель:
-[Скриншот](https://prnt.sc/zz8h04)
+![Image alt](https://github.com/ggrachdev/BitrixDebugger/raw/dev/assets/images/git/example_for_git.png)
