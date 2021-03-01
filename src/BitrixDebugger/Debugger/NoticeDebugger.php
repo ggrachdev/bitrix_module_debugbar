@@ -5,11 +5,11 @@ namespace GGrach\BitrixDebugger\Debugger;
 use GGrach\BitrixDebugger\Validator\ShowModeDebuggerValidator;
 
 /**
- * Логика за уведомления для дебаг-бара
+ * Ответственность: добавление логов для дебаг-бара
  *
  * @author ggrachdev
  */
-class NoticeDebugger {
+class NoticeDebugger extends ConfigurationDebugger {
 
     public function notice(...$item) {
         return $this->noticeRaw('notice', $item);

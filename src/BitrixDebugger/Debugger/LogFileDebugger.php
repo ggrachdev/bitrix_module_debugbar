@@ -6,11 +6,11 @@ use GGrach\BitrixDebugger\Cache\RuntimeCache;
 use GGrach\Writer\FileWriter;
 
 /**
- * Логика за логирование в файлы
+ * Ответственность: логирование в файлы
  *
  * @author ggrachdev
  */
-class LogFileDebugger extends BarDebugger {
+class LogFileDebugger extends NoticeDebugger {
 
     public function logRaw($type, ...$item) {
 

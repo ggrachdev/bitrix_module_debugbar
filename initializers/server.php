@@ -9,6 +9,7 @@ $ggrachPathLogFolder = \realpath('.' . $ggrachDebuggerRootPath . '/logs');
     "\GGrach\BitrixDebugger\Debugger\Debugger" => $ggrachDebuggerRootPath . "/src/BitrixDebugger/Debugger/Debugger.php",
     "\GGrach\BitrixDebugger\Debugger\NoticeDebugger" => $ggrachDebuggerRootPath . "/src/BitrixDebugger/Debugger/NoticeDebugger.php",
     "\GGrach\BitrixDebugger\Debugger\LogFileDebugger" => $ggrachDebuggerRootPath . "/src/BitrixDebugger/Debugger/LogFileDebugger.php",
+    "\GGrach\BitrixDebugger\Debugger\ConfigurationDebugger" => $ggrachDebuggerRootPath . "/src/BitrixDebugger/Debugger/ConfigurationDebugger.php",
     
     "\GGrach\BitrixDebugger\Contract\ShowModableContract" => $ggrachDebuggerRootPath . "/src/BitrixDebugger/Contract/ShowModableContract.php",
     
