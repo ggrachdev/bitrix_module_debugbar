@@ -2,8 +2,8 @@
 
 use Bitrix\Main\Page\Asset;
 
-$ggrachDebuggerRootPath = str_replace($_SERVER['DOCUMENT_ROOT'], '', __DIR__ . '/../');
-$ggrachPathLogFolder = __DIR__ . $ggrachDebuggerRootPath . '/logs';
+$ggrachDebuggerRootPath = str_replace($_SERVER['DOCUMENT_ROOT'], '', __DIR__ . '/..');
+$ggrachPathLogFolder = \realpath('.'.$ggrachDebuggerRootPath.'/logs');
 
 \Bitrix\Main\Loader::registerAutoLoadClasses(null, [
     "\GGrach\BitrixDebugger\Debugger\Debugger" => $ggrachDebuggerRootPath . "/src/BitrixDebugger/Debugger/Debugger.php",
