@@ -19,7 +19,7 @@ class DebugBarRepresenter {
 
 //        $bxSettings = require $_SERVER['DOCUMENT_ROOT'] . '/bitrix/.settings.php';
         $bxSettingsDebug = \Bitrix\Main\Config\Configuration::getValue("exception_handling")['debug'];
-        
+
         $log = $debugger->getLog();
 
         $view = '<section class="ggrach__overlay" style="display: none;"></section><section class="ggrach__debug_bar">';
@@ -28,6 +28,22 @@ class DebugBarRepresenter {
             $debugIsOn = true;
         } else {
             $debugIsOn = false;
+        }
+
+        if (!empty($_GET)) {
+            $log['$_GET'] = [
+                'file' => 'global',
+                'line' => '',
+                'data' => $_GET
+            ];
+        }
+
+        if (!empty($_POST)) {
+            $log['$_POST'] = [
+                'file' => 'global',
+                'line' => '',
+                'data' => $_POST
+            ];
         }
 
         if (!empty($log)) {
@@ -60,10 +76,10 @@ class DebugBarRepresenter {
 
         $view .= '<div class="ggrach__debug_bar__right">';
 
-        $view .= '<a target="_blank" href="/bitrix/admin/site_edit.php?LID='.\SITE_ID.'&lang=ru" class="ggrach__debug_bar__right__item type-notice-notice" title="SITE ID - Идентификатор сайта">'.\SITE_ID.'</a>';
+        $view .= '<a target="_blank" href="/bitrix/admin/site_edit.php?LID=' . \SITE_ID . '&lang=ru" class="ggrach__debug_bar__right__item type-notice-notice" title="SITE ID - Идентификатор сайта">' . \SITE_ID . '</a>';
 
-            $view .= '<a target="_blank" href="/bitrix/admin/site_edit.php?LID='.\SITE_ID.'&lang=ru" class="ggrach__debug_bar__right__item type-notice-success" title="Текущая страница">'.SITE_CHARSET.'</a>';
-            
+        $view .= '<a target="_blank" href="/bitrix/admin/site_edit.php?LID=' . \SITE_ID . '&lang=ru" class="ggrach__debug_bar__right__item type-notice-success" title="Текущая страница">' . SITE_CHARSET . '</a>';
+
         if ($debugIsOn) {
             $view .= '<a target="_blank" href="/bitrix/admin/fileman_file_edit.php?path=/bitrix/.settings.php&full_src=Y" class="ggrach__debug_bar__right__item type-notice-error" title="В битриксе включен дебаг-режим, он замедляет работу сайта!">D</a>';
         }

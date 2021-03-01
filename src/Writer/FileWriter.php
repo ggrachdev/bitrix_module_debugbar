@@ -29,10 +29,14 @@ class FileWriter implements WritableContract {
      */
     public static function clear($resource): bool {
 
-        $arMetaData = \stream_get_meta_data($resource);
-        $pathFile = $arMetaData['uri'];
+        if (\is_resource($resource)) {
+            $arMetaData = \stream_get_meta_data($resource);
+            if ($arMetaData['uri']) {
+                return \file_put_contents($arMetaData['uri'], '');
+            }
+        }
 
-        return \file_put_contents($pathFile, '');
+        return false;
     }
 
 }

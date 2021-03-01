@@ -63,10 +63,12 @@ Ggrach.Utils.DOM = {
 
     hideOverlay: function () {
         Ggrach.Utils.DOM.getOverlay().style.display = 'none';
+        document.querySelector('body').style.overflow = null;
     },
 
     showOverlay: function () {
         Ggrach.Utils.DOM.getOverlay().style.display = 'block';
+        document.querySelector('body').style.overflow = 'hidden';
     },
 
     getDebugBarLogsType: function (type) {
@@ -122,13 +124,11 @@ Ggrach.Handlers = {
         if ($targetLogPanel.style.display === 'block')
         {
             e.target.classList.remove('active');
-            document.querySelector('body').style.overflow = null;
             $targetLogPanel.style.display = 'none';
             Ggrach.Utils.DOM.hideOverlay();
         } else
         {
             e.target.classList.add('active');
-            document.querySelector('body').style.overflow = 'hidden';
             $targetLogPanel.style.display = 'block';
             Ggrach.Utils.DOM.showOverlay();
         }
