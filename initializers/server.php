@@ -33,7 +33,7 @@ $GLOBALS["DD"] = new \GGrach\BitrixDebugger\Debugger\Debugger($ggrachDebuggerCon
  * code - отображать дебаг-данные в коде
  * debug_bar - отображать дебаг-данные в debug_bar
  */
-$GLOBALS["DD"]->setShowModes(['code', 'debug_bar']);
+$GLOBALS["DD"]->setShowModes(['debug_bar']);
 
 function DD() {
     return $GLOBALS["DD"];
