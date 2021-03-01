@@ -2,8 +2,6 @@
 
 use Bitrix\Main\Page\Asset;
 
-$_SERVER['DOCUMENT_ROOT'] = '';
-
 $ggrachDebuggerRootPath = realpath(str_replace($_SERVER['DOCUMENT_ROOT'], '', __DIR__ . '/../'));
 $ggrachPathLogFolder = __DIR__ . $ggrachDebuggerRootPath . '/logs';
 
