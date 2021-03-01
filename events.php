@@ -4,7 +4,7 @@
     "main",
     "OnEndBufferContent",
     [
-        "\\GGrach\\Writer\Events\\OnEndBufferContent",
+        "\\GGrach\\BitrixDebugger\\Events\\OnEndBufferContent",
         "addDebugBar"
     ]
 );
