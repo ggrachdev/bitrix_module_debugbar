@@ -21,7 +21,7 @@ class OnEndBufferContent {
             return;
         }
 
-        $logData = \GGrach\BitrixDebugger\Representer\DebugBarRepresenter::render(DD());
+        $logData = \GGrach\BitrixDebugger\Representer\DebugBarRepresenter::render(DD()->getConfiguratorDebugger());
         $content = \str_replace(['</body>', '</ body>', '</ body >', '</body >'], $logData . '</body>', $content);
     }
 

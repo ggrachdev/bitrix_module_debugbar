@@ -65,6 +65,8 @@
     font-size: 16px !important;
     position: relative !important;
     top: -1px !important;
+    order: 99;
+    border-right: 2px solid #4c4c4c;
 }
 
 .ggrach__debug_bar__log {
@@ -101,7 +103,7 @@
     height: 41px !important;
     line-height: 41px !important;
     z-index: 1;
-    border-radius: 3px 3px 0 0;
+    border-radius: 7px 7px 0 0;
 }
 
 .ggrach__debug_bar__item.type-notice-notice {

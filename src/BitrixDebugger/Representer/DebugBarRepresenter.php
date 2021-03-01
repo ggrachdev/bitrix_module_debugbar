@@ -17,7 +17,6 @@ class DebugBarRepresenter {
 
         $debugIsOn = false;
 
-//        $bxSettings = require $_SERVER['DOCUMENT_ROOT'] . '/bitrix/.settings.php';
         $bxSettingsDebug = \Bitrix\Main\Config\Configuration::getValue("exception_handling")['debug'];
 
         $log = $debugger->getLog();
@@ -29,7 +28,6 @@ class DebugBarRepresenter {
         } else {
             $debugIsOn = false;
         }
-
 
         if (!empty($_GET)) {
             $log['GET'] = [
@@ -86,7 +84,6 @@ class DebugBarRepresenter {
             foreach ($log as $typeLog => $arLogs) {
                 $view .= '<div class="ggrach__debug_bar__item type-notice-' . strtolower($typeLog) . '" data-type-notice="' . $typeLog . '" data-click="show_notice_panel">';
 
-
                 if ($typeLog === 'POST' || $typeLog === 'GET' || $typeLog === 'COOKIE' || $typeLog === 'BX') {
                     $count = $typeLog;
                 } else {
@@ -134,8 +131,6 @@ class DebugBarRepresenter {
 
         $view .= '</div>';
         $view .= '</section>';
-
-        // $view .= '<script> var GgrachDebuggerLogProvider = ' . \CUtil::PhpToJSObject(GD()->getLog()) . '; </script>';
 
         return $view;
     }

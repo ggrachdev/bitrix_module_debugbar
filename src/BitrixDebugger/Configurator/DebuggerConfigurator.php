@@ -2,12 +2,14 @@
 
 namespace GGrach\BitrixDebugger\Configurator;
 
+use \GGrach\BitrixDebugger\Contract\ShowModableContract;
+
 /**
  * Description of DebugConfigurator
  *
  * @author ggrachdev
  */
-class DebuggerConfigurator {
+class DebuggerConfigurator implements ShowModableContract {
 
     /**
      * Путь до лог файлов разного уровня
@@ -27,6 +29,53 @@ class DebuggerConfigurator {
      * @var string
      */
     protected $logChunkDelimeter = "\n======\n";
+
+    /**
+     * Где показывать
+     * 
+     * code - в коде
+     * debug_bar - в дебаг-баре
+     * 
+     * @var array
+     */
+    protected $showModes = ['code', 'debug_bar'];
+
+    public function getShowModes(): array {
+        return $this->showModes;
+    }
+
+    public function getShowModesEnum(): array {
+        return ['code', 'debug_bar'];
+    }
+
+    public function setShowModes(array $showModes): bool {
+        $result = true;
+
+        if (!empty($showModes)) {
+
+            $avaliableModes = $this->getShowModesEnum();
+
+            // @todo array_udiff
+            foreach ($showModes as $mode) {
+                if (!\in_array($mode, $avaliableModes)) {
+                    $result = false;
+                    break;
+                }
+            }
+
+            if ($result) {
+                $this->showModes = $showModes;
+            }
+        } else {
+            $result = false;
+        }
+
+        return $result;
+    }
+
+    public function setShowMode(string $showMode): bool {
+        return $this->setShowModes([$showMode]);
+    }
 
     public function setLogPath(string $logType, string $pathFile): self {
         $this->logPaths[$logType] = $pathFile;
@@ -61,7 +110,6 @@ class DebuggerConfigurator {
 
     public function setLogChunkDelimeter(string $logChunkDelimeter): self {
         $this->logChunkDelimeter = $logChunkDelimeter;
-
         return $this;
     }
 
