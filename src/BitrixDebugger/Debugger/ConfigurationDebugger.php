@@ -2,6 +2,9 @@
 
 namespace GGrach\BitrixDebugger\Debugger;
 
+use GGrach\BitrixDebugger\Configurator\DebuggerConfigurator;
+use GGrach\BitrixDebugger\Configurator\DebugBarConfigurator;
+
 /**
  * Ответвтенность: за установку конфигураций для дебагера
  *

@@ -49,7 +49,7 @@ function DD() {
     return $GLOBALS["DD"];
 }
 
-if (\GGrach\BitrixDebugger\Validator\ShowModeDebuggerValidator::needShowInDebugBar($ggrachDebugBarConfigurator->getConfiguratorDebugger())) {
+if (\GGrach\BitrixDebugger\Validator\ShowModeDebuggerValidator::needShowInDebugBar(DD()->getConfiguratorDebugger())) {
 
     Asset::getInstance()->addJs($ggrachDebuggerRootPath . "/assets/DebugBar/js/initializer.js");
     Asset::getInstance()->addCss($ggrachDebuggerRootPath . '/assets/DebugBar/css/themes/general.css');
