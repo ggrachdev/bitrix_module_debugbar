@@ -65,6 +65,18 @@ class DebugBarRepresenter {
             ];
         }
 
+        if (!empty($_SERVER)) {
+            $log['SERVER'] = [
+                [
+                    'file' => '',
+                    'line' => '',
+                    'data' => [
+                        $_SERVER
+                    ]
+                ]
+            ];
+        }
+
         if (!empty($APPLICATION->GetPagePropertyList())) {
             $log['BX'] = [
                 [
@@ -84,7 +96,7 @@ class DebugBarRepresenter {
             foreach ($log as $typeLog => $arLogs) {
                 $view .= '<div class="ggrach__debug_bar__item type-notice-' . strtolower($typeLog) . '" data-type-notice="' . $typeLog . '" data-click="show_notice_panel">';
 
-                if ($typeLog === 'POST' || $typeLog === 'GET' || $typeLog === 'COOKIE' || $typeLog === 'BX') {
+                if (in_array($typeLog, ['POST', 'GET', 'COOKIE', 'BX', 'SERVER'])) {
                     $count = $typeLog;
                 } else {
 
@@ -103,13 +115,13 @@ class DebugBarRepresenter {
                 foreach ($arLogs as $arLogType) {
 
                     foreach ($arLogType['data'] as $logValue) {
-                        if ($typeLog !== 'POST' && $typeLog !== 'GET' && $typeLog !== 'COOKIE' && $typeLog !== 'BX') {
+                        if (!in_array($typeLog, ['POST', 'GET', 'COOKIE', 'BX', 'SERVER'])) {
                             $lineView = '<a class="ggrach__debug_bar__log__line" target="_blank" href="/bitrix/admin/fileman_file_edit.php?path=' . str_replace($_SERVER['DOCUMENT_ROOT'], '', $arLogType['file']) . '&full_src=Y">' . $arLogType['file'] . ' on line ' . $arLogType['line'] . '</a>';
                         } else {
                             $lineView = '';
                         }
 
-                        $needHideBlocks = !($typeLog === 'POST' || $typeLog === 'GET' || $typeLog === 'COOKIE' || $typeLog === 'BX');
+                        $needHideBlocks = !(in_array($typeLog, ['POST', 'GET', 'COOKIE', 'BX', 'SERVER']));
 
                         $view .= str_replace(['<span style="color: #0000BB">&lt;?</span>', '<span style="color: #0000BB">?&gt;</span>', '&lt;?', '?&gt;', '&lt;?php'], ['', '', '', ''], '<pre>' . \ggrach_highlight_data($logValue, $needHideBlocks) . $lineView . '</pre>');
                     }

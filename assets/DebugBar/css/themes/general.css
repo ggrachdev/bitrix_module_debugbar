@@ -66,7 +66,7 @@
     position: relative !important;
     top: -1px !important;
     order: 99;
-    border-right: 2px solid #4c4c4c;
+    border-right: 1px solid #4c4c4c;
 }
 
 .ggrach__debug_bar__log {
@@ -75,7 +75,6 @@
     left: 0 !important;
     width: 100% !important;
     background: white !important;
-    /* РћС‚СЃС‚СѓРїС‹ РІРµСЂС…РЅРµРіРѕ, РїСЂР°РІРѕРіРѕ, РЅРёР¶РЅРµРіРѕ Рё Р»РµРІРѕРіРѕ РєСЂР°СЏ. */
     padding: 0px 15px 0px 0px !important;
     max-height: 500px !important;
     overflow: auto !important;
@@ -200,7 +199,7 @@
 }
 
 .ggrach__debug_bar__item.type-notice-bx {
-    order: 14;
+    order: 15;
 }
 
 .type-notice-bx {
@@ -210,4 +209,17 @@
     background: -webkit-linear-gradient(180deg, rgba(136,63,63,1) 0%, rgba(168,58,58,1) 72%);
     background: linear-gradient(180deg, rgba(136,63,63,1) 0%, rgba(168,58,58,1) 72%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#883f3f",endColorstr="#a83a3a",GradientType=1);
+}
+
+.ggrach__debug_bar__item.type-notice-server {
+    order: 14;
+}
+
+.type-notice-server {
+    color: #fff;
+    background: rgb(0,97,65);
+    background: -moz-linear-gradient(180deg, rgba(0,97,65,1) 0%, rgba(0,172,115,1) 72%);
+    background: -webkit-linear-gradient(180deg, rgba(0,97,65,1) 0%, rgba(0,172,115,1) 72%);
+    background: linear-gradient(180deg, rgba(0,97,65,1) 0%, rgba(0,172,115,1) 72%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#006141",endColorstr="#00ac73",GradientType=1);
 }
