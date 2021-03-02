@@ -6,7 +6,7 @@ use GGrach\BitrixDebugger\Configurator\DebuggerConfigurator;
 use GGrach\BitrixDebugger\Configurator\DebugBarConfigurator;
 
 /**
- * Description of Debugger
+ * Ответственность: создание полноценного объекта, который позволит осуществлять все возможные операции через текучий интерфейс
  *
  * @author ggrachdev
  */

@@ -3,7 +3,7 @@
 /**
  * https://github.com/ggrachdev/BitrixDebugger
  * @author ggrachdev@yandex.ru
- * @version 0.04 beta
+ * @version 0.0.4 beta
  * 
  * Пример дебага:
  * 
