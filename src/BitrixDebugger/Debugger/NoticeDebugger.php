@@ -10,6 +10,8 @@ use GGrach\BitrixDebugger\Validator\ShowModeDebuggerValidator;
  * @author ggrachdev
  */
 class NoticeDebugger extends ConfigurationDebugger {
+    
+    protected $log = [];
 
     public function notice(...$item) {
         return $this->noticeRaw('notice', $item);
