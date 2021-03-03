@@ -43,11 +43,16 @@ function DD() {
 
 if (\GGrach\BitrixDebugger\Validator\ShowModeDebuggerValidator::needShowInDebugBar(DD()->getConfiguratorDebugger())) {
 
+    Asset::getInstance()->addJs(
+        $ggrachDebuggerRootPath . '/module/ggrachdev.debugbar/install/js/initializer.js'
+    );
+    Asset::getInstance()->addCss(
+        $ggrachDebuggerRootPath . '/module/ggrachdev.debugbar/install/css/general.css'
+    );
+    Asset::getInstance()->addCss(
+        $ggrachDebuggerRootPath . '/module/ggrachdev.debugbar/install/css/' . $ggrachDebugBarConfigurator->getColorTheme() . '/theme.css'
+    );
 
-    Asset::getInstance()->addJs($ggrachDebuggerRootPath . "/module/ggrachdev.debugbar/assets/DebugBar/js/initializer.js");
-    Asset::getInstance()->addCss($ggrachDebuggerRootPath . '/module/ggrachdev.debugbar/assets/DebugBar/css/themes/general.css');
-    Asset::getInstance()->addCss($ggrachDebuggerRootPath . '/module/ggrachdev.debugbar/assets/DebugBar/css/themes/' . $ggrachDebugBarConfigurator->getColorTheme() . '/theme.css');
-
-    include __DIR__ . '/../functions.php';
-    include __DIR__ . '/../events.php';
+    include __DIR__ . '/../module/ggrachdev.debugbar/functions.php';
+    include __DIR__ . '/../module/ggrachdev.debugbar/events.php';
 }
