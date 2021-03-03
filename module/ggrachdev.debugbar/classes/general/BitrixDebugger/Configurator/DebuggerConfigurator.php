@@ -104,6 +104,11 @@ class DebuggerConfigurator implements ShowModableContract {
         }
     }
 
+    /**
+     * Получить разделитель при записи в лог-файл
+     * 
+     * @return type
+     */
     public function getLogChunkDelimeter() {
         return $this->logChunkDelimeter;
     }

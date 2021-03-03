@@ -11,23 +11,35 @@ use \GGrach\BitrixDebugger\Debugger\Debugger;
  */
 class DebugBarRepresenter {
 
-    public static function render(Debugger $debugger): string {
+    const SYSTEM_KEYS_LOG = ['POST', 'GET', 'COOKIE', 'BX', 'SERVER'];
 
-        global $DBDebug, $APPLICATION;
+    protected static $leftSlotChunks = [];
+    protected static $rightSlotChunks = [];
 
-        $debugIsOn = false;
+    public static function addViewInLeftSlot($view) {
+        self::$leftSlotChunks[] = $view;
+    }
 
-        $bxSettingsDebug = \Bitrix\Main\Config\Configuration::getValue("exception_handling")['debug'];
+    public static function addViewInRightSlot($view) {
+        self::$rightSlotChunks[] = $view;
+    }
 
+    protected static function renderLeftView(): string {
+        $view = '';
+        $view .= implode('', self::$leftSlotChunks);
+        return $view;
+    }
+
+    protected static function renderRightView(): string {
+        $view = '<div class="ggrach__debug_bar__right">';
+        $view .= implode('', self::$rightSlotChunks);
+        $view .= '</div>';
+
+        return $view;
+    }
+
+    protected static function getPreparedLog(Debugger $debugger) {
         $log = $debugger->getLog();
-
-        $view = '<section class="ggrach__overlay" style="display: none;"></section><section class="ggrach__debug_bar">';
-
-        if ($DBDebug || $bxSettingsDebug) {
-            $debugIsOn = true;
-        } else {
-            $debugIsOn = false;
-        }
 
         if (!empty($_GET)) {
             $log['GET'] = [
@@ -92,11 +104,27 @@ class DebugBarRepresenter {
             ];
         }
 
+        return $log;
+    }
+
+    public static function render(Debugger $debugger): string {
+
+        global $DBDebug, $APPLICATION;
+
+        // Включен ли дебаг-режим
+        $bxSettingsDebug = \Bitrix\Main\Config\Configuration::getValue("exception_handling")['debug'];
+
+        if ($DBDebug || $bxSettingsDebug) {
+            self::addViewInRightSlot('<a target="_blank" href="/bitrix/admin/fileman_file_edit.php?path=/bitrix/.settings.php&full_src=Y" class="ggrach__debug_bar__right__item type-notice-error" title="В битриксе включен дебаг-режим, он замедляет работу сайта!">D</a>');
+        }
+
+        $log = self::getPreparedLog($debugger);
+
         if (!empty($log)) {
             foreach ($log as $typeLog => $arLogs) {
-                $view .= '<div class="ggrach__debug_bar__item type-notice-' . strtolower($typeLog) . '" data-type-notice="' . $typeLog . '" data-click="show_notice_panel">';
+                $viewLeft = '<div class="ggrach__debug_bar__item type-notice-' . strtolower($typeLog) . '" data-type-notice="' . $typeLog . '" data-click="show_notice_panel">';
 
-                if (in_array($typeLog, ['POST', 'GET', 'COOKIE', 'BX', 'SERVER'])) {
+                if (in_array($typeLog, self::SYSTEM_KEYS_LOG)) {
                     $count = $typeLog;
                 } else {
 
@@ -107,41 +135,41 @@ class DebugBarRepresenter {
                     }
                 }
 
-                $view .= $count;
-                $view .= '</div>';
+                $viewLeft .= $count;
+                $viewLeft .= '</div>';
 
-                $view .= '<div class="ggrach__debug_bar__log" data-type-notice="' . $typeLog . '" style="display: none;">';
+                $viewLeft .= '<div class="ggrach__debug_bar__log" data-type-notice="' . $typeLog . '" style="display: none;">';
 
                 foreach ($arLogs as $arLogType) {
 
                     foreach ($arLogType['data'] as $logValue) {
-                        if (!in_array($typeLog, ['POST', 'GET', 'COOKIE', 'BX', 'SERVER'])) {
+                        if (!in_array($typeLog, self::SYSTEM_KEYS_LOG)) {
                             $lineView = '<a class="ggrach__debug_bar__log__line" target="_blank" href="/bitrix/admin/fileman_file_edit.php?path=' . str_replace($_SERVER['DOCUMENT_ROOT'], '', $arLogType['file']) . '&full_src=Y">' . $arLogType['file'] . ' on line ' . $arLogType['line'] . '</a>';
                         } else {
                             $lineView = '';
                         }
 
-                        $needHideBlocks = !(in_array($typeLog, ['POST', 'GET', 'COOKIE', 'BX', 'SERVER']));
+                        $needHideBlocks = !(in_array($typeLog, self::SYSTEM_KEYS_LOG));
 
-                        $view .= str_replace(['<span style="color: #0000BB">&lt;?</span>', '<span style="color: #0000BB">?&gt;</span>', '&lt;?', '?&gt;', '&lt;?php'], ['', '', '', ''], '<pre>' . \ggrach_highlight_data($logValue, $needHideBlocks) . $lineView . '</pre>');
+                        $viewLeft .= str_replace(['<span style="color: #0000BB">&lt;?</span>', '<span style="color: #0000BB">?&gt;</span>', '&lt;?', '?&gt;', '&lt;?php'], ['', '', '', ''], '<pre>' . \ggrach_highlight_data($logValue, $needHideBlocks) . $lineView . '</pre>');
                     }
                 }
 
-                $view .= '</div>';
+                $viewLeft .= '</div>';
+
+                self::addViewInLeftSlot($viewLeft);
             }
         }
 
-        $view .= '<div class="ggrach__debug_bar__right">';
+        self::addViewInRightSlot('<a target="_blank" href="/bitrix/admin/site_edit.php?LID=' . \SITE_ID . '&lang=ru" class="ggrach__debug_bar__right__item type-notice-notice" title="SITE ID - Идентификатор сайта">' . \SITE_ID . '</a>');
 
-        $view .= '<a target="_blank" href="/bitrix/admin/site_edit.php?LID=' . \SITE_ID . '&lang=ru" class="ggrach__debug_bar__right__item type-notice-notice" title="SITE ID - Идентификатор сайта">' . \SITE_ID . '</a>';
+        self::addViewInRightSlot('<a target="_blank" href="/bitrix/admin/site_edit.php?LID=' . \SITE_ID . '&lang=ru" class="ggrach__debug_bar__right__item type-notice-success" title="Текущая страница">' . SITE_CHARSET . '</a>');
 
-        $view .= '<a target="_blank" href="/bitrix/admin/site_edit.php?LID=' . \SITE_ID . '&lang=ru" class="ggrach__debug_bar__right__item type-notice-success" title="Текущая страница">' . SITE_CHARSET . '</a>';
+        $view = '<section class="ggrach__overlay" style="display: none;"></section><section class="ggrach__debug_bar">';
 
-        if ($debugIsOn) {
-            $view .= '<a target="_blank" href="/bitrix/admin/fileman_file_edit.php?path=/bitrix/.settings.php&full_src=Y" class="ggrach__debug_bar__right__item type-notice-error" title="В битриксе включен дебаг-режим, он замедляет работу сайта!">D</a>';
-        }
+        $view .= self::renderLeftView();
+        $view .= self::renderRightView();
 
-        $view .= '</div>';
         $view .= '</section>';
 
         return $view;

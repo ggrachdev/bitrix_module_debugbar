@@ -5,7 +5,7 @@ namespace GGrach\Writer;
 use GGrach\Writer\Contract\WritableContract;
 
 /**
- * Description of FileWriter
+ * Запись данных в файл
  *
  * @author ggrachdev
  */

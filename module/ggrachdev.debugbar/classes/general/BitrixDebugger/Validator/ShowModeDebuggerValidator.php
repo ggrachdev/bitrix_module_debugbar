@@ -5,19 +5,19 @@ namespace GGrach\BitrixDebugger\Validator;
 use GGrach\BitrixDebugger\Contract\ShowModableContract;
 
 /**
- * Description of ShowModeDebuggerValidator
+ * Проверка допустимых действий для режимов отображения
  *
  * @author ggrachdev
  */
 class ShowModeDebuggerValidator {
 
-    public static function needShowInDebugBar(ShowModableContract $debugger) {
-        return in_array('debug_bar', $debugger->getShowModes());
+    public static function needShowInDebugBar(ShowModableContract $showModable) {
+        return in_array('debug_bar', $showModable->getShowModes());
     }
 
-    public static function needShowInCode(ShowModableContract $debugger) {
+    public static function needShowInCode(ShowModableContract $showModable) {
         global $USER;
-        return in_array('code', $debugger->getShowModes()) && \is_object($USER) && $USER->IsAdmin();
+        return in_array('code', $showModable->getShowModes()) && \is_object($USER) && $USER->IsAdmin();
     }
     
 }

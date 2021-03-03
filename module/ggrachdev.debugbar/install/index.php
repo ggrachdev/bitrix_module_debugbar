@@ -90,18 +90,16 @@ class ggrachdev_debugbar extends CModule {
         
         // delete js
         
-        $dirJsTo = "/bitrix/js/" . $this->MODULE_ID;
-
-        if (!\is_dir($dirJsTo)) {
-            \DeleteDirFilesEx($dirJsTo);
+        $dirJs = "/bitrix/js/" . $this->MODULE_ID;
+        if (!\is_dir($dirJs)) {
+            \DeleteDirFilesEx($dirJs);
         }
         
         // delete css
         
-        $dirCssTo = "/bitrix/css/" . $this->MODULE_ID;
-
-        if (!\is_dir($dirCssTo)) {
-            \DeleteDirFilesEx($dirCssTo);
+        $dirCss = "/bitrix/css/" . $this->MODULE_ID;
+        if (!\is_dir($dirCss)) {
+            \DeleteDirFilesEx($dirCss);
         }
     }
 
