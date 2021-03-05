@@ -10,7 +10,7 @@ use GGrach\BitrixDebugger\Validator\ShowModeDebuggerValidator;
  * @author ggrachdev
  */
 class NoticeDebugger extends ConfigurationDebugger {
-    
+
     protected $log = [];
 
     public function notice(...$item) {
@@ -29,8 +29,87 @@ class NoticeDebugger extends ConfigurationDebugger {
         return $this->noticeRaw('success', $item);
     }
 
-    public function getLog(): array {
-        return $this->log;
+    /**
+     * Получить лог
+     * 
+     * @global type $APPLICATION
+     * @param bool $needAddSystemData - Нужно ли вернуть так же системные поля
+     * @return array
+     */
+    public function getLog(bool $needAddSystemData = false): array {
+
+        if ($needAddSystemData) {
+            global $APPLICATION;
+
+            $log = $this->log;
+
+            if (!empty($_GET)) {
+                $log['GET'] = [
+                    [
+                        'file' => '',
+                        'line' => '',
+                        'data' => [
+                            $_GET
+                        ]
+                    ]
+                ];
+            }
+
+            if (!empty($_POST)) {
+                $log['POST'] = [
+                    [
+                        'file' => '',
+                        'line' => '',
+                        'data' => [
+                            $_POST
+                        ]
+                    ]
+                ];
+            }
+
+            if (!empty($_COOKIE)) {
+                $log['COOKIE'] = [
+                    [
+                        'file' => '',
+                        'line' => '',
+                        'data' => [
+                            $_COOKIE
+                        ]
+                    ]
+                ];
+            }
+
+            if (!empty($_SERVER)) {
+                $log['SERVER'] = [
+                    [
+                        'file' => '',
+                        'line' => '',
+                        'data' => [
+                            $_SERVER
+                        ]
+                    ]
+                ];
+            }
+
+            if (!empty($APPLICATION->GetPagePropertyList())) {
+                $log['BX'] = [
+                    [
+                        'file' => '',
+                        'line' => '',
+                        'data' => [
+                            [
+                                'PAGE_PROPERTIES' => $APPLICATION->GetPagePropertyList(),
+                                'DIR_PROPERTIES' => $APPLICATION->GetDirPropertyList()
+                            ]
+                        ]
+                    ]
+                ];
+            }
+
+            return $log;
+        } else {
+            return $this->log;
+        }
     }
 
     /**

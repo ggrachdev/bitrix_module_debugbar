@@ -38,75 +38,6 @@ class DebugBarRepresenter {
         return $view;
     }
 
-    protected static function getPreparedLog(Debugger $debugger) {
-        $log = $debugger->getLog();
-
-        if (!empty($_GET)) {
-            $log['GET'] = [
-                [
-                    'file' => '',
-                    'line' => '',
-                    'data' => [
-                        $_GET
-                    ]
-                ]
-            ];
-        }
-
-        if (!empty($_POST)) {
-            $log['POST'] = [
-                [
-                    'file' => '',
-                    'line' => '',
-                    'data' => [
-                        $_POST
-                    ]
-                ]
-            ];
-        }
-
-        if (!empty($_COOKIE)) {
-            $log['COOKIE'] = [
-                [
-                    'file' => '',
-                    'line' => '',
-                    'data' => [
-                        $_COOKIE
-                    ]
-                ]
-            ];
-        }
-
-        if (!empty($_SERVER)) {
-            $log['SERVER'] = [
-                [
-                    'file' => '',
-                    'line' => '',
-                    'data' => [
-                        $_SERVER
-                    ]
-                ]
-            ];
-        }
-
-        if (!empty($APPLICATION->GetPagePropertyList())) {
-            $log['BX'] = [
-                [
-                    'file' => '',
-                    'line' => '',
-                    'data' => [
-                        [
-                            'PAGE_PROPERTIES' => $APPLICATION->GetPagePropertyList(),
-                            'DIR_PROPERTIES' => $APPLICATION->GetDirPropertyList()
-                        ]
-                    ]
-                ]
-            ];
-        }
-
-        return $log;
-    }
-
     public static function render(Debugger $debugger): string {
 
         global $DBDebug, $APPLICATION;
@@ -118,7 +49,7 @@ class DebugBarRepresenter {
             self::addViewInRightSlot('<a target="_blank" href="/bitrix/admin/fileman_file_edit.php?path=/bitrix/.settings.php&full_src=Y" class="ggrach__debug_bar__right__item type-notice-error" title="В битриксе включен дебаг-режим, он замедляет работу сайта!">D</a>');
         }
 
-        $log = self::getPreparedLog($debugger);
+        $log = $debugger->getLog(true);
 
         if (!empty($log)) {
             foreach ($log as $typeLog => $arLogs) {
