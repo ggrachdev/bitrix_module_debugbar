@@ -36,12 +36,18 @@ $GLOBALS["DD"] = new \GGrach\BitrixDebugger\Debugger\Debugger($ggrachDebuggerCon
  */
 $GLOBALS["DD"]->getConfiguratorDebugger()->setShowModes(['debug_bar']);
 
-function DD() {
+function DD(...$data = []) {
+    if (!empty($data)) {
+        foreach ($data as $item) {
+            $GLOBALS["DD"]->notice($item);
+        }
+    }
+
     return $GLOBALS["DD"];
 }
 
 if (\GGrach\BitrixDebugger\Validator\ShowModeDebuggerValidator::needShowInDebugBar(DD()->getConfiguratorDebugger())) {
-    
+
     $ggrachDirJs = "/bitrix/js/ggrachdev.debugbar";
     $ggrachDirCss = "/bitrix/css/ggrachdev.debugbar";
 
