@@ -66,14 +66,21 @@ DD()->warningLog('Моя переменная', 'Моя переменная 2')
 DD()->successLog('Моя переменная', 'Моя переменная 2', 'Моя переменная 3');
 ```
 
-Папку для логирования можно настроить в папке initializers в файле server.php
+Настройте папку для логирования в файлы следующим образом куда вам удобно:
 ```php
 <?php
 
-$ggrachDebuggerConfigurator->setLogPath('error', $ggrachPathLogFolder . '/error.log')
-    ->setLogPath('warning', $ggrachPathLogFolder . '/warning.log')
-    ->setLogPath('success', $ggrachPathLogFolder . '/success.log')
-    ->setLogPath('notice', $ggrachPathLogFolder . '/notice.log');
+DD()->getConfiguratorDebugger()->setLogPath('error', __DIR__ . '/error.log')
+    ->setLogPath('warning', __DIR__ . '/warning.log')
+    ->setLogPath('success', __DIR__ . '/success.log')
+    ->setLogPath('notice', __DIR__ . '/notice.log');
+```
+
+Чтобы настроить разделитель между логами в файле как вам удобно сделайте следующее (указано значение по умолчанию):
+```php
+<?php
+
+DD()->getConfiguratorDebugger()->setLogChunkDelimeter("\n======\n");
 ```
 
 Если планируете использовать логирование в файлы без сервера (cli), то укажите ваш DOCUMENT_ROOT в папке initializers в файле cli.php
