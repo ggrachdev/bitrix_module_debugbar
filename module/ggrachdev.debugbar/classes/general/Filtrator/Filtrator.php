@@ -15,11 +15,11 @@ class Filtrator implements FiltratorContract {
         'limit', 'first', 'last', 'keys'
     ];
 
-    protected array $filters;
+    protected array $sequenceFilters;
 
     public function addFilter(string $filterType, array $filterParams = []): void {
         if ($this->hasFilter($filterType)) {
-            $this->filters[] = [
+            $this->sequenceFilters[] = [
                 'type' => $filterType,
                 'params' => $filterParams
             ];
@@ -65,11 +65,11 @@ class Filtrator implements FiltratorContract {
     }
 
     public function clearFilters(): void {
-        $this->filters = [];
+        $this->sequenceFilters = [];
     }
 
     public function filtrate($data) {
-        if (!empty($this->filters)) {
+        if (!empty($this->filters) && !empty($data)) {
             foreach ($this->filters as $arFilter) {
                 $data = $this->filtrateItem($arFilter['type'], $arFilter['params'], $data);
             }

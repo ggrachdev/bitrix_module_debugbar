@@ -12,7 +12,7 @@
 
     class Filtrator {
       # const array FILTERS_NAME
-      # array $filters
+      # array $sequenceFilters
 
       + mixed filtrate(mixed $data)
       # array filtrateItem(string $filterType, array $filterParams, mixed $data): mixed

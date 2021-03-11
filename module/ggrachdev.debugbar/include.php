@@ -77,6 +77,9 @@ $GLOBALS["DD"] = new \GGrach\BitrixDebugger\Debugger\Debugger($ggrachDebuggerCon
 $GLOBALS["DD"]->getConfiguratorDebugger()->setShowModes(['debug_bar']);
 
 function DD(...$data) {
+    
+    $GLOBALS["DD"]->resetFilter();
+    
     if (!empty($data)) {
         foreach ($data as $item) {
             $GLOBALS["DD"]->notice($item);
