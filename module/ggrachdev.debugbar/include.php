@@ -2,23 +2,63 @@
 
 use \Bitrix\Main\Page\Asset;
 
-$ggrachDebuggerRootPath = str_replace($_SERVER['DOCUMENT_ROOT'], '', __DIR__ . '/..');
-$ggrachPathLogFolder = \realpath('.' . $ggrachDebuggerRootPath . '/logs');
+if (!\defined('GGRACH_DEBUG_BAR_TYPE_INCLUDE')) {
+    define('GGRACH_DEBUG_BAR_TYPE_INCLUDE', 'module');
+}
+
+if (GGRACH_DEBUG_BAR_TYPE_INCLUDE === 'module') {
+
+    // Корневая папка модуля
+    $ggrachDebuggerRootPath = str_replace($_SERVER['DOCUMENT_ROOT'], '', __DIR__ . '/..');
+
+    // Папка для логов по умолчанию
+    $ggrachPathLogFolder = \realpath('.' . $ggrachDebuggerRootPath . '/logs');
+
+    // Папка для автозагрузки классов
+    $ggrachRootpathClassAutoload = "classes/general";
+
+    // Папка где хранятся js
+    $ggrachDirJs = "/bitrix/js/ggrachdev.debugbar";
+
+    // Папка где хранятся css
+    $ggrachDirCss = "/bitrix/css/ggrachdev.debugbar";
+} else {
+    // Корневая папка модуля
+    $ggrachDebuggerRootPath = str_replace($_SERVER['DOCUMENT_ROOT'], '', __DIR__ . '/../..');
+
+    // Папка для логов по умолчанию
+    $ggrachPathLogFolder = \realpath('.' . $ggrachDebuggerRootPath . '/logs');
+
+    // Папка для автозагрузки классов
+    $ggrachRootpathClassAutoload = $ggrachDebuggerRootPath . "/module/ggrachdev.debugbar/classes/general";
+
+    // Папка где хранятся js
+    $ggrachDirJs = $ggrachDebuggerRootPath . '/module/ggrachdev.debugbar/install/js';
+
+    // Папка где хранятся css
+    $ggrachDirCss = $ggrachDebuggerRootPath . '/module/ggrachdev.debugbar/install/css';
+}
 
 Bitrix\Main\Loader::registerAutoLoadClasses('ggrachdev.debugbar', [
-    "\GGrach\BitrixDebugger\Debugger\Debugger" => "classes/general/BitrixDebugger/Debugger/Debugger.php",
-    "\GGrach\BitrixDebugger\Debugger\NoticeDebugger" => "classes/general/BitrixDebugger/Debugger/NoticeDebugger.php",
-    "\GGrach\BitrixDebugger\Debugger\LogFileDebugger" => "classes/general/BitrixDebugger/Debugger/LogFileDebugger.php",
-    "\GGrach\BitrixDebugger\Debugger\ConfigurationDebugger" => "classes/general/BitrixDebugger/Debugger/ConfigurationDebugger.php",
-    "\GGrach\BitrixDebugger\Contract\ShowModableContract" => "classes/general/BitrixDebugger/Contract/ShowModableContract.php",
-    "\GGrach\BitrixDebugger\Configurator\DebuggerConfigurator" => "classes/general/BitrixDebugger/Configurator/DebuggerConfigurator.php",
-    "\GGrach\BitrixDebugger\Configurator\DebugBarConfigurator" => "classes/general/BitrixDebugger/Configurator/DebugBarConfigurator.php",
-    "\GGrach\BitrixDebugger\Cache\RuntimeCache" => "classes/general/BitrixDebugger/Cache/RuntimeCache.php",
-    "\GGrach\BitrixDebugger\Validator\ShowModeDebuggerValidator" => "classes/general/BitrixDebugger/Validator/ShowModeDebuggerValidator.php",
-    "\GGrach\BitrixDebugger\Representer\DebugBarRepresenter" => "classes/general/BitrixDebugger/Representer/DebugBarRepresenter.php",
-    "\GGrach\Writer\FileWriter" => "classes/general/Writer/FileWriter.php",
-    "\GGrach\Writer\Contract\WritableContract" => "classes/general/Writer/Contract/WritableContract.php",
-    "\GGrach\BitrixDebugger\Events\OnEndBufferContent" => "classes/general/BitrixDebugger/Events/OnEndBufferContent.php"
+    // BitrixDebugger
+    "\GGrach\BitrixDebugger\Debugger\Debugger" => $ggrachRootpathClassAutoload . "/BitrixDebugger/Debugger/Debugger.php",
+    "\GGrach\BitrixDebugger\Debugger\NoticeDebugger" => $ggrachRootpathClassAutoload . "/BitrixDebugger/Debugger/NoticeDebugger.php",
+    "\GGrach\BitrixDebugger\Debugger\LogFileDebugger" => $ggrachRootpathClassAutoload . "/BitrixDebugger/Debugger/LogFileDebugger.php",
+    "\GGrach\BitrixDebugger\Debugger\ConfigurationDebugger" => $ggrachRootpathClassAutoload . "/BitrixDebugger/Debugger/ConfigurationDebugger.php",
+    "\GGrach\BitrixDebugger\Debugger\FilterDebugger" => $ggrachRootpathClassAutoload . "/BitrixDebugger/Debugger/FilterDebugger.php",
+    "\GGrach\BitrixDebugger\Contract\ShowModableContract" => $ggrachRootpathClassAutoload . "/BitrixDebugger/Contract/ShowModableContract.php",
+    "\GGrach\BitrixDebugger\Configurator\DebuggerConfigurator" => $ggrachRootpathClassAutoload . "/BitrixDebugger/Configurator/DebuggerConfigurator.php",
+    "\GGrach\BitrixDebugger\Configurator\DebugBarConfigurator" => $ggrachRootpathClassAutoload . "/BitrixDebugger/Configurator/DebugBarConfigurator.php",    
+    "\GGrach\BitrixDebugger\Cache\RuntimeCache" => $ggrachRootpathClassAutoload . "/BitrixDebugger/Cache/RuntimeCache.php",    
+    "\GGrach\BitrixDebugger\Validator\ShowModeDebuggerValidator" => $ggrachRootpathClassAutoload . "/BitrixDebugger/Validator/ShowModeDebuggerValidator.php",
+    "\GGrach\BitrixDebugger\Representer\DebugBarRepresenter" => $ggrachRootpathClassAutoload . "/BitrixDebugger/Representer/DebugBarRepresenter.php",
+    "\GGrach\BitrixDebugger\Events\OnEndBufferContent" => $ggrachRootpathClassAutoload . "/BitrixDebugger/Events/OnEndBufferContent.php",
+    // Writer
+    "\GGrach\Writer\FileWriter" => $ggrachRootpathClassAutoload . "/Writer/FileWriter.php",
+    "\GGrach\Writer\Contract\WritableContract" => $ggrachRootpathClassAutoload . "/Writer/Contract/WritableContract.php",
+    // Filtrator
+    "\GGrach\Filtrator\Filtrator" => $ggrachRootpathClassAutoload . "/Filtrator/Filtrator.php",
+    "\GGrach\Filtrator\FiltratorContract" => $ggrachRootpathClassAutoload . "/Filtrator/FiltratorContract.php"
 ]);
 $ggrachDebuggerConfigurator = new \GGrach\BitrixDebugger\Configurator\DebuggerConfigurator();
 $ggrachDebugBarConfigurator = new \GGrach\BitrixDebugger\Configurator\DebugBarConfigurator();
@@ -47,9 +87,6 @@ function DD(...$data) {
 }
 
 if (\GGrach\BitrixDebugger\Validator\ShowModeDebuggerValidator::needShowInDebugBar(DD()->getConfiguratorDebugger())) {
-
-    $ggrachDirJs = "/bitrix/js/ggrachdev.debugbar";
-    $ggrachDirCss = "/bitrix/css/ggrachdev.debugbar";
 
     Asset::getInstance()->addJs($ggrachDirJs . "/initializer.js");
     Asset::getInstance()->addCss($ggrachDirCss . '/general.css');

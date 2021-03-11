@@ -48,19 +48,27 @@ class LogFileDebugger extends NoticeDebugger {
     }
 
     public function noticeLog(...$item) {
-        return $this->logRaw('notice', $item);
+        $this->logRaw('notice', $item);
+        $this->resetFilter();
+        return $this;
     }
 
     public function errorLog(...$item) {
-        return $this->logRaw('error', $item);
+        $this->logRaw('error', $item);
+        $this->resetFilter();
+        return $this;
     }
 
     public function warningLog(...$item) {
-        return $this->logRaw('warning', $item);
+        $this->logRaw('warning', $item);
+        $this->resetFilter();
+        return $this;
     }
 
     public function successLog(...$item) {
-        return $this->logRaw('success', $item);
+        $this->logRaw('success', $item);
+        $this->resetFilter();
+        return $this;
     }
 
 }

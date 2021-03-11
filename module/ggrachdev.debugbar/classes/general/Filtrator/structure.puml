@@ -1,0 +1,26 @@
+@startuml
+    skinparam classAttributeIconSize 0
+
+    interface FiltratorContract {
+      + array filtrate(array $data)
+      # array filtrateItem(string $filterType, array $filterParams, array $data)
+
+      + void addFilter(string $filterType, array $filterParams = [])
+      + bool hasFilter(string $filterType)
+      + void clearFilters()
+    }
+
+    class Filtrator {
+      # const array FILTERS_NAME
+      # array $filters
+
+      + array filtrate(array $data)
+      # array filtrateItem(string $filterType, array $filterParams, array $data)
+
+      + void addFilter(string $filterType, array $filterParams = [])
+      + bool hasFilter(string $filterType)
+      + void clearFilters()
+    }
+
+    FiltratorContract <|-- Filtrator
+@enduml

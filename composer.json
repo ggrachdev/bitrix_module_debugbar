@@ -10,7 +10,8 @@
     "autoload": {
         "psr-4": {
             "GGrach\\BitrixDebugger\\": "src/BitrixDebugger",
-            "GGrach\\Writer\\": "src/Writer"
+            "GGrach\\Writer\\": "src/Writer",
+            "GGrach\\Filtrator\\": "src/Filtrator"
         }
     },
     "require": {}

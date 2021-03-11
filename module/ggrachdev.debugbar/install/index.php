@@ -5,12 +5,10 @@ $strPath2Lang = str_replace("\\", "/", __FILE__);
 $strPath2Lang = substr($strPath2Lang, 0, strlen($strPath2Lang) - strlen("/install/index.php"));
 include(GetLangFileName($strPath2Lang . "/lang/", "/install/index.php"));
 
-use Bitrix\Main\{
-    Localization\Loc,
-    ModuleManager,
-    EventManager,
-    SystemException
-};
+use Bitrix\Main\Localization\Loc;
+use Bitrix\Main\ModuleManager;
+use Bitrix\Main\EventManager;
+use Bitrix\Main\SystemException;
 
 Loc::loadMessages(__FILE__);
 
@@ -41,13 +39,23 @@ class ggrachdev_debugbar extends CModule {
     }
 
     public function DoInstall() {
-        global $DB, $APPLICATION, $step;
 
-        $step = IntVal($step);
+        if (PHP_VERSION_ID >= 72000) {
 
-        $this->installAssets();
+            if (CheckVersion(ModuleManager::getVersion("main"), "17.00.00")) {
+                global $DB, $APPLICATION, $step;
 
-        ModuleManager::registerModule($this->MODULE_ID);
+                $step = IntVal($step);
+
+                $this->installAssets();
+
+                ModuleManager::registerModule($this->MODULE_ID);
+            } else {
+                throw new SystemException(Loc::getMessage("GGRACHDEV_ERROR_BITRIX_VERSION"));
+            }
+        } else {
+            throw new SystemException(Loc::getMessage("GGRACHDEV_ERROR_PHP_VERSION"));
+        }
 
 //        $APPLICATION->IncludeAdminFile(Loc::getMessage("FORM_INSTALL_TITLE"), $_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/ggrach.debugpanel/install/step1.php");
     }
@@ -87,16 +95,16 @@ class ggrachdev_debugbar extends CModule {
     }
 
     public function reinstallAssets() {
-        
+
         // delete js
-        
+
         $dirJs = "/bitrix/js/" . $this->MODULE_ID;
         if (!\is_dir($dirJs)) {
             \DeleteDirFilesEx($dirJs);
         }
-        
+
         // delete css
-        
+
         $dirCss = "/bitrix/css/" . $this->MODULE_ID;
         if (!\is_dir($dirCss)) {
             \DeleteDirFilesEx($dirCss);
