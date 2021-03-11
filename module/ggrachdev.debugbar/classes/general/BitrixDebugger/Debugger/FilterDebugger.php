@@ -13,6 +13,11 @@ class FilterDebugger extends ConfigurationDebugger {
 
     protected FiltratorContract $filtrator;
 
+    /**
+     * @var bool Не нужно сбрасывать фильтр после каждой операции логирования?
+     */
+    protected bool $isFreezedFilter = false;
+
     public function getFiltrator(): FiltratorContract {
         return $this->filtrator;
     }
@@ -23,11 +28,27 @@ class FilterDebugger extends ConfigurationDebugger {
     }
 
     public function resetFilter(): self {
-        $this->getFiltrator()->clearFilters();
+        if (!$this->isFreezedFilter()) {
+            $this->getFiltrator()->clearFilters();
+        }
         return $this;
     }
 
-    public function filtrateItem(array $itemData): array {
+    public function isFreezedFilter(): self {
+        return $this->isFreezedFilter === true;
+    }
+
+    public function unfreezeFilter(): self {
+        $this->isFreezedFilter = false;
+        return $this;
+    }
+
+    public function freezeFilter(): self {
+        $this->isFreezedFilter = true;
+        return $this;
+    }
+
+    public function filtrateItem($itemData) {
         return $this->getFiltrator()->filtrate($itemData);
     }
 
@@ -38,6 +59,13 @@ class FilterDebugger extends ConfigurationDebugger {
 
     public function last(): self {
         $this->getFiltrator()->addFilter('last');
+        return $this;
+    }
+
+    public function keys(array $availableKeys): self {
+        $this->getFiltrator()->addFilter('keys', [
+            'keys' => $availableKeys
+        ]);
         return $this;
     }
 

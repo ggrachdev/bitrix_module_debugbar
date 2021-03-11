@@ -12,7 +12,7 @@ use \GGrach\Filtrator\FiltratorContract;
 class Filtrator implements FiltratorContract {
 
     public const FILTERS_NAME = [
-        'limit', 'first', 'last'
+        'limit', 'first', 'last', 'keys'
     ];
 
     protected array $filters;
@@ -26,21 +26,36 @@ class Filtrator implements FiltratorContract {
         }
     }
 
-    protected function filtrateItem(string $filterType, array $filterParams, array $data): array {
+    protected function filtrateItem(string $filterType, array $filterParams, $data) {
         switch ($filterType) {
             case 'limit':
-                if (empty($filterParams['count'])) {
-                    $filterParams['count'] = 10;
+                if (\is_array($data) && !empty($data)) {
+                    if (!empty($filterParams['count'])) {
+                        $filterParams['count'] = 10;
+                    }
+                    $data = array_slice($data, 0, $filterParams['count'], true);
                 }
-                $data = array_slice($data, 0, $filterParams['count'], true);
                 break;
             case 'first':
-                if (!empty($data[0])) {
+                if (\is_array($data) && !empty($data[0])) {
                     $data = $data[0];
                 }
                 break;
+            case 'keys':
+                if (\is_array($data) && !empty($data) && !empty($filterParams['keys'])) {
+                    $newData = [];
+
+                    foreach ($data as $k => $v) {
+                        if (\in_array($k, $filterParams['keys'])) {
+                            $newData[$k] = $v;
+                        }
+                    }
+
+                    $data = $newData;
+                }
+                break;
             case 'last':
-                if (!empty($data)) {
+                if (\is_array($data) && !empty($data)) {
                     $data = $data[sizeof($data) - 1];
                 }
                 break;
@@ -53,7 +68,7 @@ class Filtrator implements FiltratorContract {
         $this->filters = [];
     }
 
-    public function filtrate(array $data): array {
+    public function filtrate($data) {
         if (!empty($this->filters)) {
             foreach ($this->filters as $arFilter) {
                 $data = $this->filtrateItem($arFilter['type'], $arFilter['params'], $data);

@@ -2,8 +2,8 @@
     skinparam classAttributeIconSize 0
 
     interface FiltratorContract {
-      + array filtrate(array $data)
-      # array filtrateItem(string $filterType, array $filterParams, array $data)
+      + mixed filtrate(mixed $data)
+      # array filtrateItem(string $filterType, array $filterParams, mixed $data): mixed
 
       + void addFilter(string $filterType, array $filterParams = [])
       + bool hasFilter(string $filterType)
@@ -14,8 +14,8 @@
       # const array FILTERS_NAME
       # array $filters
 
-      + array filtrate(array $data)
-      # array filtrateItem(string $filterType, array $filterParams, array $data)
+      + mixed filtrate(mixed $data)
+      # array filtrateItem(string $filterType, array $filterParams, mixed $data): mixed
 
       + void addFilter(string $filterType, array $filterParams = [])
       + bool hasFilter(string $filterType)
