@@ -5,8 +5,6 @@ namespace GGrach\Filtrator;
 use \GGrach\Filtrator\FiltratorContract;
 
 /**
- * Фильтратор данных
- *
  * @author ggrachdev
  */
 class Filtrator implements FiltratorContract {
@@ -26,19 +24,19 @@ class Filtrator implements FiltratorContract {
         }
     }
 
-    protected function filtrateItem(string $filterType, array $filterParams, $data) {
+    public function filtrateItem(string $filterType, array $filterParams, $data) {
         switch ($filterType) {
             case 'limit':
                 if (\is_array($data) && !empty($data)) {
-                    if (!empty($filterParams['count'])) {
+                    if (empty($filterParams['count']) || $filterParams['count'] < 1) {
                         $filterParams['count'] = 10;
                     }
                     $data = array_slice($data, 0, $filterParams['count'], true);
                 }
                 break;
             case 'first':
-                if (\is_array($data) && !empty($data[0])) {
-                    $data = $data[0];
+                if (\is_array($data) && !empty($data)) {
+                    $data = array_shift($data);
                 }
                 break;
             case 'keys':
@@ -56,7 +54,7 @@ class Filtrator implements FiltratorContract {
                 break;
             case 'last':
                 if (\is_array($data) && !empty($data)) {
-                    $data = $data[sizeof($data) - 1];
+                    $data = array_pop($data);
                 }
                 break;
         }
@@ -69,8 +67,8 @@ class Filtrator implements FiltratorContract {
     }
 
     public function filtrate($data) {
-        if (!empty($this->filters) && !empty($data)) {
-            foreach ($this->filters as $arFilter) {
+        if (!empty($this->sequenceFilters) && !empty($data)) {
+            foreach ($this->sequenceFilters as $arFilter) {
                 $data = $this->filtrateItem($arFilter['type'], $arFilter['params'], $data);
             }
         }

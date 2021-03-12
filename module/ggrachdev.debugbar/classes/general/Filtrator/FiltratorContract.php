@@ -9,7 +9,7 @@ namespace GGrach\Filtrator;
 interface FiltratorContract {
     public function filtrate($data);
     
-    public function filtrateItem(string $filterType,array $data): array;
+    public function filtrateItem(string $filterType, array $filterParams, $data);
     
     public function addFilter(string $filterType, array $filterParams): void;
     

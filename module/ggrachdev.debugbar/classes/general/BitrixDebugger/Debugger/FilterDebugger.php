@@ -34,7 +34,7 @@ class FilterDebugger extends ConfigurationDebugger {
         return $this;
     }
 
-    public function isFreezedFilter(): self {
+    public function isFreezedFilter(): bool {
         return $this->isFreezedFilter === true;
     }
 
