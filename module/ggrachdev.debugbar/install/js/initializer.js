@@ -37,13 +37,35 @@ Ggrach.DebugBar = {
                             element.addEventListener('click', Ggrach.Handlers.onClickItemNotice);
                         });
                     }
+                    
+                    
+                    document.querySelector('[data-click="toggle_debug_bar"]').addEventListener('click', function (e) {
+                        e.preventDefault();
+                        Ggrach.DebugBar.toggle();
+                    });
                 }
             }
         });
     },
 
     removeBar: function () {
-        document.querySelector('.ggrach__debug_bar').remove();
+        this.getDebugBar().remove();
+    },
+
+    getDebugBar: function () {
+        return document.querySelector('.ggrach__debug_bar');
+    },
+
+    toggle: function () {
+        this.getDebugBar().classList.toggle('hide-debug-bar');
+    },
+
+    hide: function () {
+        this.getDebugBar().classList.add('hide-debug-bar');
+    },
+
+    show: function () {
+        this.getDebugBar().classList.remove('hide-debug-bar');
     }
 };
 
