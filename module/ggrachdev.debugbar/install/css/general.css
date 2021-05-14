@@ -225,8 +225,12 @@
 }
 
 .ggrach-debug-bar-color-black {
-    color: #fff;
+    color: #fff !important;
     background: #000;
+}
+
+.ggrach__debug_bar__right__item_close {
+    font-size: 26px !important;
 }
 
 .ggrach__debug_bar.hide-debug-bar > * {
