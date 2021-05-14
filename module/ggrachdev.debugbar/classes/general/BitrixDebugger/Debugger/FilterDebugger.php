@@ -65,7 +65,7 @@ class FilterDebugger extends ConfigurationDebugger {
         return $this;
     }
 
-    public function keys(array $availableKeys): self {
+    public function keys(array $availableKeys = []): self {
         $this->getFiltrator()->addFilter('keys', [
             'keys' => $availableKeys
         ]);
