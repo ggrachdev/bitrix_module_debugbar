@@ -40,7 +40,7 @@ class ggrachdev_debugbar extends CModule {
 
     public function DoInstall() {
 
-        if (PHP_VERSION_ID >= 72000) {
+        if (PHP_VERSION_ID >= 70200) {
 
             if (CheckVersion(ModuleManager::getVersion("main"), "17.00.00")) {
                 global $DB, $APPLICATION, $step;
