@@ -11,12 +11,15 @@ use GGrach\Filtrator\FiltratorContract;
  */
 class FilterDebugger extends ConfigurationDebugger {
 
-    protected FiltratorContract $filtrator;
+    /**
+     * @var FiltratorContract
+     */
+    protected $filtrator;
 
     /**
      * @var bool Не нужно сбрасывать фильтр после каждой операции логирования?
      */
-    protected bool $isFreezedFilter = false;
+    protected $isFreezedFilter = false;
 
     public function getFiltrator(): FiltratorContract {
         return $this->filtrator;

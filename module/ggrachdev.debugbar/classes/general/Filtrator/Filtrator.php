@@ -13,7 +13,11 @@ class Filtrator implements FiltratorContract {
         'limit', 'first', 'last', 'keys'
     ];
 
-    protected array $sequenceFilters;
+    /**
+     * 
+     * @var array
+     */
+    protected $sequenceFilters;
 
     public function addFilter(string $filterType, array $filterParams = []): void {
         if ($this->hasFilter($filterType)) {
