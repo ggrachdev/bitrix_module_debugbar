@@ -96,9 +96,11 @@ class DebugBarRepresenter {
 
         self::addViewInRightSlot('<a target="_blank" href="/bitrix/admin/site_edit.php?LID=' . \SITE_ID . '&lang=ru" class="ggrach__debug_bar__right__item type-notice-success" title="Текущая страница">' . SITE_CHARSET . '</a>');
 
+        $debugBarIsClosed = $_COOKIE['ggrach_debug_bar_is_close'] == 'true';
+        
         self::addViewInRightSlot('<a href="javascript:void(0);" data-click="toggle_debug_bar" class="ggrach__debug_bar__right__item ggrach__debug_bar__right__item_close ggrach-debug-bar-color-black" title="Скрыть / Раскрыть фильтр">&#215;</a>');
 
-        $view = '<section class="ggrach__overlay" style="display: none;"></section><section class="ggrach__debug_bar">';
+        $view = '<section class="ggrach__overlay" style="display: none;"></section><section class="ggrach__debug_bar '.($debugBarIsClosed ? 'hide-debug-bar' : '').'">';
 
         $view .= self::renderLeftView();
         $view .= self::renderRightView();
