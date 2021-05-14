@@ -1,0 +1,26 @@
+@startuml
+    skinparam classAttributeIconSize 0
+
+    interface FiltratorContract {
+      + mixed filtrate(mixed $data)
+      # array filtrateItem(string $filterType, array $filterParams, mixed $data): mixed
+
+      + void addFilter(string $filterType, array $filterParams = [])
+      + bool hasFilter(string $filterType)
+      + void clearFilters()
+    }
+
+    class Filtrator {
+      # const array FILTERS_NAME
+      # array $sequenceFilters
+
+      + mixed filtrate(mixed $data)
+      # array filtrateItem(string $filterType, array $filterParams, mixed $data): mixed
+
+      + void addFilter(string $filterType, array $filterParams = [])
+      + bool hasFilter(string $filterType)
+      + void clearFilters()
+    }
+
+    FiltratorContract <|-- Filtrator
+@enduml

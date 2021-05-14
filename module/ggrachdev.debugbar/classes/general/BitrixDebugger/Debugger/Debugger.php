@@ -4,6 +4,8 @@ namespace GGrach\BitrixDebugger\Debugger;
 
 use GGrach\BitrixDebugger\Configurator\DebuggerConfigurator;
 use GGrach\BitrixDebugger\Configurator\DebugBarConfigurator;
+use GGrach\Filtrator\FiltratorContract;
+use GGrach\Filtrator\Filtrator;
 
 /**
  * Ответственность: создание полноценного объекта, который позволит осуществлять все возможные операции через текучий интерфейс
@@ -12,7 +14,7 @@ use GGrach\BitrixDebugger\Configurator\DebugBarConfigurator;
  */
 class Debugger extends LogFileDebugger {
 
-    public function __construct($debuggerConfigurator = null, $debugBarConfigurator = null) {
+    public function __construct($debuggerConfigurator = null, $debugBarConfigurator = null, $filtrator = null) {
         if ($debuggerConfigurator === null) {
             $this->setConfiguratorDebugger(new DebuggerConfigurator());
         } elseif ($debuggerConfigurator instanceof DebuggerConfigurator) {
@@ -23,6 +25,12 @@ class Debugger extends LogFileDebugger {
             $this->setConfiguratorDebugBar(new DebugBarConfigurator());
         } elseif ($debugBarConfigurator instanceof DebugBarConfigurator) {
             $this->setConfiguratorDebugBar($debugBarConfigurator);
+        }
+
+        if ($filtrator === null) {
+            $this->setFiltrator(new Filtrator());
+        } elseif ($filtrator instanceof FiltratorContract) {
+            $this->setFiltrator($filtrator);
         }
     }
 

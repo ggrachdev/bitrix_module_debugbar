@@ -37,13 +37,45 @@ Ggrach.DebugBar = {
                             element.addEventListener('click', Ggrach.Handlers.onClickItemNotice);
                         });
                     }
+                    
+                    document.querySelector('[data-click="toggle_debug_bar"]').addEventListener('click', function (e) {
+                        e.preventDefault();
+                        Ggrach.DebugBar.toggle();
+                    });
                 }
             }
         });
     },
 
     removeBar: function () {
-        document.querySelector('.ggrach__debug_bar').remove();
+        this.getDebugBar().remove();
+    },
+
+    getDebugBar: function () {
+        return document.querySelector('.ggrach__debug_bar');
+    },
+
+    toggle: function () {
+        if(this.getDebugBar().classList.contains('hide-debug-bar'))
+        {
+            BX.setCookie('ggrach_debug_bar_is_close', 'false', {expires: (60 * 60 * 2), path: '/'});
+        }
+        else
+        {
+            BX.setCookie('ggrach_debug_bar_is_close', 'true', {expires: (60 * 60 * 2), path: '/'});
+        }
+        
+        this.getDebugBar().classList.toggle('hide-debug-bar');
+    },
+
+    hide: function () {
+        this.getDebugBar().classList.add('hide-debug-bar');
+        BX.setCookie('ggrach_debug_bar_is_close', 'true', {expires: (60 * 60 * 2), path: '/'});
+    },
+
+    show: function () {
+        this.getDebugBar().classList.remove('hide-debug-bar');
+        BX.setCookie('ggrach_debug_bar_is_close', 'false', {expires: (60 * 60 * 2), path: '/'});
     }
 };
 

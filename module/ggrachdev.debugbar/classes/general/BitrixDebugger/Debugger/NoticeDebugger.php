@@ -9,24 +9,32 @@ use GGrach\BitrixDebugger\Validator\ShowModeDebuggerValidator;
  *
  * @author ggrachdev
  */
-class NoticeDebugger extends ConfigurationDebugger {
+class NoticeDebugger extends FilterDebugger {
 
     protected $log = [];
 
     public function notice(...$item) {
-        return $this->noticeRaw('notice', $item);
+        $this->noticeRaw('notice', $item);
+        $this->resetFilter();
+        return $this;
     }
 
     public function error(...$item) {
-        return $this->noticeRaw('error', $item);
+        $this->noticeRaw('error', $item);
+        $this->resetFilter();
+        return $this;
     }
 
     public function warning(...$item) {
-        return $this->noticeRaw('warning', $item);
+        $this->noticeRaw('warning', $item);
+        $this->resetFilter();
+        return $this;
     }
 
     public function success(...$item) {
-        return $this->noticeRaw('success', $item);
+        $this->noticeRaw('success', $item);
+        $this->resetFilter();
+        return $this;
     }
 
     /**
@@ -115,14 +123,22 @@ class NoticeDebugger extends ConfigurationDebugger {
     /**
      * Кастомизированное уведомление
      * 
-     * @param type $typeNotice
+     * @param string $typeNotice
      * @param type $item
      */
-    public function debug($typeNotice, ...$item) {
-        return $this->noticeRaw($typeNotice, $item);
+    public function debug(string $typeNotice, ...$item) {
+        $this->noticeRaw($typeNotice, $item);
+        $this->resetFilter();
+        return $this;
     }
 
-    protected function noticeRaw(string $type, $arLogItems) {
+    protected function noticeRaw(string $type, array $arLogItems) {
+        
+        if(!empty($arLogItems)) {
+            foreach ($arLogItems as &$item) {
+                $item = $this->filtrateItem($item);
+            }
+        }
 
         if (ShowModeDebuggerValidator::needShowInDebugBar($this->getConfiguratorDebugger())) {
 

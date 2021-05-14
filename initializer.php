@@ -3,7 +3,7 @@
 /**
  * https://github.com/ggrachdev/BitrixDebugger
  * @author ggrachdev@yandex.ru
- * @version 0.0.4 beta
+ * @version 0.0.5 beta
  * 
  * Пример дебага:
  * 
@@ -22,6 +22,9 @@
  * include 'BitrixDebugger/initializer.php';
  * 
  */
+
+const GGRACH_DEBUG_BAR_TYPE_INCLUDE = 'initializer';
+
 if (\php_sapi_name() === 'cli') {
     include 'initializers/cli.php';
 } else {

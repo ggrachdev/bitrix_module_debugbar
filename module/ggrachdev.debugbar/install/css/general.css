@@ -223,3 +223,35 @@
     background: linear-gradient(180deg, rgba(0,97,65,1) 0%, rgba(0,172,115,1) 72%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#006141",endColorstr="#00ac73",GradientType=1);
 }
+
+.ggrach-debug-bar-color-black {
+    color: #fff !important;
+    background: #000;
+}
+
+.ggrach__debug_bar__right__item_close {
+    font-size: 26px !important;
+}
+
+.ggrach__debug_bar.hide-debug-bar > * {
+    display: none !important;
+}
+
+.ggrach__debug_bar.hide-debug-bar {
+    background: transparent !important;
+    border: unset !important;
+    width: 30px !important;
+    right: 0 !important;
+}
+
+.ggrach__debug_bar.hide-debug-bar > .ggrach__debug_bar__right {
+    display: flex !important;
+}
+
+.ggrach__debug_bar.hide-debug-bar > .ggrach__debug_bar__right > * {
+    display: none !important;
+}
+
+.ggrach__debug_bar.hide-debug-bar > .ggrach__debug_bar__right > [data-click="toggle_debug_bar"] {
+    display: flex !important;
+}

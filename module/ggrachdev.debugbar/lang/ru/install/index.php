@@ -8,4 +8,6 @@ $MESS["GGRACHDEV_DEBUGBAR_PARTNER_URI"] = "https://fredtm.ru/";
 $MESS["GGRACHDEV_DEBUGBAR_INSTALL_ERROR_VERSION"]  = "Версия главного модуля ниже 17. Не поддерживается технология D7, необходимая модулю. Пожалуйста обновите систему.";
 $MESS["GGRACHDEV_DEBUGBAR_INSTALL_TITLE"] = "Установка модуля";
 $MESS["GGRACHDEV_DEBUGBAR_UNINSTALL_TITLE"] = "Деинсталляция модуля"; 
+$MESS["GGRACHDEV_ERROR_PHP_VERSION"] = "Для работы модуля необходимо иметь версию PHP 7.2 и выше"; 
+$MESS["GGRACHDEV_ERROR_BITRIX_VERSION"] = "Для работы модуля необходимо иметь основного модуля битрикса 17.0 и выше"; 
 ?>
