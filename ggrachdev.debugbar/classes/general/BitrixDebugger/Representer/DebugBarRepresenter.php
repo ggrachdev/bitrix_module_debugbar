@@ -98,7 +98,7 @@ class DebugBarRepresenter {
 
         $debugBarIsClosed = $_COOKIE['ggrach_debug_bar_is_close'] == 'true';
         
-        self::addViewInRightSlot('<a href="javascript:void(0);" data-click="toggle_debug_bar" class="ggrach__debug-bar__right__item ggrach__debug-bar__right__item_close ggrach-debug-bar-color-black" title="Скрыть / Раскрыть фильтр">&#215;</a>');
+        self::addViewInRightSlot('<a href="javascript:void(0);" data-click="toggle_debug_bar" class="ggrach__debug-bar__right__item ggrach__debug-bar__right__item_close ggrach-debug-bar-color-black" title="Скрыть / Раскрыть дебаг-бар">&#215;</a>');
 
         $view = '<section class="ggrach__overlay" style="display: none;"></section><section class="ggrach__debug-bar '.($debugBarIsClosed ? 'hide-debug-bar' : '').'">';
 
