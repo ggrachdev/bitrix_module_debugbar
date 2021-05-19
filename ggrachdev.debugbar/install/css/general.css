@@ -128,10 +128,6 @@
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#193c77",endColorstr="#126194",GradientType=1);
 }
 
-.ggrach__debug-bar__item.type-notice-warning {
-    order: 2;
-}
-
 .type-notice-warning {
     color: #000;
     background: rgb(179,195,43);
@@ -139,24 +135,6 @@
     background: -webkit-linear-gradient(180deg, rgba(179,195,43,1) 0%, rgba(213,224,27,1) 72%);
     background: linear-gradient(180deg, rgba(179,195,43,1) 0%, rgba(213,224,27,1) 72%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#b3c32b",endColorstr="#d5e01b",GradientType=1);
-}
-
-.ggrach__debug-bar__item.type-notice-error {
-    order: 1;
-}
-
-.type-notice-error {
-    color: #fff;
-    background: rgb(170,18,18);
-    background: -moz-linear-gradient(180deg, rgba(170,18,18,1) 0%, rgba(200,9,9,1) 72%);
-    background: -webkit-linear-gradient(180deg, rgba(170,18,18,1) 0%, rgba(200,9,9,1) 72%);
-    background: linear-gradient(180deg, rgba(170,18,18,1) 0%, rgba(200,9,9,1) 72%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#aa1212",endColorstr="#c80909",GradientType=1);
-}
-
-
-.ggrach__debug-bar__item.type-notice-success {
-    order: 4;
 }
 
 .type-notice-success {
@@ -168,13 +146,13 @@
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#19772c",endColorstr="#129446",GradientType=1);
 }
 
-
-.ggrach__debug-bar__item.type-notice-get {
-    order: 10;
-}
-
-.ggrach__debug-bar__item.type-notice-post {
-    order: 11;
+.type-notice-error {
+    color: #fff;
+    background: rgb(170,18,18);
+    background: -moz-linear-gradient(180deg, rgba(170,18,18,1) 0%, rgba(200,9,9,1) 72%);
+    background: -webkit-linear-gradient(180deg, rgba(170,18,18,1) 0%, rgba(200,9,9,1) 72%);
+    background: linear-gradient(180deg, rgba(170,18,18,1) 0%, rgba(200,9,9,1) 72%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#aa1212",endColorstr="#c80909",GradientType=1);
 }
 
 .type-notice-get {
@@ -195,10 +173,6 @@
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#603434",endColorstr="#835555",GradientType=1);
 }
 
-.ggrach__debug-bar__item.type-notice-cookie {
-    order: 13;
-}
-
 .type-notice-cookie {
     color: #fff;
     background: rgb(87,97,138);
@@ -206,10 +180,6 @@
     background: -webkit-linear-gradient(180deg, rgba(87,97,138,1) 0%, rgba(137,123,176,1) 72%);
     background: linear-gradient(180deg, rgba(87,97,138,1) 0%, rgba(137,123,176,1) 72%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#57618a",endColorstr="#897bb0",GradientType=1);
-}
-
-.ggrach__debug-bar__item.type-notice-bx {
-    order: 15;
 }
 
 .type-notice-bx {
@@ -221,10 +191,6 @@
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#883f3f",endColorstr="#a83a3a",GradientType=1);
 }
 
-.ggrach__debug-bar__item.type-notice-server {
-    order: 14;
-}
-
 .type-notice-server {
     color: #fff;
     background: rgb(0,97,65);
@@ -232,6 +198,40 @@
     background: -webkit-linear-gradient(180deg, rgba(0,97,65,1) 0%, rgba(0,172,115,1) 72%);
     background: linear-gradient(180deg, rgba(0,97,65,1) 0%, rgba(0,172,115,1) 72%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#006141",endColorstr="#00ac73",GradientType=1);
+}
+
+.ggrach__debug-bar__item.type-notice-bx {
+    order: 15;
+}
+
+.ggrach__debug-bar__item.type-notice-warning {
+    order: 2;
+}
+
+.ggrach__debug-bar__item.type-notice-error {
+    order: 1;
+}
+
+
+.ggrach__debug-bar__item.type-notice-success {
+    order: 4;
+}
+
+
+.ggrach__debug-bar__item.type-notice-get {
+    order: 10;
+}
+
+.ggrach__debug-bar__item.type-notice-post {
+    order: 11;
+}
+
+.ggrach__debug-bar__item.type-notice-cookie {
+    order: 13;
+}
+
+.ggrach__debug-bar__item.type-notice-server {
+    order: 14;
 }
 
 .ggrach-debug-bar-color-black {
