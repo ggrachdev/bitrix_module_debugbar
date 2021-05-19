@@ -2,44 +2,22 @@
 
 use \Bitrix\Main\Page\Asset;
 
-if (!\defined('GGRACH_DEBUG_BAR_TYPE_INCLUDE')) {
-    define('GGRACH_DEBUG_BAR_TYPE_INCLUDE', 'module');
-}
+// Корневая папка модуля
+$ggrachDebuggerRootPath = str_replace($_SERVER['DOCUMENT_ROOT'], '', __DIR__ . '/..');
 
-if (GGRACH_DEBUG_BAR_TYPE_INCLUDE === 'module') {
+// Папка для логов по умолчанию
+$ggrachPathLogFolder = \realpath('.' . $ggrachDebuggerRootPath . '/logs');
 
-    // Корневая папка модуля
-    $ggrachDebuggerRootPath = str_replace($_SERVER['DOCUMENT_ROOT'], '', __DIR__ . '/..');
+// Папка для автозагрузки классов
+$ggrachRootpathClassAutoload = "classes/general";
 
-    // Папка для логов по умолчанию
-    $ggrachPathLogFolder = \realpath('.' . $ggrachDebuggerRootPath . '/logs');
+// Папка где хранятся js
+$ggrachDirJs = "/bitrix/js/ggrachdev.debugbar";
 
-    // Папка для автозагрузки классов
-    $ggrachRootpathClassAutoload = "classes/general";
+// Папка где хранятся css
+$ggrachDirCss = "/bitrix/css/ggrachdev.debugbar";
 
-    // Папка где хранятся js
-    $ggrachDirJs = "/bitrix/js/ggrachdev.debugbar";
-
-    // Папка где хранятся css
-    $ggrachDirCss = "/bitrix/css/ggrachdev.debugbar";
-} else {
-    // Корневая папка модуля
-    $ggrachDebuggerRootPath = str_replace($_SERVER['DOCUMENT_ROOT'], '', \realpath(__DIR__ . '/../..'));
-
-    // Папка для логов по умолчанию
-    $ggrachPathLogFolder = \realpath('.' . $ggrachDebuggerRootPath . '/logs');
-
-    // Папка для автозагрузки классов
-    $ggrachRootpathClassAutoload = $ggrachDebuggerRootPath . "/module/ggrachdev.debugbar/classes/general";
-
-    // Папка где хранятся js
-    $ggrachDirJs = $ggrachDebuggerRootPath . '/module/ggrachdev.debugbar/install/js';
-
-    // Папка где хранятся css
-    $ggrachDirCss = $ggrachDebuggerRootPath . '/module/ggrachdev.debugbar/install/css';
-}
-
-Bitrix\Main\Loader::registerAutoLoadClasses((GGRACH_DEBUG_BAR_TYPE_INCLUDE === 'module' ? 'ggrachdev.debugbar' : null), [
+Bitrix\Main\Loader::registerAutoLoadClasses('ggrachdev.debugbar', [
     // BitrixDebugger
     "\\GGrach\\BitrixDebugger\\Debugger\\Debugger" => $ggrachRootpathClassAutoload . "/BitrixDebugger/Debugger/Debugger.php",
     "\\GGrach\\BitrixDebugger\\Debugger\\NoticeDebugger" => $ggrachRootpathClassAutoload . "/BitrixDebugger/Debugger/NoticeDebugger.php",
