@@ -22,7 +22,7 @@ class OnEndBufferContent {
         }
 
         $logData = \GGrach\BitrixDebugger\Representer\DebugBarRepresenter::render(DD());
-        $content = \str_replace(['</body>', '</ body>', '</ body >', '</body >'], $logData . '</body>', $content);
+        $content = \preg_replace("~<\s*\t*/\s*\t*body\s*\t*>~", $logData . '</body>', $content);
     }
 
 }
