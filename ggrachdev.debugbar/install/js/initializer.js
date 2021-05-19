@@ -62,6 +62,7 @@ Ggrach.DebugBar = {
         }
         else
         {
+            Ggrach.Utils.DOM.hideAllScreenLogs();
             BX.setCookie('ggrach_debug_bar_is_close', 'true', {expires: (60 * 60 * 2), path: '/'});
         }
         
@@ -92,6 +93,15 @@ Ggrach.Utils.User = {
 };
 
 Ggrach.Utils.DOM = {
+    
+    hideAllScreenLogs: function() {
+        var $activeDebugItem = document.querySelector('.ggrach__debug-bar__item.active');
+
+        if($activeDebugItem)
+        {
+            $activeDebugItem.click();
+        }
+    },
 
     hideOverlay: function () {
         Ggrach.Utils.DOM.getOverlay().style.display = 'none';
@@ -100,7 +110,7 @@ Ggrach.Utils.DOM = {
 
     showOverlay: function () {
         Ggrach.Utils.DOM.getOverlay().style.display = 'block';
-        document.querySelector('body').style.overflow = 'hidden';
+        document.querySelector('body').setAttribute('style', 'overflow: hidden !important');
     },
 
     getDebugBarLogsType: function (type) {
