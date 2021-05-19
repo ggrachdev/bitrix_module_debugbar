@@ -2,6 +2,11 @@
 
 use \Bitrix\Main\Page\Asset;
 
+global $ggrachTracker;
+
+$connection = \Bitrix\Main\Application::getConnection();
+$ggrachTracker = $connection->startTracker();
+
 // Корневая папка модуля
 $ggrachDebuggerRootPath = str_replace($_SERVER['DOCUMENT_ROOT'], '', __DIR__ . '/..');
 
