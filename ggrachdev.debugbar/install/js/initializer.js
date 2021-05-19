@@ -11,7 +11,7 @@ Ggrach.DebugBar = {
     },
 
     hasDebugBar: function () {
-        return document.querySelector('.ggrach__debug_bar') !== null;
+        return document.querySelector('.ggrach__debug-bar') !== null;
     },
 
     init: function () {
@@ -52,7 +52,7 @@ Ggrach.DebugBar = {
     },
 
     getDebugBar: function () {
-        return document.querySelector('.ggrach__debug_bar');
+        return document.querySelector('.ggrach__debug-bar');
     },
 
     toggle: function () {
@@ -104,11 +104,11 @@ Ggrach.Utils.DOM = {
     },
 
     getDebugBarLogsType: function (type) {
-        return document.querySelector('.ggrach__debug_bar__log[data-type-notice="' + type + '"]');
+        return document.querySelector('.ggrach__debug-bar__log[data-type-notice="' + type + '"]');
     },
 
     getDebugBarLogs: function () {
-        return document.querySelectorAll('.ggrach__debug_bar__log');
+        return document.querySelectorAll('.ggrach__debug-bar__log');
     },
 
     getButtonsNotice: function () {
