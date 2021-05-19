@@ -1,0 +1,1 @@
+Ggrach.DebugBar.init();
