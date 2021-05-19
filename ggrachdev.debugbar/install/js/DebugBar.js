@@ -53,10 +53,12 @@ Ggrach.DebugBar = {
     toggle: function () {
         if(this.getDebugBar().classList.contains('hide-debug-bar'))
         {
+            document.querySelector('.ggrach__debug-bar__right__item_close').innerHTML = '&#215;';
             BX.setCookie('ggrach_debug_bar_is_close', 'false', {expires: (60 * 60 * 2), path: '/'});
         }
         else
         {
+            document.querySelector('.ggrach__debug-bar__right__item_close').innerHTML = '&lt;';
             Ggrach.Utils.DOM.hideAllScreenLogs();
             BX.setCookie('ggrach_debug_bar_is_close', 'true', {expires: (60 * 60 * 2), path: '/'});
         }
