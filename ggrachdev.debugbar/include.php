@@ -73,7 +73,7 @@ if (\GGrach\BitrixDebugger\Validator\ShowModeDebuggerValidator::needShowInDebugB
 
     Asset::getInstance()->addJs($ggrachDirJs . "/Index.js");
     Asset::getInstance()->addJs($ggrachDirJs . "/DebugBar.js");
-    Asset::getInstance()->addJs($ggrachDirJs . "/User.js");
+    Asset::getInstance()->addJs($ggrachDirJs . "/Utils/User.js");
     Asset::getInstance()->addJs($ggrachDirJs . "/Handlers.js");
     Asset::getInstance()->addJs($ggrachDirJs . "/Utils/Screen.js");
     Asset::getInstance()->addJs($ggrachDirJs . "/Utils/DOM.js");
