@@ -132,7 +132,7 @@ class NoticeDebugger extends FilterDebugger {
         return $this;
     }
 
-    protected function noticeRaw(string $type, array $arLogItems) {
+    public function noticeRaw(string $type, array $arLogItems) {
         
         if(!empty($arLogItems)) {
             foreach ($arLogItems as &$item) {

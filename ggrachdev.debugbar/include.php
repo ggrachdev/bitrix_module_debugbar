@@ -57,7 +57,7 @@ function DD(...$data) {
     
     if (!empty($data)) {
         foreach ($data as $item) {
-            $GLOBALS["DD"]->notice($item);
+            $GLOBALS["DD"]->noticeRaw('notice', [$item]);
         }
     }
 
