@@ -66,7 +66,14 @@ function DD(...$data) {
 
 if (\GGrach\BitrixDebugger\Validator\ShowModeDebuggerValidator::needShowInDebugBar(DD()->getConfiguratorDebugger())) {
 
-    Asset::getInstance()->addJs($ggrachDirJs . "/initializer.js");
+    Asset::getInstance()->addJs($ggrachDirJs . "/Index.js");
+    Asset::getInstance()->addJs($ggrachDirJs . "/DebugBar.js");
+    Asset::getInstance()->addJs($ggrachDirJs . "/User.js");
+    Asset::getInstance()->addJs($ggrachDirJs . "/Handlers.js");
+    Asset::getInstance()->addJs($ggrachDirJs . "/Utils/Screen.js");
+    Asset::getInstance()->addJs($ggrachDirJs . "/Utils/DOM.js");
+    Asset::getInstance()->addJs($ggrachDirJs . "/Initializer.js");
+    
     Asset::getInstance()->addCss($ggrachDirCss . '/general.css');
     Asset::getInstance()->addCss($ggrachDirCss . '/' . $ggrachDebugBarConfigurator->getColorTheme() . '/theme.css');
 
