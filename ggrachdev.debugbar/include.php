@@ -2,11 +2,6 @@
 
 use \Bitrix\Main\Page\Asset;
 
-global $ggrachTracker;
-
-$connection = \Bitrix\Main\Application::getConnection();
-$ggrachTracker = $connection->startTracker();
-
 // Корневая папка модуля
 $ggrachDebuggerRootPath = str_replace($_SERVER['DOCUMENT_ROOT'], '', __DIR__ . '/..');
 
@@ -70,6 +65,11 @@ function DD(...$data) {
 }
 
 if (\GGrach\BitrixDebugger\Validator\ShowModeDebuggerValidator::needShowInDebugBar(DD()->getConfiguratorDebugger())) {
+
+    global $ggrachTracker;
+
+    $connection = \Bitrix\Main\Application::getConnection();
+    $ggrachTracker = $connection->startTracker();
 
     Asset::getInstance()->addJs($ggrachDirJs . "/Index.js");
     Asset::getInstance()->addJs($ggrachDirJs . "/DebugBar.js");
