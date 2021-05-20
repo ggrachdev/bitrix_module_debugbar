@@ -3,7 +3,7 @@
     position: fixed !important;
     bottom: 0 !important;
     height: 30px !important;
-    z-index: 9999 !important;
+    z-index: 2099999999 !important;
     display: flex !important;
     align-items: center !important;
 }
