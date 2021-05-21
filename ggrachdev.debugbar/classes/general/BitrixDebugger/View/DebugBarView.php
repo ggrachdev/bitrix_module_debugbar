@@ -9,7 +9,7 @@ use \GGrach\BitrixDebugger\Debugger\Debugger;
  *
  * @author ggrachdev
  */
-class DebugBarRepresenter {
+class DebugBarView {
 
     const SYSTEM_KEYS_LOG = ['POST', 'GET', 'COOKIE', 'BX', 'SERVER'];
 

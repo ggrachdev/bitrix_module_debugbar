@@ -26,7 +26,7 @@ Bitrix\Main\Loader::registerAutoLoadClasses('ggrachdev.debugbar', [
     "\\GGrach\\BitrixDebugger\\Configurator\\DebugBarConfigurator" => "classes/general/BitrixDebugger/Configurator/DebugBarConfigurator.php",    
     "\\GGrach\\BitrixDebugger\\Cache\\RuntimeCache" => "classes/general/BitrixDebugger/Cache/RuntimeCache.php",    
     "\\GGrach\\BitrixDebugger\\Validator\\ShowModeDebuggerValidator" => "classes/general/BitrixDebugger/Validator/ShowModeDebuggerValidator.php",
-    "\\GGrach\\BitrixDebugger\\Representer\\DebugBarRepresenter" => "classes/general/BitrixDebugger/Representer/DebugBarRepresenter.php",
+    "\\GGrach\\BitrixDebugger\\View\\DebugBarView" => "classes/general/BitrixDebugger/View/DebugBarView.php",
     "\\GGrach\\BitrixDebugger\\Events\\OnEndBufferContent" => "classes/general/BitrixDebugger/Events/OnEndBufferContent.php",
     // Writer
     "\\GGrach\\Writer\\FileWriter" => "classes/general/Writer/FileWriter.php",
