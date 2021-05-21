@@ -1,6 +1,6 @@
 <?php
 
-namespace GGrach\BitrixDebugger\Representer;
+namespace GGrach\BitrixDebugger\View;
 
 use \GGrach\BitrixDebugger\Debugger\Debugger;
 
