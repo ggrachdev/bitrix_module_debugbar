@@ -105,6 +105,8 @@ class DebugBarRepresenter {
         
         self::addViewInRightSlot('<div class="ggrach__debug-bar__right__item ggrach_background_notice" title="Количество SQL запросов">SQL: ' . sizeof($ggrachTracker->getQueries()) . '</div>');
         
+        self::addViewInRightSlot('<a target="_blank" href="/bitrix/admin/cache.php?lang=ru" class="ggrach__debug-bar__right__item ggrach_background_success" title="Управление кешем">C</a>');
+        
         self::addViewInRightSlot('<a href="javascript:void(0);" data-click="toggle_debug_bar" class="ggrach__debug-bar__right__item ggrach__debug-bar__right__item_close ggrach_background_black" title="Скрыть / Раскрыть дебаг-бар">'.$closeIcon.'</a>');
 
         $view = '<section class="ggrach__overlay" style="display: none;"></section><section class="ggrach__debug-bar '.($debugBarIsClosed ? 'hide-debug-bar' : '').'">';
