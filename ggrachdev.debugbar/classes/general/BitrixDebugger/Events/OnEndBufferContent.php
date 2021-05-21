@@ -2,21 +2,26 @@
 
 namespace GGrach\BitrixDebugger\Events;
 
+use \Bitrix\Main\Application;
+    
 /**
  * Description of OnEndBufferContent
  *
  * @author ggrachdev
  */
 class OnEndBufferContent {
-
+    
     public function addDebugBar(&$content) {
         global $USER, $APPLICATION;
+
+        $request = Application::getInstance()->getContext()->getRequest();
 
         if (
             strpos($APPLICATION->GetCurDir(), "/bitrix/") !== false ||
             $APPLICATION->GetProperty("save_kernel") == "Y" ||
             !\is_object($USER) ||
-            !$USER->IsAdmin()
+            !$USER->IsAdmin() ||
+            $request->isAjaxRequest()
         ) {
             return;
         }
