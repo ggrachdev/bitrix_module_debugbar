@@ -16,6 +16,7 @@ class Filtrator implements FiltratorContract {
     private $customFilters = [];
 
     /**
+     * Очередь фильтров с параметрами
      * 
      * @var array
      */

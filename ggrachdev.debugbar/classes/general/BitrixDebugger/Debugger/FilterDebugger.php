@@ -21,6 +21,14 @@ class FilterDebugger extends ConfigurationDebugger {
      */
     protected $isFreezedFilter = false;
 
+    /**
+     * Вызов добавленного пользователем фильтра
+     * 
+     * @param type $name
+     * @param type $arguments
+     * @return $this
+     * @throws \BadMethodCallException
+     */
     public function __call($name, $arguments) {
         
         if($this->getFiltrator()->hasCustomFilter($name))
