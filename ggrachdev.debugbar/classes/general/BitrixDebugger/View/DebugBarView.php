@@ -1,6 +1,6 @@
 <?php
 
-namespace GGrach\BitrixDebugger\Representer;
+namespace GGrach\BitrixDebugger\View;
 
 use \GGrach\BitrixDebugger\Debugger\Debugger;
 
@@ -9,7 +9,7 @@ use \GGrach\BitrixDebugger\Debugger\Debugger;
  *
  * @author ggrachdev
  */
-class DebugBarRepresenter {
+class DebugBarView {
 
     const SYSTEM_KEYS_LOG = ['POST', 'GET', 'COOKIE', 'BX', 'SERVER'];
 
@@ -104,6 +104,8 @@ class DebugBarRepresenter {
         $closeIcon = $debugBarIsClosed ? '&lt;' : '&#215;';
         
         self::addViewInRightSlot('<div class="ggrach__debug-bar__right__item ggrach_background_notice" title="Количество SQL запросов">SQL: ' . sizeof($ggrachTracker->getQueries()) . '</div>');
+        
+        self::addViewInRightSlot('<a target="_blank" href="/bitrix/admin/cache.php?lang=ru" class="ggrach__debug-bar__right__item ggrach_background_success" title="Управление кешем">C</a>');
         
         self::addViewInRightSlot('<a href="javascript:void(0);" data-click="toggle_debug_bar" class="ggrach__debug-bar__right__item ggrach__debug-bar__right__item_close ggrach_background_black" title="Скрыть / Раскрыть дебаг-бар">'.$closeIcon.'</a>');
 

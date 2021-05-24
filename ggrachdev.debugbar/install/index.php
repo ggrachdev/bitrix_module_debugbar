@@ -74,20 +74,36 @@ class ggrachdev_debugbar extends CModule {
     public function installAssets() {
 
         // copy js
-        $dirJsFrom = $_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/" . $this->MODULE_ID . "/install/js";
-        $dirJsTo = $_SERVER["DOCUMENT_ROOT"] . "/bitrix/js/" . $this->MODULE_ID;
+        $dirJsFrom = null;
+        
+        if(\is_file($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/{$this->MODULE_ID}/install/version.php"))
+        {
+            $dirJsFrom = $_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/" . $this->MODULE_ID . "/install/js";
+        }
+        else if(\is_file($_SERVER["DOCUMENT_ROOT"] . "/local/modules/{$this->MODULE_ID}/install/version.php"))
+        {
+            $dirJsFrom = $_SERVER["DOCUMENT_ROOT"] . "/local/modules/" . $this->MODULE_ID . "/install/js";
+        }
 
-        if (!\is_dir($dirJsTo)) {
+        if ($dirJsFrom && !\is_dir($dirJsTo)) {
             \mkdir($dirJsTo);
         }
 
         \CopyDirFiles($dirJsFrom, $dirJsTo, true, true);
 
         // copy css
-        $dirCssFrom = $_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/" . $this->MODULE_ID . "/install/css";
-        $dirCssTo = $_SERVER["DOCUMENT_ROOT"] . "/bitrix/css/" . $this->MODULE_ID;
-
-        if (!\is_dir($dirCssTo)) {
+        $dirCssTo = null;
+        
+        if(\is_file($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/{$this->MODULE_ID}/install/version.php"))
+        {
+            $dirCssFrom = $_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/" . $this->MODULE_ID . "/install/css";
+        }
+        else if(\is_file($_SERVER["DOCUMENT_ROOT"] . "/local/modules/{$this->MODULE_ID}/install/version.php"))
+        {
+            $dirCssFrom = $_SERVER["DOCUMENT_ROOT"] . "/local/modules/" . $this->MODULE_ID . "/install/css";
+        }
+        
+        if ($dirCssTo && !\is_dir($dirCssTo)) {
             \mkdir($dirCssTo);
         }
 
@@ -97,14 +113,12 @@ class ggrachdev_debugbar extends CModule {
     public function reinstallAssets() {
 
         // delete js
-
         $dirJs = "/bitrix/js/" . $this->MODULE_ID;
         if (!\is_dir($dirJs)) {
             \DeleteDirFilesEx($dirJs);
         }
 
         // delete css
-
         $dirCss = "/bitrix/css/" . $this->MODULE_ID;
         if (!\is_dir($dirCss)) {
             \DeleteDirFilesEx($dirCss);

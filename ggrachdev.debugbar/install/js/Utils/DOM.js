@@ -12,11 +12,13 @@ Ggrach.Utils.DOM = {
     hideOverlay: function () {
         Ggrach.Utils.DOM.getOverlay().style.display = 'none';
         document.querySelector('body').style.overflow = null;
+        document.querySelector('html').style.overflow = null;
     },
 
     showOverlay: function () {
         Ggrach.Utils.DOM.getOverlay().style.display = 'block';
         document.querySelector('body').setAttribute('style', 'overflow: hidden !important');
+        document.querySelector('html').setAttribute('style', 'overflow: hidden !important');
     },
 
     getDebugBarLogsType: function (type) {

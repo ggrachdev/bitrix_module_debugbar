@@ -26,7 +26,7 @@ Bitrix\Main\Loader::registerAutoLoadClasses('ggrachdev.debugbar', [
     "\\GGrach\\BitrixDebugger\\Configurator\\DebugBarConfigurator" => "classes/general/BitrixDebugger/Configurator/DebugBarConfigurator.php",    
     "\\GGrach\\BitrixDebugger\\Cache\\RuntimeCache" => "classes/general/BitrixDebugger/Cache/RuntimeCache.php",    
     "\\GGrach\\BitrixDebugger\\Validator\\ShowModeDebuggerValidator" => "classes/general/BitrixDebugger/Validator/ShowModeDebuggerValidator.php",
-    "\\GGrach\\BitrixDebugger\\Representer\\DebugBarRepresenter" => "classes/general/BitrixDebugger/Representer/DebugBarRepresenter.php",
+    "\\GGrach\\BitrixDebugger\\View\\DebugBarView" => "classes/general/BitrixDebugger/View/DebugBarView.php",
     "\\GGrach\\BitrixDebugger\\Events\\OnEndBufferContent" => "classes/general/BitrixDebugger/Events/OnEndBufferContent.php",
     // Writer
     "\\GGrach\\Writer\\FileWriter" => "classes/general/Writer/FileWriter.php",
@@ -73,7 +73,7 @@ if (\GGrach\BitrixDebugger\Validator\ShowModeDebuggerValidator::needShowInDebugB
 
     Asset::getInstance()->addJs($ggrachDirJs . "/Index.js");
     Asset::getInstance()->addJs($ggrachDirJs . "/DebugBar.js");
-    Asset::getInstance()->addJs($ggrachDirJs . "/User.js");
+    Asset::getInstance()->addJs($ggrachDirJs . "/Utils/User.js");
     Asset::getInstance()->addJs($ggrachDirJs . "/Handlers.js");
     Asset::getInstance()->addJs($ggrachDirJs . "/Utils/Screen.js");
     Asset::getInstance()->addJs($ggrachDirJs . "/Utils/DOM.js");
