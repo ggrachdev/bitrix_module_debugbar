@@ -21,8 +21,27 @@ class FilterDebugger extends ConfigurationDebugger {
      */
     protected $isFreezedFilter = false;
 
+    public function __call($name, $arguments) {
+        
+        if($this->getFiltrator()->hasCustomFilter($name))
+        {
+            $this->getFiltrator()->addFilter($name, $arguments);
+        }
+        else
+        {
+            throw new \BadMethodCallException('Not found '.$name.' method');
+        }
+        
+        return $this;
+    }
+
     public function getFiltrator(): FiltratorContract {
         return $this->filtrator;
+    }
+
+    public function addFilter(string $nameMethod, callable $callback): self {
+        $this->getFiltrator()->addCustomFilter($nameMethod, $callback);
+        return $this;
     }
 
     public function setFiltrator(FiltratorContract $filtrator): self {
