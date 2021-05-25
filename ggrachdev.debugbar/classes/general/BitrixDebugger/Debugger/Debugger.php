@@ -4,11 +4,11 @@ namespace GGrach\BitrixDebugger\Debugger;
 
 use GGrach\BitrixDebugger\Configurator\DebuggerConfigurator;
 use GGrach\BitrixDebugger\Configurator\DebugBarConfigurator;
-use GGrach\Filtrator\FiltratorContract;
+use GGrach\Filtrator\IFiltrator;
 use GGrach\Filtrator\Filtrator;
 
 /**
- * Ответственность: создание полноценного объекта, который позволит осуществлять все возможные операции через текучий интерфейс
+ * Создание полноценного объекта, который позволит осуществлять все возможные операции через текучий интерфейс
  *
  * @author ggrachdev
  */
@@ -29,7 +29,7 @@ class Debugger extends LogFileDebugger {
 
         if ($filtrator === null) {
             $this->setFiltrator(new Filtrator());
-        } elseif ($filtrator instanceof FiltratorContract) {
+        } elseif ($filtrator instanceof IFiltrator) {
             $this->setFiltrator($filtrator);
         }
     }

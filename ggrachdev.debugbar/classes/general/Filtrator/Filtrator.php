@@ -2,12 +2,12 @@
 
 namespace GGrach\Filtrator;
 
-use \GGrach\Filtrator\FiltratorContract;
+use \GGrach\Filtrator\IFiltrator;
 
 /**
  * @author ggrachdev
  */
-class Filtrator implements FiltratorContract {
+class Filtrator implements IFiltrator {
 
     private $customFilters = [];
 
@@ -45,7 +45,7 @@ class Filtrator implements FiltratorContract {
         return \array_key_exists($filterType, $this->customFilters);
     }
 
-    public function addFilterRule(string $filterName, callable $callback): FiltratorContract {
+    public function addFilterRule(string $filterName, callable $callback): IFiltrator {
         if (!$this->hasFilter($filterName)) {
             $this->customFilters[$filterName] = $callback;
         }

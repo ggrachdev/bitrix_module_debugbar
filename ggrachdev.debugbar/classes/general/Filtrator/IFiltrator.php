@@ -2,7 +2,7 @@
 
 namespace GGrach\Filtrator;
 
-interface FiltratorContract {
+interface IFiltrator {
     public function filtrate($data);
     
     public function hasFilter(string $filterType): bool;

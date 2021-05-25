@@ -7,7 +7,7 @@ namespace GGrach\BitrixDebugger\Contract;
  * 
  * @author ggrachdev
  */
-interface ShowModableContract {
+interface IShowModable {
 
     /**
      * Получить режимы отображения установленные

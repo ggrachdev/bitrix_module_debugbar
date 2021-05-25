@@ -2,7 +2,7 @@
 
 namespace GGrach\BitrixDebugger\Debugger;
 
-use GGrach\Filtrator\FiltratorContract;
+use GGrach\Filtrator\IFiltrator;
 
 /**
  * Ответственность: фильтрация входящих данных для дебага
@@ -12,7 +12,7 @@ use GGrach\Filtrator\FiltratorContract;
 class FilterDebugger extends ConfigurationDebugger {
 
     /**
-     * @var FiltratorContract
+     * @var IFiltrator
      */
     protected $filtrator;
 
@@ -43,7 +43,7 @@ class FilterDebugger extends ConfigurationDebugger {
         return $this;
     }
 
-    public function getFiltrator(): FiltratorContract {
+    public function getFiltrator(): IFiltrator {
         return $this->filtrator;
     }
 
@@ -52,7 +52,7 @@ class FilterDebugger extends ConfigurationDebugger {
         return $this;
     }
 
-    public function setFiltrator(FiltratorContract $filtrator): self {
+    public function setFiltrator(IFiltrator $filtrator): self {
         $this->filtrator = $filtrator;
         return $this;
     }

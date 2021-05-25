@@ -7,7 +7,7 @@ namespace GGrach\Writer\Contract;
  * 
  * @author ggrachdev
  */
-interface WritableContract {
+interface IWritable {
 
     /**
      * Запись данных в ресурс
