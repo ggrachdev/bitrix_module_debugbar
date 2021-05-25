@@ -11,7 +11,7 @@ $ggrachPathLogFolder = \realpath('.' . $ggrachDebuggerRootPath . '/logs');
 // Папка где хранятся js
 $ggrachDirJs = "/bitrix/js/ggrachdev.debugbar";
 
-// Папка где хранятся css
+// Папка где хранятся css   
 $ggrachDirCss = "/bitrix/css/ggrachdev.debugbar";
 
 Bitrix\Main\Loader::registerAutoLoadClasses('ggrachdev.debugbar', [
@@ -82,6 +82,7 @@ if (\GGrach\BitrixDebugger\Validator\ShowModeDebuggerValidator::needShowInDebugB
     Asset::getInstance()->addCss($ggrachDirCss . '/general.css');
     Asset::getInstance()->addCss($ggrachDirCss . '/' . $ggrachDebugBarConfigurator->getColorTheme() . '/theme.css');
 
+    include 'filters.php';
     include 'functions.php';
     include 'events.php';
 }

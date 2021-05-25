@@ -2,24 +2,16 @@
 
 namespace GGrach\Filtrator;
 
-/**
- *
- * @author ggrachdev
- */
 interface FiltratorContract {
     public function filtrate($data);
     
-    public function addCustomFilter(string $filterName, callable $callback);
+    public function hasFilter(string $filterType): bool;
     
-    public function hasCustomFilter(string $filterName);
+    public function addFilterRule(string $filterName, callable $callback): self;
     
-    public function customFiltrateItem(string $filterType, array $filterParams, $data);
+    public function addFilter(string $filterType, array $filterParams = []): void;
     
     public function filtrateItem(string $filterType, array $filterParams, $data);
-    
-    public function addFilter(string $filterType, array $filterParams): void;
-    
-    public function hasFilter(string $filterType): bool;
     
     public function clearFilters(): void;
 }

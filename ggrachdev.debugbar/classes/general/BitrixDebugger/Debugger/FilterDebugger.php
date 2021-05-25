@@ -31,7 +31,7 @@ class FilterDebugger extends ConfigurationDebugger {
      */
     public function __call($name, $arguments) {
         
-        if($this->getFiltrator()->hasCustomFilter($name))
+        if($this->getFiltrator()->hasFilter($name))
         {
             $this->getFiltrator()->addFilter($name, $arguments);
         }
@@ -48,7 +48,7 @@ class FilterDebugger extends ConfigurationDebugger {
     }
 
     public function addFilter(string $nameMethod, callable $callback): self {
-        $this->getFiltrator()->addCustomFilter($nameMethod, $callback);
+        $this->getFiltrator()->addFilterRule($nameMethod, $callback);
         return $this;
     }
 
@@ -80,30 +80,6 @@ class FilterDebugger extends ConfigurationDebugger {
 
     public function filtrateItem($itemData) {
         return $this->getFiltrator()->filtrate($itemData);
-    }
-
-    public function first(): self {
-        $this->getFiltrator()->addFilter('first');
-        return $this;
-    }
-
-    public function last(): self {
-        $this->getFiltrator()->addFilter('last');
-        return $this;
-    }
-
-    public function keys(array $availableKeys = []): self {
-        $this->getFiltrator()->addFilter('keys', [
-            'keys' => $availableKeys
-        ]);
-        return $this;
-    }
-
-    public function limit(int $limit = 10): self {
-        $this->getFiltrator()->addFilter('limit', [
-            'count' => $limit
-        ]);
-        return $this;
     }
 
 }
