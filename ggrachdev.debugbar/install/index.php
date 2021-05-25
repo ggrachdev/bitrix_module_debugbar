@@ -85,6 +85,8 @@ class ggrachdev_debugbar extends CModule {
             $dirJsFrom = $_SERVER["DOCUMENT_ROOT"] . "/local/modules/" . $this->MODULE_ID . "/install/js";
         }
 
+        $dirJsTo = $_SERVER["DOCUMENT_ROOT"] . "/bitrix/js/" . $this->MODULE_ID;
+        
         if ($dirJsFrom && !\is_dir($dirJsTo)) {
             \mkdir($dirJsTo);
         }
@@ -92,7 +94,7 @@ class ggrachdev_debugbar extends CModule {
         \CopyDirFiles($dirJsFrom, $dirJsTo, true, true);
 
         // copy css
-        $dirCssTo = null;
+        $dirCssFrom = null;
         
         if(\is_file($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/{$this->MODULE_ID}/install/version.php"))
         {
@@ -102,6 +104,8 @@ class ggrachdev_debugbar extends CModule {
         {
             $dirCssFrom = $_SERVER["DOCUMENT_ROOT"] . "/local/modules/" . $this->MODULE_ID . "/install/css";
         }
+        
+        $dirCssTo = $_SERVER["DOCUMENT_ROOT"] . "/bitrix/css/" . $this->MODULE_ID;
         
         if ($dirCssTo && !\is_dir($dirCssTo)) {
             \mkdir($dirCssTo);
