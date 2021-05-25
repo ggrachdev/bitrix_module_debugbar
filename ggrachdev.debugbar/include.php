@@ -11,7 +11,7 @@ $ggrachPathLogFolder = \realpath('.' . $ggrachDebuggerRootPath . '/logs');
 // Папка где хранятся js
 $ggrachDirJs = "/bitrix/js/ggrachdev.debugbar";
 
-// Папка где хранятся css
+// Папка где хранятся css   
 $ggrachDirCss = "/bitrix/css/ggrachdev.debugbar";
 
 Bitrix\Main\Loader::registerAutoLoadClasses('ggrachdev.debugbar', [
@@ -21,7 +21,7 @@ Bitrix\Main\Loader::registerAutoLoadClasses('ggrachdev.debugbar', [
     "\\GGrach\\BitrixDebugger\\Debugger\\LogFileDebugger" => "classes/general/BitrixDebugger/Debugger/LogFileDebugger.php",
     "\\GGrach\\BitrixDebugger\\Debugger\\ConfigurationDebugger" => "classes/general/BitrixDebugger/Debugger/ConfigurationDebugger.php",
     "\\GGrach\\BitrixDebugger\\Debugger\\FilterDebugger" => "classes/general/BitrixDebugger/Debugger/FilterDebugger.php",
-    "\\GGrach\\BitrixDebugger\\Contract\\ShowModableContract" => "classes/general/BitrixDebugger/Contract/ShowModableContract.php",
+    "\\GGrach\\BitrixDebugger\\Contract\\IShowModable" => "classes/general/BitrixDebugger/Contract/IShowModable.php",
     "\\GGrach\\BitrixDebugger\\Configurator\\DebuggerConfigurator" => "classes/general/BitrixDebugger/Configurator/DebuggerConfigurator.php",
     "\\GGrach\\BitrixDebugger\\Configurator\\DebugBarConfigurator" => "classes/general/BitrixDebugger/Configurator/DebugBarConfigurator.php",    
     "\\GGrach\\BitrixDebugger\\Cache\\RuntimeCache" => "classes/general/BitrixDebugger/Cache/RuntimeCache.php",    
@@ -30,10 +30,10 @@ Bitrix\Main\Loader::registerAutoLoadClasses('ggrachdev.debugbar', [
     "\\GGrach\\BitrixDebugger\\Events\\OnEndBufferContent" => "classes/general/BitrixDebugger/Events/OnEndBufferContent.php",
     // Writer
     "\\GGrach\\Writer\\FileWriter" => "classes/general/Writer/FileWriter.php",
-    "\\GGrach\\Writer\\Contract\\WritableContract" => "classes/general/Writer/Contract/WritableContract.php",
+    "\\GGrach\\Writer\\Contract\\IWritable" => "classes/general/Writer/Contract/IWritable.php",
     // Filtrator
     "\\GGrach\\Filtrator\\Filtrator" => "classes/general/Filtrator/Filtrator.php",
-    "\\GGrach\\Filtrator\\FiltratorContract" => "classes/general/Filtrator/FiltratorContract.php"
+    "\\GGrach\\Filtrator\\IFiltrator" => "classes/general/Filtrator/IFiltrator.php"
 ]);
 $ggrachDebuggerConfigurator = new \GGrach\BitrixDebugger\Configurator\DebuggerConfigurator();
 $ggrachDebugBarConfigurator = new \GGrach\BitrixDebugger\Configurator\DebugBarConfigurator();
@@ -82,6 +82,7 @@ if (\GGrach\BitrixDebugger\Validator\ShowModeDebuggerValidator::needShowInDebugB
     Asset::getInstance()->addCss($ggrachDirCss . '/general.css');
     Asset::getInstance()->addCss($ggrachDirCss . '/' . $ggrachDebugBarConfigurator->getColorTheme() . '/theme.css');
 
+    include 'filters.php';
     include 'functions.php';
     include 'events.php';
 }

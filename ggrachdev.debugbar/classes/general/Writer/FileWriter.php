@@ -2,14 +2,14 @@
 
 namespace GGrach\Writer;
 
-use GGrach\Writer\Contract\WritableContract;
+use GGrach\Writer\Contract\IWritable;
 
 /**
  * Запись данных в файл
  *
  * @author ggrachdev
  */
-class FileWriter implements WritableContract {
+class FileWriter implements IWritable {
 
     /**
      * Запись данных в ресурс
