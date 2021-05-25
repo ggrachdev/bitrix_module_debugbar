@@ -75,43 +75,41 @@ class ggrachdev_debugbar extends CModule {
 
         // copy js
         $dirJsFrom = null;
-        
-        if(\is_file($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/{$this->MODULE_ID}/install/version.php"))
-        {
+
+        if (\is_file($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/{$this->MODULE_ID}/install/version.php")) {
             $dirJsFrom = $_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/" . $this->MODULE_ID . "/install/js";
-        }
-        else if(\is_file($_SERVER["DOCUMENT_ROOT"] . "/local/modules/{$this->MODULE_ID}/install/version.php"))
-        {
+        } else if (\is_file($_SERVER["DOCUMENT_ROOT"] . "/local/modules/{$this->MODULE_ID}/install/version.php")) {
             $dirJsFrom = $_SERVER["DOCUMENT_ROOT"] . "/local/modules/" . $this->MODULE_ID . "/install/js";
         }
 
         $dirJsTo = $_SERVER["DOCUMENT_ROOT"] . "/bitrix/js/" . $this->MODULE_ID;
-        
-        if ($dirJsFrom && !\is_dir($dirJsTo)) {
+
+        if (!\is_dir($dirJsTo)) {
             \mkdir($dirJsTo);
         }
 
-        \CopyDirFiles($dirJsFrom, $dirJsTo, true, true);
+        if (!\is_dir($dirJsFrom) && \is_dir($dirJsTo)) {
+            \CopyDirFiles($dirJsFrom, $dirJsTo, true, true);
+        }
 
         // copy css
         $dirCssFrom = null;
-        
-        if(\is_file($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/{$this->MODULE_ID}/install/version.php"))
-        {
+
+        if (\is_file($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/{$this->MODULE_ID}/install/version.php")) {
             $dirCssFrom = $_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/" . $this->MODULE_ID . "/install/css";
-        }
-        else if(\is_file($_SERVER["DOCUMENT_ROOT"] . "/local/modules/{$this->MODULE_ID}/install/version.php"))
-        {
+        } else if (\is_file($_SERVER["DOCUMENT_ROOT"] . "/local/modules/{$this->MODULE_ID}/install/version.php")) {
             $dirCssFrom = $_SERVER["DOCUMENT_ROOT"] . "/local/modules/" . $this->MODULE_ID . "/install/css";
         }
-        
+
         $dirCssTo = $_SERVER["DOCUMENT_ROOT"] . "/bitrix/css/" . $this->MODULE_ID;
-        
-        if ($dirCssTo && !\is_dir($dirCssTo)) {
+
+        if (!\is_dir($dirCssTo)) {
             \mkdir($dirCssTo);
         }
 
-        \CopyDirFiles($dirCssFrom, $dirCssTo, true, true);
+        if (!\is_dir($dirCssFrom) && \is_dir($dirCssTo)) {
+             \CopyDirFiles($dirCssFrom, $dirCssTo, true, true);
+        }
     }
 
     public function reinstallAssets() {
