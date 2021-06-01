@@ -21,7 +21,8 @@ class OnEndBufferContent {
             $APPLICATION->GetProperty("save_kernel") == "Y" ||
             !\is_object($USER) ||
             !$USER->IsAdmin() ||
-            $request->isAjaxRequest()
+            $request->isAjaxRequest() ||
+            (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
         ) {
             return;
         }

@@ -99,7 +99,14 @@ class DebugBarView {
 
         self::addViewInRightSlot('<a target="_blank" href="/bitrix/admin/site_edit.php?LID=' . \SITE_ID . '&lang=ru" class="ggrach__debug-bar__right__item ggrach_background_success" title="Текущая страница">' . SITE_CHARSET . '</a>');
 
-        $debugBarIsClosed = $_COOKIE['ggrach_debug_bar_is_close'] == 'true';
+        if(!isset($_COOKIE['ggrach_debug_bar_is_close']))
+        {
+            $debugBarIsClosed = true;
+        }
+        else
+        {
+            $debugBarIsClosed = $_COOKIE['ggrach_debug_bar_is_close'] == 'true';
+        }
         
         $closeIcon = $debugBarIsClosed ? '&lt;' : '&#215;';
         
