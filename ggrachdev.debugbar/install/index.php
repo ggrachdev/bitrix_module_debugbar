@@ -88,7 +88,7 @@ class ggrachdev_debugbar extends CModule {
             \mkdir($dirJsTo);
         }
 
-        if (!\is_dir($dirJsFrom) && \is_dir($dirJsTo)) {
+        if (\is_dir($dirJsFrom) && \is_dir($dirJsTo)) {
             \CopyDirFiles($dirJsFrom, $dirJsTo, true, true);
         }
 
@@ -107,7 +107,7 @@ class ggrachdev_debugbar extends CModule {
             \mkdir($dirCssTo);
         }
 
-        if (!\is_dir($dirCssFrom) && \is_dir($dirCssTo)) {
+        if (\is_dir($dirCssFrom) && \is_dir($dirCssTo)) {
              \CopyDirFiles($dirCssFrom, $dirCssTo, true, true);
         }
     }
