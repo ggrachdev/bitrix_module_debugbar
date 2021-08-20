@@ -44,6 +44,38 @@ class DebuggerConfigurator implements IShowModable {
         return $this->showModes;
     }
 
+    public function notShowDebugInPanel() {
+        $nowModes = $this->getShowModes();
+        if (\in_array('debug_bar', $nowModes)) {
+            unset($nowModes[\array_search('debug_bar', $nowModes)]);
+            $this->setShowModes(\array_unique($nowModes));
+        }
+        return $this;
+    }
+
+    public function notShowDebugInCode() {
+        $nowModes = $this->getShowModes();
+        if (\in_array('code', $nowModes)) {
+            unset($nowModes[\array_search('code', $nowModes)]);
+            $this->setShowModes(\array_unique($nowModes));
+        }
+        return $this;
+    }
+
+    public function showDebugInPanel() {
+        $nowModes = $this->getShowModes();
+        $nowModes[] = 'debug_bar';
+        $this->setShowModes(\array_unique($nowModes));
+        return $this;
+    }
+
+    public function showDebugInCode() {
+        $nowModes = $this->getShowModes();
+        $nowModes[] = 'code';
+        $this->setShowModes(\array_unique($nowModes));
+        return $this;
+    }
+
     public function getShowModesEnum(): array {
         return ['code', 'debug_bar'];
     }
@@ -51,24 +83,7 @@ class DebuggerConfigurator implements IShowModable {
     public function setShowModes(array $showModes): bool {
         $result = true;
 
-        if (!empty($showModes)) {
-
-            $avaliableModes = $this->getShowModesEnum();
-
-            // @todo array_udiff
-            foreach ($showModes as $mode) {
-                if (!\in_array($mode, $avaliableModes)) {
-                    $result = false;
-                    break;
-                }
-            }
-
-            if ($result) {
-                $this->showModes = $showModes;
-            }
-        } else {
-            $result = false;
-        }
+        $this->showModes = $showModes;
 
         return $result;
     }
