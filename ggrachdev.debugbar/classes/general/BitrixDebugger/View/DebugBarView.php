@@ -84,8 +84,21 @@ class DebugBarView {
                         }
 
                         $needHideBlocks = !(in_array($typeLog, self::SYSTEM_KEYS_LOG));
+                        
+                        if(is_array($logValue) && \sizeof($logValue) <= 10)
+                        {
+                            $needHideBlocks = false;
+                        }
+                        else if(\is_string($logValue) || \is_numeric($logValue))
+                        {
+                            $needHideBlocks = false;
+                        }
 
-                        $viewLeft .= str_replace(['<span style="color: #0000BB">&lt;?</span>', '<span style="color: #0000BB">?&gt;</span>', '&lt;?', '?&gt;', '&lt;?php'], ['', '', '', ''], '<pre>' . \ggrach_highlight_data($logValue, $needHideBlocks) . $lineView . '</pre>');
+                        $viewLeft .= str_replace(
+                            ['<span style="color: #0000BB">&lt;?</span>', '<span style="color: #0000BB">?&gt;</span>', '&lt;?', '?&gt;', '&lt;?php'], 
+                            ['', '', '', ''], 
+                            '<pre>' . ($arLogType['name'] !== null ? \ggrach_highlight_data($logValue, $needHideBlocks, $arLogType['name']) : \ggrach_highlight_data($logValue, $needHideBlocks)) . $lineView . '</pre>'
+                        );
                     }
                 }
 

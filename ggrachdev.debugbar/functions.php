@@ -6,7 +6,7 @@
  * @param type $data
  * @return type
  */
-function ggrach_highlight_data($data = [], $needHideBlocks = false) {
+function ggrach_highlight_data($data = [], $needHideBlocks = false, $name = null) {
 
     $viewResult = '';
 
@@ -54,7 +54,7 @@ function ggrach_highlight_data($data = [], $needHideBlocks = false) {
         return $viewRes;
     };
 
-    $highlight = function ($in, $opened = true) use ($highlightItem) {
+    $highlight = function ($in, $opened = true) use ($highlightItem, $name) {
 
         $view = '<div>';
 
@@ -62,10 +62,16 @@ function ggrach_highlight_data($data = [], $needHideBlocks = false) {
             $opened = ' open';
         }
 
-        if (is_object($in) or is_array($in)) {
+        if ($name && !(is_object($in) || is_array($in))) {
+            $in = [
+                $in
+            ];
+        }
+
+        if (is_object($in) || is_array($in)) {
             $view .= '<details' . $opened . '>';
             $view .= '<summary style="cursor: pointer; margin-top: 5px; margin-bottom: 5px; text-decoration: underline;">';
-            $view .= (is_object($in)) ? 'Object {' . count((array) $in) . '}' : 'Array [' . count($in) . ']';
+            $view .= (is_object($in)) ? ($name ? $name . ' - ' : '') . 'Object {' . count((array) $in) . '}' : ($name ? $name . ' - ' : '') . 'Array [' . count($in) . ']';
             $view .= '</summary>';
             $view .= $highlightItem($in, $opened);
             $view .= '</details>';
@@ -77,7 +83,7 @@ function ggrach_highlight_data($data = [], $needHideBlocks = false) {
                     $in = \strip_tags($in);
 
                     if (\strlen($in) > 200) {
-                        $in = '[Очень длинная строка]';
+                        $in = '[Very long string]';
                     }
 
                     break;
@@ -94,7 +100,6 @@ function ggrach_highlight_data($data = [], $needHideBlocks = false) {
 
 
         $view .= '</div>';
-
 
         return $view;
     };
