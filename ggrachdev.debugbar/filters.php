@@ -27,8 +27,29 @@ DD()->addFilter('values', function ($data, $filterParams) {
         return $data;
     })
     ->addFilter('methods', function ($data, $filterParams) {
-        if (\is_object($data) && !empty($data)) {
-            $data = get_class_methods($data);
+        if (\is_object($data)) {
+            $data = \get_class_methods($data);
+            echo '<pre>';
+            print_r($data);
+            echo '</pre>';
+        }
+
+        return $data;
+    })
+    ->addFilter('classPath', function ($data, $filterParams) {
+        if (\is_object($data) || \class_exists($data)) {
+            $reflectionClass = new \ReflectionClass($data);
+            $data = [
+                'file_name' => $reflectionClass->getFileName(),
+                'start_line' => $reflectionClass->getStartLine()
+            ];
+        }
+
+        return $data;
+    })
+    ->addFilter('props', function ($data, $filterParams) {
+        if (\is_object($data)) {
+            $data = \get_object_vars($data);
         }
 
         return $data;
@@ -56,6 +77,13 @@ DD()->addFilter('values', function ($data, $filterParams) {
     ->addFilter('last', function ($data, $filterParams) {
         if (\is_array($data) && !empty($data)) {
             $data = array_pop($data);
+        }
+
+        return $data;
+    })
+    ->addFilter('filter', function ($data, $filterParams) {
+        if (!empty($filterParams[0]) && \is_callable($filterParams[0])) {
+            $data = $filterParams[0]($data);
         }
 
         return $data;
