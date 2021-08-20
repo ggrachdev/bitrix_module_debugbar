@@ -12,6 +12,17 @@ use GGrach\BitrixDebugger\Validator\ShowModeDebuggerValidator;
 class NoticeDebugger extends FilterDebugger {
 
     protected $log = [];
+    
+    /*
+     * Заголовок для дебага
+     */
+    protected $nameDebug = null;
+    
+    public function name(string $name)
+    {
+        $this->nameDebug = $name;
+        return $this;
+    }
 
     public function notice(...$item) {
         $this->noticeRaw('notice', $item);
@@ -149,10 +160,14 @@ class NoticeDebugger extends FilterDebugger {
             $db = debug_backtrace();
 
             $this->log[$type][] = [
+                'name' => $this->nameDebug,
                 'file' => $db[1]['file'],
                 'line' => $db[1]['line'],
                 'data' => $arLogItems
             ];
+            
+            // Сбрасываем имя
+            $this->nameDebug = null;
         }
 
         if (ShowModeDebuggerValidator::needShowInCode($this->getConfiguratorDebugger())) {
