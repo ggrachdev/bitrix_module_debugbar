@@ -12,14 +12,13 @@ use GGrach\BitrixDebugger\Validator\ShowModeDebuggerValidator;
 class NoticeDebugger extends FilterDebugger {
 
     protected $log = [];
-    
+
     /*
      * Заголовок для дебага
      */
     protected $nameDebug = null;
-    
-    public function name(string $name)
-    {
+
+    public function name(string $name) {
         $this->nameDebug = $name;
         return $this;
     }
@@ -144,8 +143,8 @@ class NoticeDebugger extends FilterDebugger {
     }
 
     public function noticeRaw(string $type, array $arLogItems) {
-        
-        if(!empty($arLogItems)) {
+
+        if (!empty($arLogItems)) {
             foreach ($arLogItems as &$item) {
                 $item = $this->filtrateItem($item);
             }
@@ -165,17 +164,17 @@ class NoticeDebugger extends FilterDebugger {
                 'line' => $db[1]['line'],
                 'data' => $arLogItems
             ];
-            
-            // Сбрасываем имя
-            $this->nameDebug = null;
         }
 
         if (ShowModeDebuggerValidator::needShowInCode($this->getConfiguratorDebugger())) {
 
             foreach ($arLogItems as $item) {
-                echo \ggrach_highlight_data($item);
+                echo \ggrach_highlight_data($item, true, $this->nameDebug);
             }
         }
+
+        // Сбрасываем имя
+        $this->nameDebug = null;
 
         return $this;
     }
