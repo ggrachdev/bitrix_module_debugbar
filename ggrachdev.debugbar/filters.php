@@ -29,9 +29,6 @@ DD()->addFilter('values', function ($data, $filterParams) {
     ->addFilter('methods', function ($data, $filterParams) {
         if (\is_object($data)) {
             $data = \get_class_methods($data);
-            echo '<pre>';
-            print_r($data);
-            echo '</pre>';
         }
 
         return $data;
