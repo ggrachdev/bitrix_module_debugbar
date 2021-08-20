@@ -26,8 +26,14 @@ DD()->addFilter('values', function ($data, $filterParams) {
 
         return $data;
     })
-    ->addFilter('keys', function ($data, $filterParams) {
+    ->addFilter('methods', function ($data, $filterParams) {
+        if (\is_object($data) && !empty($data)) {
+            $data = get_class_methods($data);
+        }
 
+        return $data;
+    })
+    ->addFilter('keys', function ($data, $filterParams) {
         if (
             !empty($data) &&
             is_array($data) &&
