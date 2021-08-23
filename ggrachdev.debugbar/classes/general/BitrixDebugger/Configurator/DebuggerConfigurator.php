@@ -29,16 +29,19 @@ class DebuggerConfigurator implements IShowModable {
      * @var string
      */
     protected $logChunkDelimeter = "\n======\n";
+    
+    public const SHOW_MODE_IN_CODE = 'code';
+    public const SHOW_MODE_IN_DEBUG_BAR = 'debug_bar';
 
     /**
-     * Где показывать
+     * Текущие режимы отображения
      * 
      * code - в коде
      * debug_bar - в дебаг-баре
      * 
      * @var array
      */
-    protected $showModes = ['code', 'debug_bar'];
+    protected $showModes = [self::SHOW_MODE_IN_CODE, self::SHOW_MODE_IN_DEBUG_BAR];
 
     public function getShowModes(): array {
         return $this->showModes;
@@ -46,8 +49,8 @@ class DebuggerConfigurator implements IShowModable {
 
     public function notShowDebugPanel() {
         $nowModes = $this->getShowModes();
-        if (\in_array('debug_bar', $nowModes)) {
-            unset($nowModes[\array_search('debug_bar', $nowModes)]);
+        if (\in_array(self::SHOW_MODE_IN_DEBUG_BAR, $nowModes)) {
+            unset($nowModes[\array_search(self::SHOW_MODE_IN_DEBUG_BAR, $nowModes)]);
             $this->setShowModes(\array_unique($nowModes));
         }
         return $this;
@@ -55,8 +58,8 @@ class DebuggerConfigurator implements IShowModable {
 
     public function notShowDebugInCode() {
         $nowModes = $this->getShowModes();
-        if (\in_array('code', $nowModes)) {
-            unset($nowModes[\array_search('code', $nowModes)]);
+        if (\in_array(self::SHOW_MODE_IN_CODE, $nowModes)) {
+            unset($nowModes[\array_search(self::SHOW_MODE_IN_CODE, $nowModes)]);
             $this->setShowModes(\array_unique($nowModes));
         }
         return $this;
@@ -64,20 +67,16 @@ class DebuggerConfigurator implements IShowModable {
 
     public function showDebugPanel() {
         $nowModes = $this->getShowModes();
-        $nowModes[] = 'debug_bar';
+        $nowModes[] = self::SHOW_MODE_IN_DEBUG_BAR;
         $this->setShowModes(\array_unique($nowModes));
         return $this;
     }
 
     public function showDebugInCode() {
         $nowModes = $this->getShowModes();
-        $nowModes[] = 'code';
+        $nowModes[] = self::SHOW_MODE_IN_CODE;
         $this->setShowModes(\array_unique($nowModes));
         return $this;
-    }
-
-    public function getShowModesEnum(): array {
-        return ['code', 'debug_bar'];
     }
 
     public function setShowModes(array $showModes): bool {
