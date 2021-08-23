@@ -25,25 +25,21 @@ class NoticeDebugger extends FilterDebugger {
 
     public function notice(...$item) {
         $this->noticeRaw('notice', $item);
-        $this->resetFilter();
         return $this;
     }
 
     public function error(...$item) {
         $this->noticeRaw('error', $item);
-        $this->resetFilter();
         return $this;
     }
 
     public function warning(...$item) {
         $this->noticeRaw('warning', $item);
-        $this->resetFilter();
         return $this;
     }
 
     public function success(...$item) {
         $this->noticeRaw('success', $item);
-        $this->resetFilter();
         return $this;
     }
 
@@ -138,7 +134,6 @@ class NoticeDebugger extends FilterDebugger {
      */
     public function debug(string $typeNotice, ...$item) {
         $this->noticeRaw($typeNotice, $item);
-        $this->resetFilter();
         return $this;
     }
 
@@ -175,6 +170,7 @@ class NoticeDebugger extends FilterDebugger {
 
         // Сбрасываем имя
         $this->nameDebug = null;
+        $this->resetFilter();
 
         return $this;
     }
