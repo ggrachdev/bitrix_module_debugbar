@@ -44,7 +44,7 @@ class DebuggerConfigurator implements IShowModable {
         return $this->showModes;
     }
 
-    public function notShowDebugInPanel() {
+    public function notShowDebugPanel() {
         $nowModes = $this->getShowModes();
         if (\in_array('debug_bar', $nowModes)) {
             unset($nowModes[\array_search('debug_bar', $nowModes)]);
@@ -62,7 +62,7 @@ class DebuggerConfigurator implements IShowModable {
         return $this;
     }
 
-    public function showDebugInPanel() {
+    public function showDebugPanel() {
         $nowModes = $this->getShowModes();
         $nowModes[] = 'debug_bar';
         $this->setShowModes(\array_unique($nowModes));
