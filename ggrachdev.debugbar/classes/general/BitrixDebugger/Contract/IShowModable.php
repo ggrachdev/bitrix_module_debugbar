@@ -15,13 +15,6 @@ interface IShowModable {
      * @return array Режимы отображения
      */
     public function getShowModes(): array;
-
-    /**
-     * Получить допустимые режимы отображения
-     * 
-     * @return array Режимы отображения
-     */
-    public function getShowModesEnum(): array;
     
     /**
      * Установить режимы отображения
