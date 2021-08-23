@@ -7,9 +7,9 @@ interface IFiltrator {
     
     public function hasFilter(string $filterType): bool;
     
-    public function addFilterRule(string $filterName, callable $callback): self;
+    public function addCustomFilter(string $filterName, callable $callback): self;
     
-    public function addFilter(string $filterType, array $filterParams = []): void;
+    public function addFilterInSequence(string $filterType, array $filterParams = []): bool;
     
     public function filtrateItem(string $filterType, array $filterParams, $data);
     
