@@ -2,14 +2,12 @@
 
 namespace GGrach\BitrixDebugger\Configurator;
 
-use \GGrach\BitrixDebugger\Contract\IShowModable;
-
 /**
  * Description of DebugConfigurator
  *
  * @author ggrachdev
  */
-class DebuggerConfigurator implements IShowModable {
+class DebuggerConfigurator {
 
     /**
      * Путь до лог файлов разного уровня
