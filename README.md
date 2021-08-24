@@ -57,6 +57,25 @@ DD()->warningLog('Моя переменная', 'Моя переменная 2')
 DD()->successLog('Моя переменная', 'Моя переменная 2', 'Моя переменная 3');
 ```
 
+Имеется возможность выводить дебаг-данные не в дебаг-баре а на месте вызова, настроить можно в любом месте в коде, например в init.php:
+
+```php
+// Показывать дебаг на месте вызова
+DD()->getConfiguratorDebugger()->showDebugInCode();
+
+// Не gоказывать дебаг на месте вызова
+DD()->getConfiguratorDebugger()->notShowDebugInCode();
+
+// Не показывать дебаг-бар
+DD()->getConfiguratorDebugger()->notShowDebugPanel();
+
+// Показывать дебаг-бар
+DD()->getConfiguratorDebugger()->showDebugPanel();
+
+// Можно осуществлять цепочку вызовов:
+DD()->getConfiguratorDebugger()->notShowDebugPanel()->showDebugInCode();
+```
+
 Настройте папку для логирования в файлы следующим образом куда вам удобно:
 ```php
 <?php
@@ -109,6 +128,10 @@ DD()->props()->warning($USER); // Получить публичные свойс
 DD()->filter(function ($item) {
     return sizeof($item); // 3
 })->warning([1, 2, 3); // Профильтровать передаваемые данные через callable
+DD()->name('Получить ITEMS в arResult')->bxItems()->notice($arResult);
+DD()->name('Получить PROPERTIES в arResult')->bxProps()->notice($arResult);
+DD()->name('Получить DISPLAY PROPERTIES в arResult')->bxDisplayProps()->notice($arResult);
+DD()->name('Получить DISPLAY PROPERTIES в ITEMS arResult')->bxItems()->bxDisplayProps()->notice($arResult);
 ```
 Именованный дебаг
 -------------------------- 
