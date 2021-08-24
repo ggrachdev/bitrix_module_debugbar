@@ -2,14 +2,12 @@
 
 namespace GGrach\BitrixDebugger\Configurator;
 
-use \GGrach\BitrixDebugger\Contract\IShowModable;
-
 /**
  * Description of DebugConfigurator
  *
  * @author ggrachdev
  */
-class DebuggerConfigurator implements IShowModable {
+class DebuggerConfigurator {
 
     /**
      * Путь до лог файлов разного уровня
@@ -29,46 +27,60 @@ class DebuggerConfigurator implements IShowModable {
      * @var string
      */
     protected $logChunkDelimeter = "\n======\n";
+    
+    public const SHOW_MODE_IN_CODE = 'code';
+    public const SHOW_MODE_IN_DEBUG_BAR = 'debug_bar';
 
     /**
-     * Где показывать
+     * Текущие режимы отображения
      * 
      * code - в коде
      * debug_bar - в дебаг-баре
      * 
      * @var array
      */
-    protected $showModes = ['code', 'debug_bar'];
+    protected $showModes = [self::SHOW_MODE_IN_CODE, self::SHOW_MODE_IN_DEBUG_BAR];
 
     public function getShowModes(): array {
         return $this->showModes;
     }
 
-    public function getShowModesEnum(): array {
-        return ['code', 'debug_bar'];
+    public function notShowDebugPanel() {
+        $nowModes = $this->getShowModes();
+        if (\in_array(self::SHOW_MODE_IN_DEBUG_BAR, $nowModes)) {
+            unset($nowModes[\array_search(self::SHOW_MODE_IN_DEBUG_BAR, $nowModes)]);
+            $this->setShowModes(\array_unique($nowModes));
+        }
+        return $this;
+    }
+
+    public function notShowDebugInCode() {
+        $nowModes = $this->getShowModes();
+        if (\in_array(self::SHOW_MODE_IN_CODE, $nowModes)) {
+            unset($nowModes[\array_search(self::SHOW_MODE_IN_CODE, $nowModes)]);
+            $this->setShowModes(\array_unique($nowModes));
+        }
+        return $this;
+    }
+
+    public function showDebugPanel() {
+        $nowModes = $this->getShowModes();
+        $nowModes[] = self::SHOW_MODE_IN_DEBUG_BAR;
+        $this->setShowModes(\array_unique($nowModes));
+        return $this;
+    }
+
+    public function showDebugInCode() {
+        $nowModes = $this->getShowModes();
+        $nowModes[] = self::SHOW_MODE_IN_CODE;
+        $this->setShowModes(\array_unique($nowModes));
+        return $this;
     }
 
     public function setShowModes(array $showModes): bool {
         $result = true;
 
-        if (!empty($showModes)) {
-
-            $avaliableModes = $this->getShowModesEnum();
-
-            // @todo array_udiff
-            foreach ($showModes as $mode) {
-                if (!\in_array($mode, $avaliableModes)) {
-                    $result = false;
-                    break;
-                }
-            }
-
-            if ($result) {
-                $this->showModes = $showModes;
-            }
-        } else {
-            $result = false;
-        }
+        $this->showModes = $showModes;
 
         return $result;
     }

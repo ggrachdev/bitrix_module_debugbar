@@ -21,7 +21,6 @@ Bitrix\Main\Loader::registerAutoLoadClasses('ggrachdev.debugbar', [
     "\\GGrach\\BitrixDebugger\\Debugger\\LogFileDebugger" => "classes/general/BitrixDebugger/Debugger/LogFileDebugger.php",
     "\\GGrach\\BitrixDebugger\\Debugger\\ConfigurationDebugger" => "classes/general/BitrixDebugger/Debugger/ConfigurationDebugger.php",
     "\\GGrach\\BitrixDebugger\\Debugger\\FilterDebugger" => "classes/general/BitrixDebugger/Debugger/FilterDebugger.php",
-    "\\GGrach\\BitrixDebugger\\Contract\\IShowModable" => "classes/general/BitrixDebugger/Contract/IShowModable.php",
     "\\GGrach\\BitrixDebugger\\Configurator\\DebuggerConfigurator" => "classes/general/BitrixDebugger/Configurator/DebuggerConfigurator.php",
     "\\GGrach\\BitrixDebugger\\Configurator\\DebugBarConfigurator" => "classes/general/BitrixDebugger/Configurator/DebugBarConfigurator.php",    
     "\\GGrach\\BitrixDebugger\\Cache\\RuntimeCache" => "classes/general/BitrixDebugger/Cache/RuntimeCache.php",    

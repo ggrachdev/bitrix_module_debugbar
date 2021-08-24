@@ -15,7 +15,7 @@ class LogFileDebugger extends NoticeDebugger {
     public function logRaw($type, ...$item) {
 
         if (empty($item)) {
-            return;
+            return $this;
         }
 
         $pathLogFile = $this->configuratorDebugger->getLogPath($type);

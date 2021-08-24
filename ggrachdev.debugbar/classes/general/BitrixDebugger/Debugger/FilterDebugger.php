@@ -33,7 +33,7 @@ class FilterDebugger extends ConfigurationDebugger {
         
         if($this->getFiltrator()->hasFilter($name))
         {
-            $this->getFiltrator()->addFilter($name, $arguments);
+            $this->getFiltrator()->addFilterInSequence($name, $arguments);
         }
         else
         {
@@ -48,7 +48,7 @@ class FilterDebugger extends ConfigurationDebugger {
     }
 
     public function addFilter(string $nameMethod, callable $callback): self {
-        $this->getFiltrator()->addFilterRule($nameMethod, $callback);
+        $this->getFiltrator()->addCustomFilter($nameMethod, $callback);
         return $this;
     }
 
