@@ -89,9 +89,7 @@ DD()->addFilter('values', function ($data, $filterParams) {
     ->addFilter('bxDisplayProps', function ($data, $filterParams) {
         if (\is_array($data)) {
             $data = \array_key_exists('DISPLAY_PROPERTIES', $data) ? $data['DISPLAY_PROPERTIES'] : [];
-        }
-        else
-        {
+        } else {
             $data = [];
         }
 
@@ -100,9 +98,41 @@ DD()->addFilter('values', function ($data, $filterParams) {
     ->addFilter('bxProps', function ($data, $filterParams) {
         if (\is_array($data)) {
             $data = \array_key_exists('PROPERTIES', $data) ? $data['PROPERTIES'] : [];
+        } else {
+            $data = [];
         }
-        else
-        {
+
+        return $data;
+    })
+    ->addFilter('bxItemsProps', function ($data, $filterParams) {
+        if (\is_array($data)) {
+            $data = \array_key_exists('ITEMS', $data) ? $data['ITEMS'] : [];
+
+            if (!empty($data)) {
+                $arProps = [];
+
+                foreach ($data as $arItem) {
+                    $arProps[$arItem['ID']] = [
+                        'NAME' => $arItem['NAME'],
+                        'PROPERTIES' => $arItem['PROPERTIES'],
+                        'DISPLAY_PROPERTIES' => $arItem['DISPLAY_PROPERTIES']
+                    ];
+                }
+            }
+        } else {
+            $data = [];
+        }
+
+        return $data;
+    })
+    ->addFilter('bxItemsIds', function ($data, $filterParams) {
+        if (\is_array($data)) {
+            $data = \array_key_exists('ITEMS', $data) ? $data['ITEMS'] : [];
+
+            if (!empty($data)) {
+                $data = array_column($data, 'ID');
+            }
+        } else {
             $data = [];
         }
 
@@ -111,9 +141,7 @@ DD()->addFilter('values', function ($data, $filterParams) {
     ->addFilter('bxItems', function ($data, $filterParams) {
         if (\is_array($data)) {
             $data = \array_key_exists('ITEMS', $data) ? $data['ITEMS'] : [];
-        }
-        else
-        {
+        } else {
             $data = [];
         }
 
