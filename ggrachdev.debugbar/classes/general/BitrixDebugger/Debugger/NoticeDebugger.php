@@ -18,7 +18,20 @@ class NoticeDebugger extends FilterDebugger {
      */
     protected $nameDebug = null;
 
-    public function name(string $name) {
+    public function name(string $name, array $items = []) {
+        
+        if(!empty($items)) {
+            foreach ($items as $item) {
+                if(\is_string($item))
+                {
+                    $pos = strpos($name, '?');
+                    if ($pos !== false) {
+                        $name =  substr_replace($name, $item, $pos, strlen('?'));
+                    }
+                }
+            }
+        }
+        
         $this->nameDebug = $name;
         return $this;
     }
