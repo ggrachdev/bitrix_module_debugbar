@@ -20,20 +20,25 @@ class NoticeDebugger extends FilterDebugger {
 
     public function name(string $name, $items = [], ...$moreItems) {
         
-        function replacePlaceholder($string, $replaced, $placeholder = '?') {
-            $pos = strpos($string, '?');
-            if ($pos !== false) {
-                $string = substr_replace($string, $replaced, $pos, strlen($placeholder));
-            }
+        static $replacePlaceholder = null;
+        
+        if($replacePlaceholder === null)
+        {
+            $replacePlaceholder = function ($string, $replaced, $placeholder = '?') {
+                $pos = strpos($string, '?');
+                if ($pos !== false) {
+                    $string = substr_replace($string, $replaced, $pos, strlen($placeholder));
+                }
 
-            return $string;
+                return $string;
+            };
         }
         
         if(!empty($items) && \is_array($items)) {
             foreach ($items as $item) {
                 if(\is_string($item) || \is_numeric($item))
                 {
-                    $name = replacePlaceholder($name, $item);
+                    $name = $replacePlaceholder($name, $item);
                 }
             }
         }
@@ -41,7 +46,7 @@ class NoticeDebugger extends FilterDebugger {
         {
             $pos = strpos($items, '?');
             if ($pos !== false) {
-                    $name = replacePlaceholder($name, $items);
+                    $name = $replacePlaceholder($name, $items);
             }
         }
         
@@ -51,7 +56,7 @@ class NoticeDebugger extends FilterDebugger {
                 {
                     $pos = strpos($name, '?');
                     if ($pos !== false) {
-                        $name = replacePlaceholder($name, $items);
+                        $name = $replacePlaceholder($name, $items);
                     }
                 }
             }
