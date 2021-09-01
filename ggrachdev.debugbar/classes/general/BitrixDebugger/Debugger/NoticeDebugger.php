@@ -25,7 +25,7 @@ class NoticeDebugger extends FilterDebugger {
         if($replacePlaceholder === null)
         {
             $replacePlaceholder = function ($string, $replaced, $placeholder = '?') {
-                $pos = strpos($string, '?');
+                $pos = strpos($string, $placeholder);
                 if ($pos !== false) {
                     $string = substr_replace($string, $replaced, $pos, strlen($placeholder));
                 }
@@ -44,20 +44,17 @@ class NoticeDebugger extends FilterDebugger {
         }
         else if(\is_string($items) || \is_numeric($items))
         {
-            $pos = strpos($items, '?');
-            if ($pos !== false) {
-                    $name = $replacePlaceholder($name, $items);
-            }
+            echo '<pre>';
+            print_r($items);
+            echo '</pre>';
+            $name = $replacePlaceholder($name, $items);
         }
         
         if(!empty($moreItems)) {
             foreach ($moreItems as $item) {
                 if(\is_string($item) || \is_numeric($item))
                 {
-                    $pos = strpos($name, '?');
-                    if ($pos !== false) {
-                        $name = $replacePlaceholder($name, $items);
-                    }
+                    $name = $replacePlaceholder($name, $item);
                 }
             }
         }
