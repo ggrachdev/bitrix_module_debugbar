@@ -18,15 +18,40 @@ class NoticeDebugger extends FilterDebugger {
      */
     protected $nameDebug = null;
 
-    public function name(string $name, array $items = []) {
+    public function name(string $name, $items = [], ...$moreItems) {
         
-        if(!empty($items)) {
+        function replacePlaceholder($string, $replaced, $placeholder = '?') {
+            $pos = strpos($string, '?');
+            if ($pos !== false) {
+                $string = substr_replace($string, $replaced, $pos, strlen($placeholder));
+            }
+
+            return $string;
+        }
+        
+        if(!empty($items) && \is_array($items)) {
             foreach ($items as $item) {
-                if(\is_string($item))
+                if(\is_string($item) || \is_numeric($item))
+                {
+                    $name = replacePlaceholder($name, $item);
+                }
+            }
+        }
+        else if(\is_string($items) || \is_numeric($items))
+        {
+            $pos = strpos($items, '?');
+            if ($pos !== false) {
+                    $name = replacePlaceholder($name, $items);
+            }
+        }
+        
+        if(!empty($moreItems)) {
+            foreach ($moreItems as $item) {
+                if(\is_string($item) || \is_numeric($item))
                 {
                     $pos = strpos($name, '?');
                     if ($pos !== false) {
-                        $name =  substr_replace($name, $item, $pos, strlen('?'));
+                        $name = replacePlaceholder($name, $items);
                     }
                 }
             }
